@@ -1,0 +1,31 @@
+aside {
+    grid-area: aside;
+    min-width: 200px;
+}
+
+nav {
+    background-color: white;
+    padding: 25px 0;
+    border-radius: 10px;
+}
+
+nav a {
+    display: block;
+    padding-left: 20px;
+    line-height: 2.5em;
+    text-decoration: none;
+    color: rgba(9, 22, 42, 0.8);
+}
+
+.settings {
+    margin-top: 30px;
+}
+
+nav a:hover {
+    background-color: rgba(119, 136, 153, 0.4);
+    cursor: pointer;
+}
+
+.active {
+    background-color: rgba(119, 136, 153, 0.4);
+}

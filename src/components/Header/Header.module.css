@@ -1,0 +1,23 @@
+header {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+}
+
+.logo a:hover {
+    text-shadow: 0 0 2px #929db8;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}

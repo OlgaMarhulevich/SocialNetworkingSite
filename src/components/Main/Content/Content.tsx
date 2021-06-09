@@ -1,9 +1,10 @@
 import React from 'react';
+import s from './Content.module.css';
 
 function Content() {
     return (
-        <div className='content'>
-            <div className="image"></div>
+        <div className={s.content}>
+            <div className={s.image}></div>
             <div>ava + description</div>
             <div>my post
                 <div>new post</div>
