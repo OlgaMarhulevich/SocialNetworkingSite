@@ -1,0 +1,123 @@
+/*.app-wrapper, header, footer, .content, aside {*/
+/*    border: 1px solid black;*/
+/*}*/
+
+.app-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    background-color: #f0f2f7;
+    color: rgba(9, 22, 42, 0.8);
+    font-family: "Noto Sans CJK JP", sans-serif;
+    font-size: 16px;
+    line-height: 1.33333;
+}
+
+main {
+    display: grid;
+    grid-template-areas: 'aside content';
+    grid-template-columns: 1fr 3fr;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header, footer, .content, aside {
+    padding: 20px;
+}
+
+header, footer {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(315deg, rgba(71, 91, 114, 0.98) 0%, rgba(43, 61, 86, 0.98) 98.94%);
+}
+
+/*HEADER*/
+header {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+}
+
+.logo a:hover {
+    text-shadow: 0 0 2px #929db8;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+
+/*ASIDE*/
+aside {
+    grid-area: aside;
+    min-width: 200px;
+}
+
+nav {
+    background-color: white;
+    padding: 25px 0;
+    border-radius: 10px;
+}
+
+nav a {
+    display: block;
+    padding-left: 20px;
+    line-height: 2.5em;
+}
+
+#settings {
+    margin-top: 30px;
+}
+
+nav a:hover {
+    background-color: rgba(119, 136, 153, 0.4);
+    cursor: pointer;
+}
+
+
+/*CONTENT*/
+.content {
+    grid-area: content;
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px;
+}
+
+.image {
+    background-image: url("https://www.creativefabrica.com/wp-content/uploads/2020/03/08/City-background-with-lots-of-buildings-Graphics-3379576-1.jpg");
+    background-size: cover;
+    background-position: bottom;
+    width: 100%;
+    height: 200px;
+}
+
+
+/*FOOTER*/
+footer, footer a {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.logo a, footer a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: rgb(219, 229, 239);
+}
