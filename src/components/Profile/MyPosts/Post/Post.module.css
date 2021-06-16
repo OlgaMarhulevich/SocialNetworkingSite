@@ -17,9 +17,14 @@ img {
     margin-left: 20px;
 }
 
+.like {
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
 .like:hover {
     cursor: pointer;
-    text-shadow: 1px 1px 3px rgba(72, 91, 114, 0.64);
+    background-color: rgba(76, 119, 171, 0.2);
 }
 
 div > span {

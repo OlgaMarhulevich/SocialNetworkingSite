@@ -1,0 +1,30 @@
+.dialogs {
+    display: grid;
+    grid-template-areas: 'dialogs messages';
+    grid-template-columns: 1fr 3fr;
+
+}
+
+.names {
+    grid-area: dialogs;
+    border-right: 1px solid rgba(59, 77, 101, 0.4);
+    padding-left: 50px;
+}
+
+.dialog {
+    padding: 10px 0;
+}
+
+.messages {
+    grid-area: messages;
+    padding: 30px;
+}
+
+.message {
+    padding: 15px;
+}
+
+.active {
+
+}
+
