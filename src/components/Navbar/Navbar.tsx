@@ -7,9 +7,9 @@ function Navbar() {
             <nav>
                 <a href="/profile" className={s.active}>Profile</a>
                 <a href="/dialogs">Messages</a>
-                <a href="#">News</a>
-                <a href="#">Music</a>
-                <a href="#" className={s.settings}>Settings</a>
+                <a href="/news">News</a>
+                <a href="/music">Music</a>
+                <a href="/settings" className={s.settings}>Settings</a>
             </nav>
         </aside>
     )
