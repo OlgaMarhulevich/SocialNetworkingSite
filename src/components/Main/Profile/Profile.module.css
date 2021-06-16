@@ -1,11 +1,3 @@
-.content {
-    grid-area: content;
-    background-color: white;
-    border-radius: 10px;
-    padding: 25px;
-    margin: 20px;
-}
-
 .image {
     background-image: url("https://www.creativefabrica.com/wp-content/uploads/2020/03/08/City-background-with-lots-of-buildings-Graphics-3379576-1.jpg");
     background-size: cover;

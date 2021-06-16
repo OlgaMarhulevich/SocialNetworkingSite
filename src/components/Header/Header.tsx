@@ -6,7 +6,7 @@ function Header() {
         <header>
             <div className={s.logo}>
                 <img src='https://img.apksum.com/9f/nicola.web/2.7/icon.png'/>
-                <a href='#'>Social networking site</a>
+                <a href='#'>SoNet</a>
             </div>
             <div></div>
         </header>
