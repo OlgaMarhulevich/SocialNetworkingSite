@@ -25,5 +25,4 @@ function Navbar() {
         </aside>
     )
 }
-
 export default Navbar;
