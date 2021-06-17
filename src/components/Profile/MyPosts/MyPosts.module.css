@@ -11,9 +11,12 @@
 }
 
 textarea {
-    width: 100%;
+    width: 607px;
     height: 100px;
     resize: none;
+    background-color: rgba(181, 190, 212, 0.2);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .buttons {
