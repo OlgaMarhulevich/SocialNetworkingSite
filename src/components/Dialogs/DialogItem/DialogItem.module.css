@@ -1,0 +1,17 @@
+.dialog a {
+    color: inherit;
+    line-height: 40px;
+    display: block;
+    text-align: center;
+}
+
+.dialog a:hover {
+    background-color: rgba(146, 157, 184, 0.35);
+
+}
+
+.active {
+    font-weight: bold;
+    background-color: rgba(146, 157, 184, 0.35);
+}
+

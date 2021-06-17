@@ -8,23 +8,11 @@
 .names {
     grid-area: dialogs;
     border-right: 1px solid rgba(59, 77, 101, 0.4);
-    padding-left: 50px;
-}
-
-.dialog {
-    padding: 10px 0;
+    padding-right: 20px;
 }
 
 .messages {
     grid-area: messages;
     padding: 30px;
-}
-
-.message {
-    padding: 15px;
-}
-
-.active {
-    background-color: #929db8;
 }
 
