@@ -10,8 +10,8 @@ function Post (props: PostPropsType) {
     return (
         <div className={s.post}>
             <div className={s.postContent}>
-                <img
-                    src='https://uprostim.com/wp-content/uploads/2021/01/image128-25.jpg' alt='Avatar'/>
+                <img className={s.avatar}
+                    src='ava.jpg' alt='Avatar'/>
                 <div className={s.message}>{props.message}</div>
             </div>
 
