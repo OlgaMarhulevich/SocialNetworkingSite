@@ -1,28 +1,31 @@
 import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
+import FriendsPanel from "./FriendsPanel/FriendsPanel";
 
-function Navbar() {
+type NavbarPropsType = {
+    friendsPage: {
+        friends:
+            {
+                name: string,
+                img: string
+            }[]
+    }
+}
+
+function Navbar(props: NavbarPropsType) {
     return (
         <aside>
             <nav className={s.navbar}>
-                <div>
-                    <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
-                </div>
-                <div>
-                    <NavLink to="/dialogs" activeClassName={s.active}>Messages</NavLink>
-                </div>
-                <div>
-                    <NavLink to="/news" activeClassName={s.active}>News</NavLink>
-                </div>
-                <div>
-                    <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
-                </div>
-                <div className={s.settings}>
-                    <NavLink to="/settings" activeClassName={s.active}>Settings</NavLink>
-                </div>
+                <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
+                <NavLink to="/dialogs" activeClassName={s.active}>Messages</NavLink>
+                <NavLink to="/news" activeClassName={s.active}>News</NavLink>
+                <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
+                <NavLink to="/settings" activeClassName={s.active} className={s.settings}>Settings</NavLink>
+                <FriendsPanel friends={props.friendsPage.friends}/>
             </nav>
         </aside>
     )
 }
+
 export default Navbar;

@@ -3,7 +3,7 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 
 type MyPostsPropsType = {
-    postsData: {
+    posts: {
         id: number,
         message: string,
         likesCount: number
@@ -13,7 +13,7 @@ type MyPostsPropsType = {
 function MyPosts(props: MyPostsPropsType) {
 
     let postsElements =
-        props.postsData.map ( post => <Post message={post.message} likesCount={post.likesCount}/> )
+        props.posts.map ( post => <Post message={post.message} likesCount={post.likesCount}/> )
 
     return (
         <div>
@@ -25,7 +25,6 @@ function MyPosts(props: MyPostsPropsType) {
                 <textarea placeholder='Your message...'/>
                 <div className={s.buttons}>
                     <button>Add post</button>
-                    <button>Remove post</button>
                 </div>
 
             </div>

@@ -1,0 +1,19 @@
+.friend {
+    margin: 11px;
+}
+
+.img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.friend:hover {
+    cursor: pointer;
+}
+
+.name {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}

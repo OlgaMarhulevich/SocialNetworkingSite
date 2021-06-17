@@ -4,7 +4,13 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
-    postsData: any
+    profilePage: {
+        posts: {
+            id: number,
+            message: string,
+            likesCount: number
+        }[]
+    }
 }
 
 function Profile(props: ProfilePropsType) {
@@ -12,7 +18,7 @@ function Profile(props: ProfilePropsType) {
         <div>
             {/*<div className={s.image}> </div>*/}
             <ProfileInfo />
-            <MyPosts postsData={props.postsData}/>
+            <MyPosts posts={props.profilePage.posts}/>
         </div>
     )
 }

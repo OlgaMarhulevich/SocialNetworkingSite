@@ -12,18 +12,31 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
 type AppPropsType = {
-    dialogsData: {
-        id: number,
-        name: string
-    }[],
-    messagesData: {
-        message: string
-    }[],
-    postsData: {
-        id: number,
-        message: string,
-        likesCount: number
-    }[]
+    state: {
+        profilePage: {
+            posts: {
+                id: number,
+                message: string,
+                likesCount: number
+            }[]
+        }
+        dialogsPage: {
+            dialogs: {
+                id: number,
+                name: string
+            }[],
+            messages: {
+                message: string
+            }[]
+        },
+        friendsPage: {
+            friends:
+                {
+                    name: string,
+                    img: string
+                }[]
+        }
+    }
 }
 
 function App(props: AppPropsType) {
@@ -32,11 +45,11 @@ function App(props: AppPropsType) {
             <div className={s.appWrapper}>
                 <Header/>
                 <main>
-                    <Navbar/>
+                    <Navbar friendsPage={props.state.friendsPage}/>
                     <div className={s.content}>
-                        <Route path='/profile' render={ () => <Profile postsData={props.postsData}/> }/>
-                        <Route path='/dialogs' render={ () => <Dialogs
-                            dialogsData={props.dialogsData} messagesData={props.messagesData}/> }/>
+                        <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}/>}/>
+                        <Route path='/dialogs' render={() => <Dialogs
+                            dialogsPage={props.state.dialogsPage}/>}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>
