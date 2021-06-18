@@ -23,10 +23,13 @@ type AppPropsType = {
         dialogsPage: {
             dialogs: {
                 id: number,
-                name: string
+                name: string,
+                img: string
             }[],
             messages: {
-                message: string
+                message: string,
+                name: string,
+                img: string
             }[]
         },
         friendsPage: {

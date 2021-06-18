@@ -1,13 +1,21 @@
-.dialog a {
+.dialog {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 25px;
     color: inherit;
-    line-height: 40px;
-    display: block;
-    text-align: center;
+    margin-left: -25px;
 }
 
-.dialog a:hover {
-    background-color: rgba(146, 157, 184, 0.35);
+.img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
 
+.dialog:hover {
+    background-color: rgba(146, 157, 184, 0.35);
+    cursor: pointer;
 }
 
 .active {

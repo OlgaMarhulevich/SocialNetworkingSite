@@ -1,18 +1,15 @@
 .dialogs {
-    display: grid;
-    grid-template-areas: 'dialogs messages';
-    grid-template-columns: 1fr 3fr;
-
+    display: flex;
+    height: 100%;
 }
 
 .names {
-    grid-area: dialogs;
     border-right: 1px solid rgba(59, 77, 101, 0.4);
-    padding-right: 20px;
+    width: 300px;
 }
 
 .messages {
-    grid-area: messages;
     padding: 30px;
+    width: 100%;
 }
 
