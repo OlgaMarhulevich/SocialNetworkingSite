@@ -44,7 +44,6 @@ type AppPropsType = {
 
 function App(props: AppPropsType) {
     return (
-        <BrowserRouter>
             <div className={s.appWrapper}>
                 <Header/>
                 <main>
@@ -60,8 +59,6 @@ function App(props: AppPropsType) {
                 </main>
                 <Footer/>
             </div>
-        </BrowserRouter>
-
     );
 }
 

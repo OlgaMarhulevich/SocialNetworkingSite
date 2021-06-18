@@ -9,11 +9,10 @@ type MessagePropsType = {
 
 function Message (props: MessagePropsType) {
     return (
-        <div className={s.messageBlock}>
+        <div className={s.messageBlock} >
             <img className={s.img} src={props.img}/>
             <div className={s.message}>{props.message}</div>
         </div>
-
     )
 }
 

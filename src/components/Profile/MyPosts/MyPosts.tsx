@@ -15,18 +15,24 @@ function MyPosts(props: MyPostsPropsType) {
     let postsElements =
         props.posts.map ( post => <Post message={post.message} likesCount={post.likesCount}/> )
 
+
+
+    let newPostElement = React.createRef();
+
+    let addPost = () => {
+        let text = newPostElement.current.value;
+        alert(text);
+    }
+
     return (
         <div>
             <p className={s.title}>My Posts</p>
-
             <div>
                 <p className={s.newPost}>New post</p>
-
-                <textarea placeholder='Your message...'/>
+                <textarea ref={newPostElement} placeholder='Your message...'/>
                 <div className={s.buttons}>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
-
             </div>
             { postsElements }
         </div>
