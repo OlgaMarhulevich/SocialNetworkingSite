@@ -18,7 +18,7 @@ function Post (props: PostPropsType) {
             <div>
                 <span>{props.likesCount} likes</span>
                 <span className={s.like}>Like!</span>
-                <button>Remove post</button>
+                <button className={s.button}>Remove post</button>
             </div>
         </div>
     )

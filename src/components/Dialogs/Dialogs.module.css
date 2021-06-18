@@ -1,3 +1,9 @@
+.dialogPage {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
 .dialogs {
     display: flex;
     height: 100%;
@@ -11,5 +17,32 @@
 .messages {
     padding: 30px;
     width: 100%;
+}
+
+.send {
+    margin-left: 185px;
+    text-align: right;
+}
+
+.textarea {
+    height: 100px;
+    width: calc(100% - 20px);
+    resize: none;
+    background-color: rgba(181, 190, 212, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: inherit;
+}
+
+.button {
+    margin: 10px;
+    padding: 10px 40px;
+    background-color: #eff1f5;
+    border-radius: 5px;
+    font-size: inherit;
+}
+
+.button:hover {
+    cursor: pointer;
 }
 

@@ -17,21 +17,23 @@ function MyPosts(props: MyPostsPropsType) {
 
 
 
-    let newPostElement = React.createRef();
+   /* let newPostElement = React.createRef();
 
     let addPost = () => {
         let text = newPostElement.current.value;
         alert(text);
-    }
+    }*/
 
     return (
         <div>
             <p className={s.title}>My Posts</p>
             <div>
                 <p className={s.newPost}>New post</p>
-                <textarea ref={newPostElement} placeholder='Your message...'/>
+                {/*<textarea ref={newPostElement} placeholder='Your message...'/>*/}
+                <textarea className={s.textarea} placeholder='Your message...'/>
                 <div className={s.buttons}>
-                    <button onClick={addPost}>Add post</button>
+                    {/*<button onClick={addPost}>Add post</button>*/}
+                    <button className={s.button}>Add post</button>
                 </div>
             </div>
             { postsElements }
