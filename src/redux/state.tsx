@@ -1,7 +1,7 @@
 let state = {
     profilePage: {
         posts: [
-            {id: 1, message: 'Hi!', likesCount: 25},
+            {id: 1, message: 'It is my first post!', likesCount: 25},
             {id: 2, message: 'How are you?', likesCount: 15},
         ]
     },
@@ -25,6 +25,12 @@ let state = {
             {name: 'Nick', img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg'}
         ]
     }
+}
+
+export let addPost = (postMessage: string) => {
+    let newPost = {id: 5, message: postMessage, likesCount: 0};
+
+    state.profilePage.posts.push(newPost);
 }
 
 export default state;

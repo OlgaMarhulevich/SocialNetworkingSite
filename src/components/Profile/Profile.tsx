@@ -10,7 +10,8 @@ type ProfilePropsType = {
             message: string,
             likesCount: number
         }[]
-    }
+    },
+    addPost: any
 }
 
 function Profile(props: ProfilePropsType) {
@@ -18,7 +19,7 @@ function Profile(props: ProfilePropsType) {
         <div>
             {/*<div className={s.image}> </div>*/}
             <ProfileInfo />
-            <MyPosts posts={props.profilePage.posts}/>
+            <MyPosts addPost={props.addPost} posts={props.profilePage.posts}/>
         </div>
     )
 }

@@ -7,36 +7,34 @@ type MyPostsPropsType = {
         id: number,
         message: string,
         likesCount: number
-    }[]
+    }[],
+    addPost: any
 }
 
 function MyPosts(props: MyPostsPropsType) {
 
     let postsElements =
-        props.posts.map ( post => <Post message={post.message} likesCount={post.likesCount}/> )
+        props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
-
-
-   /* let newPostElement = React.createRef();
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
-        let text = newPostElement.current.value;
-        alert(text);
-    }*/
-
+        let text = newPostElement.current?.value;
+        props.addPost(text);
+    }
+debugger
     return (
         <div>
             <p className={s.title}>My Posts</p>
             <div>
-                <p className={s.newPost}>New post</p>
-                {/*<textarea ref={newPostElement} placeholder='Your message...'/>*/}
-                <textarea className={s.textarea} placeholder='Your message...'/>
+                <textarea ref={newPostElement} className={s.textarea} placeholder='Your message...'/>
                 <div className={s.buttons}>
-                    {/*<button onClick={addPost}>Add post</button>*/}
-                    <button className={s.button}>Add post</button>
+                    <button onClick={addPost} className={s.button}>Add post</button>
                 </div>
             </div>
-            { postsElements }
+            <div className={s.posts}>
+                {postsElements}
+            </div>
         </div>
     )
 }

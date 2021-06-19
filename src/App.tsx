@@ -1,5 +1,4 @@
 import React from 'react';
-import {BrowserRouter} from "react-router-dom";
 import {Route} from "react-router";
 import s from "./App.module.css";
 import Header from "./components/Header/Header";
@@ -19,7 +18,7 @@ type AppPropsType = {
                 message: string,
                 likesCount: number
             }[]
-        }
+        },
         dialogsPage: {
             dialogs: {
                 id: number,
@@ -39,7 +38,8 @@ type AppPropsType = {
                     img: string
                 }[]
         }
-    }
+    },
+    addPost: any
 }
 
 function App(props: AppPropsType) {
@@ -49,7 +49,7 @@ function App(props: AppPropsType) {
                 <main>
                     <Navbar friendsPage={props.state.friendsPage}/>
                     <div className={s.content}>
-                        <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}/>}/>
+                        <Route path='/profile' render={() => <Profile addPost={props.addPost} profilePage={props.state.profilePage}/>}/>
                         <Route path='/dialogs' render={() => <Dialogs
                             dialogsPage={props.state.dialogsPage}/>}/>
                         <Route path='/news' component={News}/>

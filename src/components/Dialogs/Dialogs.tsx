@@ -24,6 +24,13 @@ function Dialogs(props: DialogsPropsType) {
     let messagesElements = props.dialogsPage.messages.map(message => <Message name={message.name} img={message.img}
                                                                               message={message.message}/>)
 
+    let newMessageElement = React.createRef<HTMLTextAreaElement>();
+
+    let addMessage = () => {
+        let text = newMessageElement.current?.value;
+        alert(text);
+    }
+
     return (
         <div className={s.dialogPage}>
             <div className={s.dialogs}>
@@ -35,8 +42,8 @@ function Dialogs(props: DialogsPropsType) {
                 </div>
             </div>
             <div className={s.send}>
-                <textarea className={s.textarea}/>
-                <button className={s.button}>Send</button>
+                <textarea ref={newMessageElement} placeholder={'Text your message...'} className={s.textarea}/>
+                <button onClick={addMessage} className={s.button}>Send</button>
             </div>
         </div>
     )

@@ -1,9 +1,10 @@
 .dialog {
     display: flex;
     align-items: center;
-    padding: 10px 10px 10px 25px;
+    padding: 5px 5px 5px 25px;
     color: inherit;
     margin-left: -25px;
+    transition: 0.5s;
 }
 
 .img {
@@ -19,7 +20,7 @@
 }
 
 .active {
-    font-weight: bold;
     background-color: rgba(146, 157, 184, 0.35);
+    text-shadow: 0 0 2px #31425b;
 }
 
