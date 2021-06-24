@@ -7,11 +7,14 @@ type MessagePropsType = {
     img: string
 }
 
-function Message (props: MessagePropsType) {
+function Message(props: MessagePropsType) {
     return (
-        <div className={s.messageBlock} >
-            <img className={s.img} src={props.img}/>
-            <div className={s.message}>{props.message}</div>
+        <div className={s.messageComponent}>
+            <img className={s.img} src={props.img} alt="avatar"/>
+            <div className={s.messageBox}>
+                <div className={s.message}>{props.message}</div>
+                <div className={s.time}>22:00</div>
+            </div>
         </div>
     )
 }

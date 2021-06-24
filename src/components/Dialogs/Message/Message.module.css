@@ -1,14 +1,52 @@
-.message {
-    padding: 15px;
-}
-
-.messageBlock {
+.messageComponent {
     display: flex;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 20px;
 }
 
 .img {
+    object-fit: cover;
     width: 40px;
     height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 50%;
+    margin-right: 20px;
+}
+
+.time {
+    color: rgba(21, 20, 20, 0.46);
+    float: right;
+    padding: 2px 0 0 10px;
+    font-size: 0.7em;
+}
+
+.messageBox {
+    background-color: rgb(246, 247, 249);
+    border-radius: 10px;
+    position: relative;
+    z-index: 3;
+    padding: 7px 13px;
+    max-width: 300px;
+}
+
+.messageBox::before {
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 20px;
+    background-color: rgb(246, 247, 249);
+    left: -13px;
+    bottom: 0;
+    z-index: -1;
+}
+
+.messageBox::after {
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    left: -20px;
+    bottom: 0;
+    border-radius: 0 0 80px 0;
 }

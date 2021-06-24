@@ -10,6 +10,44 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
+/*  ТИПИЗАЦИЯ ОТДЕЛЬНЫМИ type
+
+type PostsPropsType = {
+    id: number,
+    message: string,
+    likesCount: number
+}
+type DialogsPropsType = {
+    id: number,
+    name: string,
+    img: string
+}
+type MessagesPropsType = {
+    message: string,
+    name: string,
+    img: string
+}
+type FriendsPropsType = {
+    name: string,
+    img: string
+}
+type ProfilePagePropsType = {
+    posts: Array<PostsPropsType>
+}
+type DialogsPagePropsType = {
+    dialogs: Array<DialogsPropsType>,
+    messages: Array<MessagesPropsType>
+}
+type FriendsPagePropsType = {
+    friends: Array<FriendsPropsType>
+}
+type AppStatePropsType = {
+    profilePage: ProfilePagePropsType,
+    dialogsPage: DialogsPagePropsType,
+    friendsPage: FriendsPagePropsType,
+    addPost: any
+}*/
+
 type AppPropsType = {
     state: {
         profilePage: {

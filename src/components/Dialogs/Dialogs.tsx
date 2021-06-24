@@ -19,10 +19,12 @@ type DialogsPropsType = {
 }
 
 function Dialogs(props: DialogsPropsType) {
-    let dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem img={dialog.img} id={dialog.id}
-                                                                              name={dialog.name}/>)
-    let messagesElements = props.dialogsPage.messages.map(message => <Message name={message.name} img={message.img}
-                                                                              message={message.message}/>)
+
+    let dialogsElements = props.dialogsPage.dialogs.map(dialog =>
+        <DialogItem img={dialog.img} id={dialog.id} name={dialog.name}/>)
+
+    let messagesElements = props.dialogsPage.messages.map(message =>
+        <Message name={message.name} img={message.img} message={message.message}/>)
 
     let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
