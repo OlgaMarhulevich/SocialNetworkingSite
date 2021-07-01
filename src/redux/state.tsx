@@ -15,6 +15,7 @@ let state = {
             {message: 'Hi!', name: 'Nick', img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg'},
             {message: 'How are you?', name: 'Nick', img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg'},
             {message: 'Yo', name: 'Me', img: 'ava.jpg'},
+            {message: "I'm fine! How're you?", name: 'Me', img: 'ava.jpg'},
         ]
     },
     friendsPage: {

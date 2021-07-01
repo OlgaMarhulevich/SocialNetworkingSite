@@ -9,17 +9,27 @@ type MessagePropsType = {
 
 function Message(props: MessagePropsType) {
 
-    let classMessageFrom = '.classMessageFrom';
+    const messageComponentFrom = () => {
+        return (props.name === 'Me') ? s.messageComponentMe : s.messageComponent
+    }
+    const messageBabbleFrom = () => {
+        return (props.name === 'Me') ? s.messageBabbleMe : s.messageBabble
+    }
+    const tailFrom = () => {
+        return (props.name === 'Me') ? s.tailMe : s.tail
+    }
+
+    const messageBoxFrom = () => {
+        return (props.name === 'Me') ? s.messageBoxMe : s.messageBox
+    }
+
 
     return (
-        <div className={s.messageComponent}>
+        <div className={messageComponentFrom()}>
             <img className={s.img} src={props.img} alt="avatar"/>
-            <div className={s.messageBackground}>
-                <div className={s.tail}/>
-                {/*<div className={`${s.messageBox} ${classMessageFrom}`}> */}
-                {/* как передать сюда еще один класс classMessageFrom
-                    (в браузере класс прописывается, но св-ва класса не применяются)*/}
-                <div className={s.messageBox}>
+            <div className={messageBabbleFrom()}>
+                <div className={tailFrom()}/>
+                <div className={messageBoxFrom()}>
                     <div className={s.message}>{props.message}</div>
                     <div className={s.time}>22:00</div>
                 </div>
