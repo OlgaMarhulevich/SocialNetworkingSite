@@ -4,7 +4,8 @@ import Friend from "./Friend/Friend";
 
 type FriendsPanelPropsType = {
     friends: {
-        name: string,
+        id: number
+        name: string
         img: string
     }[]
 }
@@ -12,7 +13,7 @@ type FriendsPanelPropsType = {
 function FriendsPanel(props: FriendsPanelPropsType) {
 
     let friendsPanel =
-        props.friends.map(friend => <Friend name={friend.name} img={friend.img}/>)
+        props.friends.map(friend => <Friend key={friend.id} name={friend.name} img={friend.img}/>)
 
     return (
         <div>

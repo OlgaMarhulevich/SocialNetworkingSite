@@ -7,6 +7,7 @@ type NavbarPropsType = {
     friendsPage: {
         friends:
             {
+                id: number
                 name: string,
                 img: string
             }[]

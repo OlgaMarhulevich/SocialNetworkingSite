@@ -14,23 +14,29 @@ type DialogsPropsType = {
             message: string,
             name: string,
             img: string
-        }[]
-    }
+        }[],
+        newMessage: string
+    },
+    addMessage: Function
+    updateNewMessage: Function
 }
 
 function Dialogs(props: DialogsPropsType) {
 
-    let dialogsElements = props.dialogsPage.dialogs.map(dialog =>
+    const dialogsElements = props.dialogsPage.dialogs.map(dialog =>
         <DialogItem img={dialog.img} id={dialog.id} name={dialog.name}/>)
 
-    let messagesElements = props.dialogsPage.messages.map(message =>
+    const messagesElements = props.dialogsPage.messages.map(message =>
         <Message name={message.name} img={message.img} message={message.message}/>)
 
-    let newMessageElement = React.createRef<HTMLTextAreaElement>();
+    const newMessageElement = React.createRef<HTMLTextAreaElement>();
 
-    let addMessage = () => {
-        let text = newMessageElement.current?.value;
-        alert(text);
+    const addMessageCallback = () => {
+        props.addMessage();
+    }
+
+    const changeNewMessage = () => {
+        props.updateNewMessage(newMessageElement.current?.value);
     }
 
     return (
@@ -44,8 +50,8 @@ function Dialogs(props: DialogsPropsType) {
                 </div>
             </div>
             <div className={s.send}>
-                <textarea ref={newMessageElement} placeholder={'Text your message...'} className={s.textarea}/>
-                <button onClick={addMessage} className={s.button}>Send</button>
+                <textarea value={props.dialogsPage.newMessage} onChange={changeNewMessage} ref={newMessageElement} placeholder={'Text your message...'} className={s.textarea}/>
+                <button onClick={addMessageCallback} className={s.button}>Send</button>
             </div>
         </div>
     )

@@ -2,11 +2,18 @@ import React from 'react';
 import s from './Post.module.css';
 
 type PostPropsType = {
-    message: string,
-    likesCount: number,
+    id: number
+    message: string
+    likesCount: number
+    removePost: (id: number) => void
 }
 
 function Post (props: PostPropsType) {
+
+    const removePostCallback = () => {
+        props.removePost(props.id)
+    }
+
     return (
         <div className={s.post}>
             <div className={s.postContent}>
@@ -18,7 +25,7 @@ function Post (props: PostPropsType) {
             <div>
                 <span>{props.likesCount} likes</span>
                 <span className={s.like}>Like!</span>
-                <button className={s.button}>Remove post</button>
+                <button onClick={removePostCallback} className={s.button}>Remove post</button>
             </div>
         </div>
     )

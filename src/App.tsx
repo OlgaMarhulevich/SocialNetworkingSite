@@ -55,7 +55,8 @@ type AppPropsType = {
                 id: number,
                 message: string,
                 likesCount: number
-            }[]
+            }[],
+            newPostMessage: string
         },
         dialogsPage: {
             dialogs: {
@@ -67,17 +68,23 @@ type AppPropsType = {
                 message: string,
                 name: string,
                 img: string
-            }[]
+            }[],
+            newMessage: string
         },
         friendsPage: {
             friends:
                 {
+                    id: number
                     name: string,
                     img: string
                 }[]
         }
     },
-    addPost: any
+    addPost: () => void
+    removePost: (id: number) => void
+    addMessage: (mes: string) => void
+    updateNewPostMessage: (postMessage: string) => void
+    updateNewMessage: (message: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -87,9 +94,9 @@ function App(props: AppPropsType) {
                 <main>
                     <Navbar friendsPage={props.state.friendsPage}/>
                     <div className={s.content}>
-                        <Route path='/profile' render={() => <Profile addPost={props.addPost} profilePage={props.state.profilePage}/>}/>
+                        <Route path='/profile' render={() => <Profile updateNewPostMessage={props.updateNewPostMessage} addPost={props.addPost} removePost={props.removePost} profilePage={props.state.profilePage}/>}/>
                         <Route path='/dialogs' render={() => <Dialogs
-                            dialogsPage={props.state.dialogsPage}/>}/>
+                            dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>

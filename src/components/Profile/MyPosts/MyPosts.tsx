@@ -8,28 +8,35 @@ type MyPostsPropsType = {
         message: string,
         likesCount: number
     }[],
-    addPost: any
+    newPostMessage: string
+    addPost: Function  // does not work  (postMessage: string) => void
+    removePost: (id: number) => void
+    updateNewPostMessage: Function
 }
 
 function MyPosts(props: MyPostsPropsType) {
 
-    let postsElements =
-        props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
+    const postsElements =
+        props.posts.map(post =>
+           <Post key={post.id} removePost={props.removePost} id={post.id} message={post.message} likesCount={post.likesCount}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
+    const newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        let text = newPostElement.current?.value;
-        props.addPost(text);
+    const addPostCallback = () => {
+        props.addPost();
     }
-debugger
+
+    const changeNewPostMessage = () => {
+        props.updateNewPostMessage(newPostElement.current?.value)
+    }
+
     return (
         <div>
             <p className={s.title}>My Posts</p>
             <div>
-                <textarea ref={newPostElement} className={s.textarea} placeholder='Your message...'/>
+                <textarea value={props.newPostMessage} onChange={changeNewPostMessage} ref={newPostElement} className={s.textarea} placeholder='Your message...'/>
                 <div className={s.buttons}>
-                    <button onClick={addPost} className={s.button}>Add post</button>
+                    <button onClick={addPostCallback} className={s.button}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
