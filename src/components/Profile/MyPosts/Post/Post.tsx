@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Post.module.css';
+import {removePostActionCreator} from "../../../../redux/state";
 
 type PostPropsType = {
     id: number
@@ -11,7 +12,7 @@ type PostPropsType = {
 function Post (props: PostPropsType) {
 
     const removePostCallback = () => {
-        props.dispatch({type: 'REMOVE-POST', id: props.id})
+        props.dispatch(removePostActionCreator(props.id))
     }
 
     return (

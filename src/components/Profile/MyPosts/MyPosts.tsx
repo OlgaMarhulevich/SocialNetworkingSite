@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {addPostActionCreator, updateNewPostMessageActionCreator} from "../../../redux/state";
 
 type MyPostsPropsType = {
     posts: {
@@ -21,10 +22,11 @@ function MyPosts(props: MyPostsPropsType) {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCallback = () => {
-        props.dispatch({type: 'ADD-POST'});
+        props.dispatch(addPostActionCreator());
     }
     const changeNewPostMessage = () => {
-        props.dispatch({type: 'UPDATE-NEW-POST-MESSAGE', postMessage: newPostElement.current?.value})
+        const newPostMessage = newPostElement.current?.value;
+        props.dispatch(updateNewPostMessageActionCreator(newPostMessage))
     }
 
     return (
