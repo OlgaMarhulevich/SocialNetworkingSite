@@ -9,25 +9,22 @@ type MyPostsPropsType = {
         likesCount: number
     }[],
     newPostMessage: string
-    addPost: Function  // does not work  (postMessage: string) => void
-    removePost: (id: number) => void
-    updateNewPostMessage: Function
+    dispatch: (action: Object) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
 
     const postsElements =
         props.posts.map(post =>
-           <Post key={post.id} removePost={props.removePost} id={post.id} message={post.message} likesCount={post.likesCount}/>)
+           <Post key={post.id} dispatch={props.dispatch} id={post.id} message={post.message} likesCount={post.likesCount}/>)
 
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCallback = () => {
-        props.addPost();
+        props.dispatch({type: 'ADD-POST'});
     }
-
     const changeNewPostMessage = () => {
-        props.updateNewPostMessage(newPostElement.current?.value)
+        props.dispatch({type: 'UPDATE-NEW-POST-MESSAGE', postMessage: newPostElement.current?.value})
     }
 
     return (

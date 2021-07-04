@@ -17,8 +17,7 @@ type DialogsPropsType = {
         }[],
         newMessage: string
     },
-    addMessage: Function
-    updateNewMessage: Function
+    dispatch: (action: Object) => void
 }
 
 function Dialogs(props: DialogsPropsType) {
@@ -32,11 +31,10 @@ function Dialogs(props: DialogsPropsType) {
     const newMessageElement = React.createRef<HTMLTextAreaElement>();
 
     const addMessageCallback = () => {
-        props.addMessage();
+        props.dispatch({type: 'ADD-MESSAGE'});
     }
-
     const changeNewMessage = () => {
-        props.updateNewMessage(newMessageElement.current?.value);
+        props.dispatch({type: 'UPDATE-NEW-MESSAGE', message: newMessageElement.current?.value});
     }
 
     return (

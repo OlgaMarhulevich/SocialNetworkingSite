@@ -11,9 +11,7 @@ type ProfilePropsType = {
         }[],
         newPostMessage: string
     },
-    addPost: () => void
-    removePost: (id: number) => void
-    updateNewPostMessage: (postMessage: string) => void
+    dispatch: (action: Object) => void
 }
 
 function Profile(props: ProfilePropsType) {
@@ -21,7 +19,8 @@ function Profile(props: ProfilePropsType) {
         <div>
             {/*<div className={s.image}> </div>  //pic   */}
             <ProfileInfo />
-            <MyPosts updateNewPostMessage={props.updateNewPostMessage} addPost={props.addPost} removePost={props.removePost} posts={props.profilePage.posts} newPostMessage={props.profilePage.newPostMessage}/>
+            <MyPosts posts={props.profilePage.posts} newPostMessage={props.profilePage.newPostMessage}
+                dispatch={props.dispatch}/>
         </div>
     )
 }

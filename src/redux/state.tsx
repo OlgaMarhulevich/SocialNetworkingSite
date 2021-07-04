@@ -61,43 +61,41 @@ const store = {
         }
     },
 
-    addPost () {
-        if (this._state.profilePage.newPostMessage === '') {
-            return alert ('Message could not be empty!')
+    dispatch(action?: any) {
+        if (action.type === 'ADD-POST') {
+            if (this._state.profilePage.newPostMessage === '') {
+                return alert ('Message could not be empty!')
+            }
+            const newPost = {
+                id: this._state.profilePage.posts.length + 1,
+                message: this._state.profilePage.newPostMessage,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostMessage = '';
+            this._renderEntireTree(this._state);
+
+        } else if (action.type === 'UPDATE-NEW-POST-MESSAGE') {
+            this._state.profilePage.newPostMessage = action.postMessage;
+            this._renderEntireTree(this._state);
+
+        }  else if (action.type === 'REMOVE-POST') {
+            this._state.profilePage.posts = this._state.profilePage.posts.filter(post => post.id !== action.id);
+            this._renderEntireTree(this._state);
+
+        }  else if (action.type === 'ADD-MESSAGE') {
+            if (this._state.dialogsPage.newMessage === '') {
+                return alert ('Message could not be empty!')
+            }
+            const newMessage = {message: this._state.dialogsPage.newMessage, name: 'Me', img: 'ava.jpg'};
+            this._state.dialogsPage.messages.push(newMessage);
+            this._state.dialogsPage.newMessage = '';
+            this._renderEntireTree(this._state);
+
+        }  else if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this._state.dialogsPage.newMessage = action.message;
+            this._renderEntireTree(this._state);
         }
-        const newPost = {
-            id: this._state.profilePage.posts.length + 1,
-            message: this._state.profilePage.newPostMessage,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostMessage = '';
-        this._renderEntireTree(this._state);
-    },
-
-    updateNewPostMessage (postMessage: string) {
-        this._state.profilePage.newPostMessage = postMessage
-        this._renderEntireTree(this._state);
-    },
-
-    removePost (id: number) {
-        this._state.profilePage.posts = this._state.profilePage.posts.filter(post => post.id !== id);
-        this._renderEntireTree(this._state);
-    },
-
-    addMessage () {
-        if (this._state.dialogsPage.newMessage === '') {
-            return alert ('Message could not be empty!')
-        }
-        const newMessage = {message: this._state.dialogsPage.newMessage, name: 'Me', img: 'ava.jpg'};
-        this._state.dialogsPage.messages.push(newMessage);
-        this._state.dialogsPage.newMessage = '';
-        this._renderEntireTree(this._state);
-    },
-
-    updateNewMessage (message: string) {
-        this._state.dialogsPage.newMessage = message;
-        this._renderEntireTree(this._state);
     }
 }
 

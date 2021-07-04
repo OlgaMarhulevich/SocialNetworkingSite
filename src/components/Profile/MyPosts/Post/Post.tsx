@@ -5,13 +5,13 @@ type PostPropsType = {
     id: number
     message: string
     likesCount: number
-    removePost: (id: number) => void
+    dispatch: (action: Object) => void
 }
 
 function Post (props: PostPropsType) {
 
     const removePostCallback = () => {
-        props.removePost(props.id)
+        props.dispatch({type: 'REMOVE-POST', id: props.id})
     }
 
     return (

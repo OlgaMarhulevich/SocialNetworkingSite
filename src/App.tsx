@@ -10,44 +10,6 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
-/*  ТИПИЗАЦИЯ ОТДЕЛЬНЫМИ type
-
-type PostsPropsType = {
-    id: number,
-    message: string,
-    likesCount: number
-}
-type DialogsPropsType = {
-    id: number,
-    name: string,
-    img: string
-}
-type MessagesPropsType = {
-    message: string,
-    name: string,
-    img: string
-}
-type FriendsPropsType = {
-    name: string,
-    img: string
-}
-type ProfilePagePropsType = {
-    posts: Array<PostsPropsType>
-}
-type DialogsPagePropsType = {
-    dialogs: Array<DialogsPropsType>,
-    messages: Array<MessagesPropsType>
-}
-type FriendsPagePropsType = {
-    friends: Array<FriendsPropsType>
-}
-type AppStatePropsType = {
-    profilePage: ProfilePagePropsType,
-    dialogsPage: DialogsPagePropsType,
-    friendsPage: FriendsPagePropsType,
-    addPost: any
-}*/
-
 type AppPropsType = {
     state: {
         profilePage: {
@@ -80,11 +42,7 @@ type AppPropsType = {
                 }[]
         }
     },
-    addPost: () => void
-    removePost: (id: number) => void
-    addMessage: (mes: string) => void
-    updateNewPostMessage: (postMessage: string) => void
-    updateNewMessage: (message: string) => void
+    dispatch: (action: Object) => void
 }
 
 function App(props: AppPropsType) {
@@ -94,9 +52,11 @@ function App(props: AppPropsType) {
                 <main>
                     <Navbar friendsPage={props.state.friendsPage}/>
                     <div className={s.content}>
-                        <Route path='/profile' render={() => <Profile updateNewPostMessage={props.updateNewPostMessage} addPost={props.addPost} removePost={props.removePost} profilePage={props.state.profilePage}/>}/>
-                        <Route path='/dialogs' render={() => <Dialogs
-                            dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
+                        <Route path='/profile' render={() =>
+                            <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
+                        <Route path='/dialogs' render={() =>
+                            <Dialogs
+                            dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>
