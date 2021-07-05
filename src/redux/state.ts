@@ -1,3 +1,7 @@
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import friendsReducer from "./friends-reducer";
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_MESSAGE = 'UPDATE-NEW-POST-MESSAGE';
 const REMOVE_POST = 'REMOVE-POST';
@@ -5,11 +9,11 @@ const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 const store = {
-    _renderEntireTree(_state: any) {
+    _callSubscriber(_state: any) {
         console.log(_state);
     },
     subscribe(observer: any) {
-        this._renderEntireTree = observer;
+        this._callSubscriber = observer;
     },
 
     getter() {
@@ -68,58 +72,12 @@ const store = {
     },
 
     dispatch(action?: any) {
-        switch (action.type) {
-            case ADD_POST: {
-                if (this._state.profilePage.newPostMessage === '') {
-                    return alert('Message could not be empty!')
-                }
-                const newPost = {
-                    id: this._state.profilePage.posts.length + 1,
-                    message: this._state.profilePage.newPostMessage,
-                    likesCount: 0
-                };
-                this._state.profilePage.posts.push(newPost);
-                this._state.profilePage.newPostMessage = '';
-                this._renderEntireTree(this._state);
-                break;
-            }
-            case UPDATE_NEW_POST_MESSAGE: {
-                this._state.profilePage.newPostMessage = action.postMessage;
-                this._renderEntireTree(this._state);
-                break;
-            }
-            case REMOVE_POST: {
-                this._state.profilePage.posts = this._state.profilePage.posts.filter(post => post.id !== action.id);
-                this._renderEntireTree(this._state);
-                break;
-            }
-            case ADD_MESSAGE: {
-                if (this._state.dialogsPage.newMessage === '') {
-                    return alert('Message could not be empty!')
-                }
-                const newMessage = {message: this._state.dialogsPage.newMessage, name: 'Me', img: 'ava.jpg'};
-                this._state.dialogsPage.messages.push(newMessage);
-                this._state.dialogsPage.newMessage = '';
-                this._renderEntireTree(this._state);
-                break;
-            }
-            case UPDATE_NEW_MESSAGE: {
-                this._state.dialogsPage.newMessage = action.message;
-                this._renderEntireTree(this._state);
-                break;
-            }
-        }
-    }
-}
+        profileReducer(this._state.profilePage, action);
+        dialogsReducer(this._state.dialogsPage, action);
+        friendsReducer(this._state.friendsPage, action);
 
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const updateNewPostMessageActionCreator = (postMessage: any) => {
-    return {type: UPDATE_NEW_POST_MESSAGE, postMessage: postMessage};
-}
-export const removePostActionCreator = (id: number) => ({type: REMOVE_POST, id: id});
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
-export const updateNewMessageActionCreator = (message: any) => {
-    return {type: UPDATE_NEW_MESSAGE, message: message};
+        this._callSubscriber(this._state);
+    }
 }
 
 export default store;

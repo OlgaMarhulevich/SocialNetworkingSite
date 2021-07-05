@@ -6,8 +6,39 @@ import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import store from "./redux/state";
 
+type StateType = {
+    profilePage: {
+        posts: {
+            id: number,
+                message: string,
+                likesCount: number
+        }[],
+            newPostMessage: string
+    },
+    dialogsPage: {
+        dialogs: {
+            id: number,
+                name: string,
+                img: string
+        }[],
+            messages: {
+            message: string,
+                name: string,
+                img: string
+        }[],
+            newMessage: string
+    },
+    friendsPage: {
+        friends:
+        {
+            id: number
+            name: string,
+                img: string
+        }[]
+    }
+}
 
-const renderEntireTree = (state: any) => {
+const renderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>

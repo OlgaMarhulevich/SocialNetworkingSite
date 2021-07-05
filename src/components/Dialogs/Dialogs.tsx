@@ -2,7 +2,8 @@ import React from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state";
+import {NavLink} from "react-router-dom";
+import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
     dialogsPage: {
@@ -24,7 +25,7 @@ type DialogsPropsType = {
 function Dialogs(props: DialogsPropsType) {
 
     const dialogsElements = props.dialogsPage.dialogs.map(dialog =>
-        <DialogItem img={dialog.img} id={dialog.id} name={dialog.name}/>)
+            <DialogItem img={dialog.img} id={dialog.id} name={dialog.name}/>)
 
     const messagesElements = props.dialogsPage.messages.map(message =>
         <Message name={message.name} img={message.img} message={message.message}/>)

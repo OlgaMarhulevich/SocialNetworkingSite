@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Post.module.css';
-import {removePostActionCreator} from "../../../../redux/state";
+import {removePostActionCreator} from "../../../../redux/profile-reducer";
+
 
 type PostPropsType = {
     id: number
