@@ -30,11 +30,15 @@ function MyPosts(props: MyPostsPropsType) {
         props.dispatch(updateNewPostMessageActionCreator(newPostMessage))
     }
 
+    const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter') addPostCallback()
+    }
+
     return (
         <div>
             <p className={s.title}>My Posts</p>
             <div>
-                <textarea value={props.newPostMessage} onChange={changeNewPostMessage} ref={newPostElement} className={s.textarea} placeholder='Your message...'/>
+                <textarea onKeyPress={enterPressed} value={props.newPostMessage} onChange={changeNewPostMessage} ref={newPostElement} className={s.textarea} placeholder='Your message...'/>
                 <div className={s.buttons}>
                     <button onClick={addPostCallback} className={s.button}>Add post</button>
                 </div>

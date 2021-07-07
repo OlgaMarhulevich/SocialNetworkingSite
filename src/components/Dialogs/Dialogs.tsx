@@ -2,7 +2,6 @@ import React from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {NavLink} from "react-router-dom";
 import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
@@ -40,6 +39,10 @@ function Dialogs(props: DialogsPropsType) {
         props.dispatch(updateNewMessageActionCreator(newMessage));
     }
 
+    const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter') addMessageCallback()
+    }
+
     return (
         <div className={s.dialogPage}>
             <div className={s.dialogs}>
@@ -51,7 +54,7 @@ function Dialogs(props: DialogsPropsType) {
                 </div>
             </div>
             <div className={s.send}>
-                <textarea value={props.dialogsPage.newMessage} onChange={changeNewMessage} ref={newMessageElement} placeholder={'Text your message...'} className={s.textarea}/>
+                <textarea onKeyPress={enterPressed} value={props.dialogsPage.newMessage} onChange={changeNewMessage} ref={newMessageElement} placeholder={'Text your message...'} className={s.textarea}/>
                 <button onClick={addMessageCallback} className={s.button}>Send</button>
             </div>
         </div>

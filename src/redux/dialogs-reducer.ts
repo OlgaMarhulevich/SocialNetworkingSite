@@ -19,8 +19,9 @@ const dialogsReducer = (state: StateType, action: any) => {
 
     switch (action.type) {
         case ADD_MESSAGE: {
-            if (state.newMessage === '') {
-                return alert('Message could not be empty!')
+            if (!state.newMessage.trim()) {
+                state.newMessage = '';
+                return state
             }
             const newMessage = {message: state.newMessage, name: 'Me', img: 'ava.jpg'};
             state.messages.push(newMessage);
