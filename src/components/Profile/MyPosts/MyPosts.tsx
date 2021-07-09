@@ -31,7 +31,10 @@ function MyPosts(props: MyPostsPropsType) {
     }
 
     const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') addPostCallback()
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            addPostCallback()
+        }
     }
 
     return (

@@ -11,8 +11,16 @@ type StateType = {
     newPostMessage: string
 }
 
-const profileReducer = (state: StateType, action: any) => {
+let initialState = {
+    posts: [
+        {id: 1, message: 'It is my first post!', likesCount: 25},
+        {id: 2, message: 'How are you?', likesCount: 15},
+    ],
+    newPostMessage: ''
+}
 
+const profileReducer = (state: StateType = initialState, action: any) => {
+debugger
     switch (action.type) {
         case ADD_POST: {
             if (state.newPostMessage === '') {

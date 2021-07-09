@@ -40,7 +40,10 @@ function Dialogs(props: DialogsPropsType) {
     }
 
     const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') addMessageCallback()
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            addMessageCallback()
+        }
     }
 
     return (

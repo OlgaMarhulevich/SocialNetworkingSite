@@ -2,12 +2,6 @@ import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import friendsReducer from "./friends-reducer";
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_MESSAGE = 'UPDATE-NEW-POST-MESSAGE';
-const REMOVE_POST = 'REMOVE-POST';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
-
 const store = {
     _callSubscriber(_state: any) {
         console.log(_state);
