@@ -1,5 +1,38 @@
 .dialogsMessages {
-    border: 1px solid black;
-    width: 300px;
-    height: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.messages {
+    max-height: 695px;
+    overflow: scroll;
+}
+
+.sendBox {
+    margin: auto 0 0 0;
+    text-align: right;
+}
+
+.textarea {
+    height: 100px;
+    width: calc(100% - 20px);
+    resize: none;
+    background-color: rgba(181, 190, 212, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: inherit;
+}
+
+.button {
+    margin: 10px;
+    padding: 10px 40px;
+    background-color: #eff1f5;
+    border-radius: 5px;
+    font-size: inherit;
+}
+
+.button:hover {
+    cursor: pointer;
 }

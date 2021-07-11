@@ -1,5 +1,5 @@
 import React from "react";
-import s from './Dialogs.module.css';
+import s from './DialogsPage.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogsMessages} from "./DialogsMessages/DialogsMessages";
 import {Route} from "react-router";
@@ -28,15 +28,15 @@ function DialogsPage(props: DialogsPropsType) {
 
     return (
         <div className={s.dialogPage}>
-            <div className={s.dialogName}>
+            <div className={s.dialogsColumn}>
                 {dialogsElements}
             </div>
 
-            <div >
+            <div className={s.messagesColumn}>
 
                 <Route path='/dialogs/:id' render={(prop) => {
-                    const id = prop.match.params.id
-                    const dialog = props.dialogsPage.dialogs.find(d => d.id === +id)
+                    const id = prop.match.params.id;
+                    const dialog = props.dialogsPage.dialogs.find(d => d.id === +id);
                     return (
                         dialog && <DialogsMessages dispatch={props.dispatch} dialog={dialog}
                                          newMessage={props.dialogsPage.newMessage}/>

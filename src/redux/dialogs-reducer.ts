@@ -11,8 +11,9 @@ type StateType = {
             name: string,
             img: string
         }[],
+        newMessage: string
     }[],
-    newMessage: string
+
 }
 
 let initialState = {
@@ -32,26 +33,40 @@ let initialState = {
                     name: 'Nick',
                     img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg'
                 },
-                {message: 'Yo', name: 'Me', img: 'ava.jpg'},
-                {message: "I'm fine! How're you?", name: 'Me', img: 'ava.jpg'},
+                {
+                    message: 'Yo',
+                    name: 'Me',
+                    img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
+                },
+                {
+                    message: "I'm fine! How're you?",
+                    name: 'Me',
+                    img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
+                },
             ],
+            newMessage: ''
         },
-        {id: 2, name: 'Jhon', img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg',
+        {
+            id: 2, name: 'Jhon', img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg',
             messages: [
                 {
                     message: 'Hi!',
                     name: 'Jhon',
                     img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg'
-                }]},
-        {id: 3, name: 'Anna', img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg',
+                }],
+            newMessage: ''
+        },
+        {
+            id: 3, name: 'Anna', img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg',
             messages: [
                 {
                     message: 'Hi!',
                     name: 'Anna',
                     img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg'
-                }]},
-    ],
-    newMessage: ''
+                }],
+            newMessage: ''
+        },
+    ]
 }
 
 const dialogsReducer = (state: any = initialState, action: any) => {
@@ -62,9 +77,13 @@ const dialogsReducer = (state: any = initialState, action: any) => {
                 state.newMessage = '';
                 return state
             }
-            const newMessage = {message: state.newMessage, name: 'Me', img: 'ava.jpg'};
+            const newMessage = {
+                message: state.newMessage,
+                name: 'Me',
+                img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
+            };
             state.dialogs.map((dialog: any) => {
-                if(dialog.id === action.id) {
+                if (dialog.id === action.id) {
                     dialog.messages.push(newMessage);
                 }
             })
@@ -80,7 +99,8 @@ const dialogsReducer = (state: any = initialState, action: any) => {
     }
 }
 
-export const addMessageActionCreator = (id: number) => ({type: ADD_MESSAGE, action: {id: id}});
+export const addMessageActionCreator = (id: number) => ({type: ADD_MESSAGE, id: id});
+
 export const updateNewMessageActionCreator = (message: any) => {
     return {type: UPDATE_NEW_MESSAGE, message: message};
 }

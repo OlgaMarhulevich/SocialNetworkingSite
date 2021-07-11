@@ -42,23 +42,29 @@ const store = {
                         {message: 'Yo', name: 'Me', img: 'ava.jpg'},
                         {message: "I'm fine! How're you?", name: 'Me', img: 'ava.jpg'},
                     ],
+                    newMessage: ''
                 },
-                {id: 2, name: 'Jhon', img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg',
+                {
+                    id: 2, name: 'Jhon', img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg',
                     messages: [
                         {
                             message: 'Hi!',
                             name: 'Jhon',
                             img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg'
-                        }]},
-                {id: 3, name: 'Anna', img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg',
+                        }],
+                    newMessage: ''
+                },
+                {
+                    id: 3, name: 'Anna', img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg',
                     messages: [
                         {
                             message: 'Hi!',
                             name: 'Anna',
                             img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg'
-                        }]},
-            ],
-            newMessage: ''
+                        }],
+                    newMessage: ''
+                }
+            ]
         },
         friendsPage: {
             friends: [
