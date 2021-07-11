@@ -42,7 +42,7 @@ let initialState = {
     newMessage: ''
 }
 
-const dialogsReducer = (state: StateType, action: any) => {
+const dialogsReducer = (state: StateType = initialState, action: any) => {
 
     switch (action.type) {
         case ADD_MESSAGE: {

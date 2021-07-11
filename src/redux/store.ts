@@ -10,11 +10,8 @@ const store = {
         this._callSubscriber = observer;
     },
 
-    getter() {
+    getState() {
         return this._state
-    },
-    setter(_state: any) {
-        this._state = _state;
     },
 
     _state: {

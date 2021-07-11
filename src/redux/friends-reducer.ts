@@ -12,7 +12,7 @@ let initialState = {
     ]
 }
 
-const friendsReducer = (state: any, action: any) => {
+const friendsReducer = (state: any = initialState, action: any) => {
     return state;
 }
 
