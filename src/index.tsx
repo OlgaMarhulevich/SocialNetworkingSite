@@ -38,7 +38,7 @@ type StateType = {
     }
 }
 
-const renderEntireTree = (state: StateType) => {
+const renderEntireTree = (state: any) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>

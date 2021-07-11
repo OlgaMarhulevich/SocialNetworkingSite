@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
+import DialogsPage from "./components/Dialogs/DialogsPage";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -24,12 +24,12 @@ type AppPropsType = {
             dialogs: {
                 id: number,
                 name: string,
-                img: string
-            }[],
-            messages: {
-                message: string,
-                name: string,
-                img: string
+                img: string,
+                messages: {
+                    message: string,
+                    name: string,
+                    img: string
+                }[],
             }[],
             newMessage: string
         },
@@ -54,9 +54,11 @@ function App(props: AppPropsType) {
                     <div className={s.content}>
                         <Route path='/profile' render={() =>
                             <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
+                        
                         <Route path='/dialogs' render={() =>
-                            <Dialogs
+                            <DialogsPage
                             dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
+                        
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>

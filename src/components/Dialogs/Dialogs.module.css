@@ -9,7 +9,7 @@
     height: 100%;
 }
 
-.names {
+.dialogName {
     border-right: 1px solid rgba(59, 77, 101, 0.4);
     width: 300px;
 }
@@ -56,4 +56,3 @@ a {
     background-color: rgba(119, 136, 153, 0.4);
     text-shadow: 0 0 2px #31425b;
 }
-

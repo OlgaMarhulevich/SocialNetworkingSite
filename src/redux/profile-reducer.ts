@@ -1,6 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_MESSAGE = 'UPDATE-NEW-POST-MESSAGE';
 const REMOVE_POST = 'REMOVE-POST';
+const ADD_LIKE = 'ADD-LIKE';
 
 type StateType = {
     posts: {
@@ -20,7 +21,6 @@ let initialState = {
 }
 
 const profileReducer = (state: StateType = initialState, action: any) => {
-debugger
     switch (action.type) {
         case ADD_POST: {
             if (state.newPostMessage === '') {
@@ -43,6 +43,14 @@ debugger
             state.posts = state.posts.filter(post => post.id !== action.id);
             return state;
         }
+        case ADD_LIKE: {
+            state.posts.map(post => {
+                if(post.id === action.id) {
+                    post.likesCount += 1;
+                }
+            })
+            return state;
+        }
         default:
             return state;
     }
@@ -54,5 +62,7 @@ export const updateNewPostMessageActionCreator = (postMessage: any) => {
 }
 export const removePostActionCreator = (id: number) =>
     ({type: REMOVE_POST, id: id});
+export const addLikeActionCreator = (id: number) =>
+    ({type: ADD_LIKE, id: id});
 
 export default profileReducer;
