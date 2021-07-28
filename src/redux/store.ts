@@ -39,8 +39,8 @@ const store = {
                             name: 'Nick',
                             img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg'
                         },
-                        {message: 'Yo', name: 'Me', img: 'ava.jpg'},
-                        {message: "I'm fine! How're you?", name: 'Me', img: 'ava.jpg'},
+                        {message: 'Yo', name: 'Me', img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'},
+                        {message: "I'm fine! How're you?", name: 'Me', img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'},
                     ],
                     newMessage: ''
                 },

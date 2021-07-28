@@ -23,7 +23,7 @@ function Post (props: PostPropsType) {
         <div className={s.post}>
             <div className={s.postContent}>
                 <img className={s.avatar}
-                    src='ava.jpg' alt='Avatar'/>
+                    src='https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg' alt='Avatar'/>
                 <div className={s.message}>{props.message}</div>
             </div>
 

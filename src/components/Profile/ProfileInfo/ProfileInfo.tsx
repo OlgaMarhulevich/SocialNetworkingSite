@@ -4,7 +4,7 @@ import s from './ProfileInfo.module.css';
 function ProfileInfo() {
     return (
         <div className={s.profileInfo}>
-            <img className={s.avatar} src='ava.jpg'/>
+            <img className={s.avatar} src='https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg' alt='avatar'/>
             <div>
                 <p className={s.title}>About me</p>
                 <p className={s.description}>
