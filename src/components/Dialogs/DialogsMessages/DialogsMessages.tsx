@@ -2,24 +2,24 @@ import s from "../DialogsMessages/DialogsMessages.module.css";
 import React from "react";
 import {addMessageActionCreator, updateNewMessageActionCreator} from "../../../redux/dialogs-reducer";
 import Message from "./Message/Message";
+import {ActionType} from "../../../redux/redux-store";
 
 type DialogsMessagesPropsType = {
     dialog: {
-        id: number,
-        name: string,
-        img: string,
+        id: number
+        name: string
+        img: string
         messages: {
-            message: string,
-            name: string,
+            message: string
+            name: string
             img: string
         }[]
+        newMessage: string
     },
-    newMessage: string,
-    dispatch: (action: Object) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
-
 
     const messagesElements = props.dialog.messages.map(message =>
         <Message name={message.name} img={message.img} message={message.message}/>)
@@ -31,7 +31,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     }
     const changeNewMessage = () => {
         const newMessage = newMessageElement.current?.value;
-        props.dispatch(updateNewMessageActionCreator(newMessage));
+        props.dispatch(updateNewMessageActionCreator(newMessage, props.dialog.id));
     }
 
     const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -47,7 +47,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
                 { messagesElements}
             </div>
             <div className={s.sendBox}>
-                <textarea onKeyPress={enterPressed} value={props.newMessage} onChange={changeNewMessage}
+                <textarea onKeyPress={enterPressed} value={props.dialog.newMessage} onChange={changeNewMessage}
                           ref={newMessageElement} placeholder={'Text your message...'} className={s.textarea}/>
                 <button onClick={addMessageCallback} className={s.button}>Send</button>
             </div>

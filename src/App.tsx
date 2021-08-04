@@ -9,40 +9,11 @@ import DialogsPage from "./components/Dialogs/DialogsPage";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import {ActionType, StateType} from "./redux/redux-store";
 
 type AppPropsType = {
-    state: {
-        profilePage: {
-            posts: {
-                id: number,
-                message: string,
-                likesCount: number
-            }[],
-            newPostMessage: string
-        },
-        dialogsPage: {
-            dialogs: {
-                id: number,
-                name: string,
-                img: string,
-                messages: {
-                    message: string,
-                    name: string,
-                    img: string
-                }[],
-            }[],
-            newMessage: string
-        },
-        friendsPage: {
-            friends:
-                {
-                    id: number
-                    name: string,
-                    img: string
-                }[]
-        }
-    },
-    dispatch: (action: Object) => void
+    state: StateType,
+    dispatch: (action: ActionType) => void
 }
 
 function App(props: AppPropsType) {
@@ -57,7 +28,7 @@ function App(props: AppPropsType) {
                         
                         <Route path='/dialogs' render={() =>
                             <DialogsPage
-                            dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
+                                dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
                         
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>

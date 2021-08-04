@@ -1,13 +1,14 @@
 import React from 'react';
 import s from './Post.module.css';
 import {addLikeActionCreator, removePostActionCreator} from "../../../../redux/profile-reducer";
+import {ActionType} from "../../../../redux/redux-store";
 
 
 type PostPropsType = {
     id: number
     message: string
     likesCount: number
-    dispatch: (action: Object) => void
+    dispatch: (action: ActionType) => void
 }
 
 function Post (props: PostPropsType) {

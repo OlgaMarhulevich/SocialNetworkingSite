@@ -1,22 +1,12 @@
+import {DialogType} from "../entities/entities";
+
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
-type StateType = {
-    dialogs: {
-        id: number,
-        name: string,
-        img: string,
-        messages: {
-            message: string,
-            name: string,
-            img: string
-        }[],
-        newMessage: string
-    }[],
-
+export type initialDialogsStateType = {
+    dialogs: Array<DialogType>
 }
-
-let initialState = {
+let initialDialogState: initialDialogsStateType = {
     dialogs: [
         {
             id: 1,
@@ -69,40 +59,43 @@ let initialState = {
     ]
 }
 
-const dialogsReducer = (state: any = initialState, action: any) => {
-
-    switch (action.type) {
-        case ADD_MESSAGE: {
-            if (!state.newMessage.trim()) {
-                state.newMessage = '';
-                return state
-            }
-            const newMessage = {
-                message: state.newMessage,
-                name: 'Me',
-                img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
-            };
-            state.dialogs.map((dialog: any) => {
-                if (dialog.id === action.id) {
-                    dialog.messages.push(newMessage);
+const dialogsReducer = (state = initialDialogState, action: ActionDialogsReducerType): initialDialogsStateType => {
+    let currentDialog = state.dialogs.find(d => d.id === action.id)
+    if (currentDialog) {
+        switch (action.type) {
+            case ADD_MESSAGE: {
+                if (!currentDialog.newMessage.trim()) {
+                    currentDialog.newMessage = '';
+                    return state
                 }
-            })
-            state.newMessage = '';
-            return state;
+                const newMessage = {
+                    message: currentDialog.newMessage,
+                    name: 'Me',
+                    img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
+                }
+                currentDialog.messages.push(newMessage)
+                currentDialog.newMessage = '';
+                return state;
+            }
+            case UPDATE_NEW_MESSAGE: {
+                currentDialog.newMessage = action.message;
+                return state;
+            }
+            default:
+                return state;
         }
-        case UPDATE_NEW_MESSAGE: {
-            state.newMessage = action.message;
-            return state;
-        }
-        default:
-            return state;
-    }
+    } else return state
 }
 
-export const addMessageActionCreator = (id: number) => ({type: ADD_MESSAGE, id: id});
+//Action creators
+export type ActionDialogsReducerType = addMessageActionCreatorType | updateNewMessageActionCreatorType
 
-export const updateNewMessageActionCreator = (message: any) => {
-    return {type: UPDATE_NEW_MESSAGE, message: message};
+type addMessageActionCreatorType = {type: typeof ADD_MESSAGE, id: number}
+type updateNewMessageActionCreatorType = {type: typeof UPDATE_NEW_MESSAGE, message: string, id: number}
+
+export const addMessageActionCreator = (id: number): addMessageActionCreatorType => ({type: ADD_MESSAGE, id: id});
+export const updateNewMessageActionCreator = (message: string = '', id: number): updateNewMessageActionCreatorType => {
+    return {type: UPDATE_NEW_MESSAGE, message: message, id: id};
 }
 
 export default dialogsReducer;

@@ -2,6 +2,7 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {addPostActionCreator, updateNewPostMessageActionCreator} from "../../../redux/profile-reducer";
+import {ActionType} from "../../../redux/redux-store";
 
 
 type MyPostsPropsType = {
@@ -11,7 +12,7 @@ type MyPostsPropsType = {
         likesCount: number
     }[],
     newPostMessage: string
-    dispatch: (action: Object) => void
+    dispatch: (action: ActionType) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {

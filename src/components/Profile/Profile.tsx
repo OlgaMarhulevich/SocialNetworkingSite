@@ -1,17 +1,12 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {ActionType} from "../../redux/redux-store";
+import { initialProfileStateType } from '../../redux/profile-reducer';
 
 type ProfilePropsType = {
-    profilePage: {
-        posts: {
-            id: number,
-            message: string,
-            likesCount: number
-        }[],
-        newPostMessage: string
-    },
-    dispatch: (action: Object) => void
+    profilePage: initialProfileStateType
+    dispatch: (action: ActionType) => void
 }
 
 function Profile(props: ProfilePropsType) {

@@ -3,22 +3,12 @@ import s from './DialogsPage.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogsMessages} from "./DialogsMessages/DialogsMessages";
 import {Route} from "react-router";
+import {ActionType} from "../../redux/redux-store";
+import {initialDialogsStateType} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
-    dialogsPage: {
-        dialogs: {
-            id: number,
-            name: string,
-            img: string,
-            messages: {
-                message: string,
-                name: string,
-                img: string
-            }[]
-        }[],
-        newMessage: string
-    },
-    dispatch: (action: Object) => void
+    dialogsPage: initialDialogsStateType
+    dispatch: (action: ActionType) => void
 }
 
 function DialogsPage(props: DialogsPropsType) {
@@ -38,8 +28,7 @@ function DialogsPage(props: DialogsPropsType) {
                     const id = prop.match.params.id;
                     const dialog = props.dialogsPage.dialogs.find(d => d.id === +id);
                     return (
-                        dialog && <DialogsMessages dispatch={props.dispatch} dialog={dialog}
-                                         newMessage={props.dialogsPage.newMessage}/>
+                        dialog && <DialogsMessages dispatch={props.dispatch} dialog={dialog}/>
                     )
                 }
                 }/>
