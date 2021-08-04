@@ -4,45 +4,13 @@ import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import store from "./redux/redux-store";
+import store, {StateType} from "./redux/redux-store";
 
-type StateType = {
-    profilePage: {
-        posts: {
-            id: number,
-                message: string,
-                likesCount: number
-        }[],
-            newPostMessage: string
-    },
-    dialogsPage: {
-        dialogs: {
-            id: number,
-                name: string,
-                img: string
-        }[],
-            messages: {
-            message: string,
-                name: string,
-                img: string
-        }[],
-            newMessage: string
-    },
-    friendsPage: {
-        friends:
-        {
-            id: number
-            name: string,
-                img: string
-        }[]
-    }
-}
-
-const renderEntireTree = (state: any) => {
+const renderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} dispatch={store.dispatch.bind(store)} />
+                <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

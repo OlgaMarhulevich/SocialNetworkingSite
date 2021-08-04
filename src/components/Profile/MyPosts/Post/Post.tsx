@@ -1,22 +1,22 @@
 import React from 'react';
 import s from './Post.module.css';
-import {addLikeActionCreator, removePostActionCreator} from "../../../../redux/profile-reducer";
 
 
 type PostPropsType = {
     id: number
     message: string
     likesCount: number
-    dispatch: (action: Object) => void
+    removePost: (id: number) => void
+    addLike: (id: number) => void
 }
 
 function Post (props: PostPropsType) {
 
     const removePostCallback = () => {
-        props.dispatch(removePostActionCreator(props.id))
+        props.removePost(props.id)
     }
     const addLikeCallback = () => {
-        props.dispatch(addLikeActionCreator(props.id))
+        props.addLike(props.id)
     }
 
     return (

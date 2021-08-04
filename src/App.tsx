@@ -5,44 +5,17 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import DialogsPage from "./components/Dialogs/DialogsPage";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {ActionType, StateType} from "./redux/redux-store";
+import {Store} from "redux";
 
 type AppPropsType = {
-    state: {
-        profilePage: {
-            posts: {
-                id: number,
-                message: string,
-                likesCount: number
-            }[],
-            newPostMessage: string
-        },
-        dialogsPage: {
-            dialogs: {
-                id: number,
-                name: string,
-                img: string,
-                messages: {
-                    message: string,
-                    name: string,
-                    img: string
-                }[],
-            }[],
-            newMessage: string
-        },
-        friendsPage: {
-            friends:
-                {
-                    id: number
-                    name: string,
-                    img: string
-                }[]
-        }
-    },
-    dispatch: (action: Object) => void
+    store: Store
+    state: StateType
+    dispatch: (action: ActionType) => void
 }
 
 function App(props: AppPropsType) {
@@ -53,11 +26,10 @@ function App(props: AppPropsType) {
                     <Navbar friendsPage={props.state.friendsPage}/>
                     <div className={s.content}>
                         <Route path='/profile' render={() =>
-                            <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
+                            <Profile store={props.store}/>}/>
                         
                         <Route path='/dialogs' render={() =>
-                            <DialogsPage
-                            dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
+                            <DialogsContainer store={props.store}/>}/>
                         
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
@@ -66,7 +38,7 @@ function App(props: AppPropsType) {
                 </main>
                 <Footer/>
             </div>
-    );
+    )
 }
 
 export default App;

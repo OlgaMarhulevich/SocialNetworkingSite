@@ -1,4 +1,3 @@
-
 let initialState = {
     friends: [
         {id: 1, name: 'Jhon', img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg'},

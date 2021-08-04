@@ -1,17 +1,10 @@
 import React from 'react';
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {Store} from "redux";
 
 type ProfilePropsType = {
-    profilePage: {
-        posts: {
-            id: number,
-            message: string,
-            likesCount: number
-        }[],
-        newPostMessage: string
-    },
-    dispatch: (action: Object) => void
+    store: Store
 }
 
 function Profile(props: ProfilePropsType) {
@@ -19,8 +12,7 @@ function Profile(props: ProfilePropsType) {
         <div>
             {/*<div className={s.image}> </div>  //pic   */}
             <ProfileInfo />
-            <MyPosts posts={props.profilePage.posts} newPostMessage={props.profilePage.newPostMessage}
-                dispatch={props.dispatch}/>
+            <MyPostsContainer store={props.store}/>
         </div>
     )
 }

@@ -1,38 +1,41 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPostActionCreator, updateNewPostMessageActionCreator} from "../../../redux/profile-reducer";
-
+import {PostType} from "../../../entities/entities";
 
 type MyPostsPropsType = {
-    posts: {
-        id: number,
-        message: string,
-        likesCount: number
-    }[],
+    posts: Array<PostType>
     newPostMessage: string
-    dispatch: (action: Object) => void
+    addPost: () => void
+    updateNewPostMessage: (newPostMessage: string) => void
+    removePost: (id: number) => void
+    addLike: (id: number) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
 
     const postsElements =
         props.posts.map(post =>
-           <Post key={post.id} dispatch={props.dispatch} id={post.id} message={post.message} likesCount={post.likesCount}/>)
+           <Post key={post.id}
+                 id={post.id}
+                 message={post.message}
+                 likesCount={post.likesCount}
+                 removePost={(id) => props.removePost(id)}
+                 addLike={(id) => props.addLike(id)}/>)
 
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCallback = () => {
-        props.dispatch(addPostActionCreator());
+        props.addPost()
     }
     const changeNewPostMessage = () => {
-        const newPostMessage = newPostElement.current?.value;
-        props.dispatch(updateNewPostMessageActionCreator(newPostMessage))
+        const newPostMessage = newPostElement.current?.value
+        newPostMessage && props.updateNewPostMessage(newPostMessage)
     }
 
     const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Enter') {
-            event.preventDefault();
+            event.preventDefault()
             addPostCallback()
         }
     }

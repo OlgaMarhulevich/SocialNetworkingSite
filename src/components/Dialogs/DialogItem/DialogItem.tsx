@@ -12,7 +12,7 @@ function DialogItem(props: DialogItemPropsType) {
     return (
         <div>
             <NavLink to={'/dialogs/' + props.id} className={s.dialog} activeClassName={s.active}>
-                <img className={s.img} src={props.img}/>
+                <img className={s.img} src={props.img} alt={props.name}/>
                 {props.name}
             </NavLink>
         </div>
