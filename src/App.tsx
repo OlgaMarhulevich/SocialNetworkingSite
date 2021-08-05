@@ -13,9 +13,9 @@ import {ActionType, StateType} from "./redux/redux-store";
 import {Store} from "redux";
 
 type AppPropsType = {
-    store: Store
+    /*store: Store
     state: StateType
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionType) => void*/
 }
 
 function App(props: AppPropsType) {
@@ -23,13 +23,13 @@ function App(props: AppPropsType) {
             <div className={s.appWrapper}>
                 <Header/>
                 <main>
-                    <Navbar friendsPage={props.state.friendsPage}/>
+                    <Navbar />
                     <div className={s.content}>
                         <Route path='/profile' render={() =>
-                            <Profile store={props.store}/>}/>
+                            <Profile /*store={props.store}*//>}/>
                         
                         <Route path='/dialogs' render={() =>
-                            <DialogsContainer store={props.store}/>}/>
+                            <DialogsContainer /*store={props.store}*//>}/>
                         
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>

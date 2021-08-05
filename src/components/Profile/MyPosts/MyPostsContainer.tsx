@@ -8,36 +8,45 @@ import {
     updateNewPostMessageActionCreator
 } from "../../../redux/profile-reducer";
 import MyPosts from './MyPosts';
+import {StoreContext} from "../../../StoreContext";
 
 type MyPostsContainerPropsType = {
-    store: Store
+    /*store: Store*/
 }
 
 function MyPostsContainer(props: MyPostsContainerPropsType) {
-    const state = props.store.getState() as StateType
-    //for MyPosts
-    const addPostCallback = () => {
-        props.store.dispatch(addPostActionCreator());
-    }
-    const changeNewPostMessage = (newPostMessage: string) => {
-        props.store.dispatch(updateNewPostMessageActionCreator(newPostMessage))
-    }
-    //for Post
-    const removePostCallback = (id: number) => {
-        props.store.dispatch(removePostActionCreator(id))
-    }
-    const addLikeCallback = (id: number) => {
-        props.store.dispatch(addLikeActionCreator(id))
-    }
+
 
     return (
-        <MyPosts
-            addPost={addPostCallback}
-            updateNewPostMessage={(newPostMessage) => changeNewPostMessage(newPostMessage)}
-            posts={state.profilePage.posts}
-            newPostMessage={state.profilePage.newPostMessage}
-            removePost={(id) => removePostCallback(id)}
-            addLike={(id) => addLikeCallback(id)}/>
+        <StoreContext.Consumer>
+            {store => {
+                const state = store.getState() as StateType
+                //for MyPosts
+                const addPostCallback = () => {
+                    store.dispatch(addPostActionCreator());
+                }
+                const changeNewPostMessage = (newPostMessage: string) => {
+                    store.dispatch(updateNewPostMessageActionCreator(newPostMessage))
+                }
+                //for Post
+                const removePostCallback = (id: number) => {
+                    store.dispatch(removePostActionCreator(id))
+                }
+                const addLikeCallback = (id: number) => {
+                    store.dispatch(addLikeActionCreator(id))
+                }
+                return (
+                    <MyPosts
+                        addPost={addPostCallback}
+                        updateNewPostMessage={(newPostMessage) => changeNewPostMessage(newPostMessage)}
+                        posts={state.profilePage.posts}
+                        newPostMessage={state.profilePage.newPostMessage}
+                        removePost={(id) => removePostCallback(id)}
+                        addLike={(id) => addLikeCallback(id)}/>
+                )
+            }
+            }
+        </StoreContext.Consumer>
     )
 }
 

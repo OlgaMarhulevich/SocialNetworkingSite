@@ -16,3 +16,9 @@ export type MessageType = {
     name: string
     img: string
 }
+
+export type FriendType = {
+    id: number
+    name: string
+    img: string
+}

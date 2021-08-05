@@ -2,16 +2,11 @@ import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import FriendsPanel from "./FriendsPanel/FriendsPanel";
+import { Store } from 'redux';
+import FriendsPanelContainer from "./FriendsPanel/FriendsPanelContainer";
 
 type NavbarPropsType = {
-    friendsPage: {
-        friends:
-            {
-                id: number
-                name: string,
-                img: string
-            }[]
-    }
+    /*store: Store*/
 }
 
 function Navbar(props: NavbarPropsType) {
@@ -23,7 +18,7 @@ function Navbar(props: NavbarPropsType) {
                 <NavLink to="/news" activeClassName={s.active}>News</NavLink>
                 <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
                 <NavLink to="/settings" activeClassName={s.active} className={s.settings}>Settings</NavLink>
-                <FriendsPanel friends={props.friendsPage.friends}/>
+                <FriendsPanelContainer />
             </nav>
         </aside>
     )
