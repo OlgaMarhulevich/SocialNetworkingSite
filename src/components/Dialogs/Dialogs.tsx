@@ -14,7 +14,7 @@ type DialogsPropsType = {
 function Dialogs(props: DialogsPropsType) {
 
     const dialogsElements = props.dialogs.map(dialog =>
-        <DialogItem img={dialog.img} id={dialog.id} name={dialog.name}/>)
+        <DialogItem key={dialog.id} img={dialog.img} id={dialog.id} name={dialog.name}/>)
 
     return (
         <div className={s.dialogPage}>

@@ -60,38 +60,37 @@ let initialDialogState: initialDialogsStateType = {
 }
 
 const dialogsReducer = (state = initialDialogState, action: ActionDialogsReducerType): initialDialogsStateType => {
-    let currentDialog = state.dialogs.find(d => d.id === action.id)
-    if (currentDialog) {
-        switch (action.type) {
-            case ADD_MESSAGE: {
-                if (!currentDialog.newMessage.trim()) {
-                    currentDialog.newMessage = '';
-                    return state
-                }
-                const newMessage = {
-                    message: currentDialog.newMessage,
-                    name: 'Me',
-                    img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
-                }
-                currentDialog.messages.push(newMessage)
-                currentDialog.newMessage = '';
-                return state;
+
+    switch (action.type) {
+        case ADD_MESSAGE: {
+            const currentDialog = state.dialogs.find(d => d.id === action.id) as DialogType
+            if (!currentDialog.newMessage.trim()) {
+                return {...state, dialogs: state.dialogs.map(d => d.id === action.id ? {...d, newMessage: ''} : d)}
             }
-            case UPDATE_NEW_MESSAGE: {
-                currentDialog.newMessage = action.message;
-                return state;
+            const newMessage = {
+                message: currentDialog.newMessage,
+                name: 'Me',
+                img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
             }
-            default:
-                return state;
+            return {
+                ...state,
+                dialogs: state.dialogs
+                    .map(d => d.id === action.id ? {...d, messages: [...d.messages, newMessage], newMessage: ''} : d)
+            }
         }
-    } else return state
+        case UPDATE_NEW_MESSAGE: {
+            return {...state, dialogs: state.dialogs.map(d => d.id === action.id ? {...d, newMessage: action.message} : d)}
+        }
+        default:
+            return state;
+    }
 }
 
 //Action creators
 export type ActionDialogsReducerType = addMessageActionCreatorType | updateNewMessageActionCreatorType
 
-type addMessageActionCreatorType = {type: typeof ADD_MESSAGE, id: number}
-type updateNewMessageActionCreatorType = {type: typeof UPDATE_NEW_MESSAGE, message: string, id: number}
+type addMessageActionCreatorType = { type: typeof ADD_MESSAGE, id: number }
+type updateNewMessageActionCreatorType = { type: typeof UPDATE_NEW_MESSAGE, message: string, id: number }
 
 export const addMessageActionCreator = (id: number): addMessageActionCreatorType => ({type: ADD_MESSAGE, id: id});
 export const updateNewMessageActionCreator = (message: string = '', id: number): updateNewMessageActionCreatorType => {

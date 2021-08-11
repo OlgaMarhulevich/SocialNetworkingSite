@@ -11,8 +11,8 @@ type DialogsMessagesPropsType = {
 
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
 
-    const messagesElements = props.dialog.messages.map(message =>
-        <Message name={message.name} img={message.img} message={message.message}/>)
+    const messagesElements = props.dialog.messages.map((message, index) =>
+        <Message key={index} name={message.name} img={message.img} message={message.message}/>)
 
     const newMessageElement = React.createRef<HTMLTextAreaElement>();
 
