@@ -12,13 +12,19 @@
     margin-right: 20px;
 }
 
-.description {
-    text-align: justify;
-    text-indent: 20px;
+.div {
+    display: flex;
+    align-items: baseline;
+    height: 30px;
 }
 
 .title {
-    text-align: center;
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: bold;
+}
+
+.description {
+    margin-top: -10px;
+    text-align: justify;
+    text-indent: 20px;
 }
