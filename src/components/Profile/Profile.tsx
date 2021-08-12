@@ -1,18 +1,17 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {Store} from "redux";
+import s from './Profile.module.css'
 
-type ProfilePropsType = {
-    /*store: Store*/
-}
-
-function Profile(props: ProfilePropsType) {
+function Profile() {
     return (
         <div>
-            {/*<div className={s.image}> </div>  //pic   */}
             <ProfileInfo />
-            <MyPostsContainer />{/*store={props.store}*/}
+            <div className={s.imageBox}>
+                <img src={'https://piaspb.ru/img/new-img/arrows-l.png'} className={s.arrow}/>
+                <img src={'https://piaspb.ru/img/new-img/arrows-l.png'} className={`${s.arrow} ${s.arrowRight}`}/>
+            </div>
+            <MyPostsContainer />
         </div>
     )
 }

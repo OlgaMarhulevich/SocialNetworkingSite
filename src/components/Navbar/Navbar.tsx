@@ -14,6 +14,7 @@ function Navbar(props: NavbarPropsType) {
         <aside>
             <nav className={s.navbar}>
                 <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
+                <NavLink to="/users" activeClassName={s.active}>Users</NavLink>
                 <NavLink to="/dialogs" activeClassName={s.active}>Messages</NavLink>
                 <NavLink to="/news" activeClassName={s.active}>News</NavLink>
                 <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
