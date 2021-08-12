@@ -14,9 +14,10 @@ let initialUsersState: initialUsersStateType = {
         {id: v1(), img: 'https://uprostim.com/wp-content/uploads/2021/03/image096-74.jpg', followed: false, fullName: 'Tom Smith', status: 'This is good idea', location: {country: 'Russia', city: 'Moscow'}},
         {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg', followed: true, fullName: 'Nick Fired', status: 'I like to eat', location: {country: 'Belarus', city: 'Gomel'}},
         {id: v1(), img: 'https://im0-tub-by.yandex.net/i?id=89f7bf04f56bbf8020fa9b668c941b7a&n=13', followed: false, fullName: 'Helen White', status: 'I like ice-cream', location: {country: 'Ukraine', city: 'Kiev'}},
-        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-2.jpg', followed: true, fullName: 'Merry Swoune', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Minsk'}},
-        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg', followed: false, fullName: 'Anna Brine', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Vitebsk'}}
+        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-2.jpg', followed: false, fullName: 'Merry Swoune', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Minsk'}},
+        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg', followed: true, fullName: 'Anna Brine', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Vitebsk'}}
     ]
+    /*users: []*/
 }
 
 const usersReducer = (state = initialUsersState, action: ActionUsersReducerType): initialUsersStateType => {

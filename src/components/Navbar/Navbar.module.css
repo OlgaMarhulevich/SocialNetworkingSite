@@ -3,6 +3,7 @@ aside {
 }
 
 .navbar {
+    width: 100%;
     background-color: white;
     padding: 25px 0;
     border-radius: 10px;
