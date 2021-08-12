@@ -17,8 +17,14 @@ export type MessageType = {
     img: string
 }
 
-export type FriendType = {
-    id: number
-    name: string
+export type UserType = {
+    id: string
     img: string
+    followed: boolean
+    fullName: string
+    status: string
+    location: {
+        country: string
+        city: string
+    }
 }

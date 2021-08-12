@@ -5,6 +5,7 @@ import FriendsPanel from "./FriendsPanel";
 
 const mapStateProps = (state: StateType) => {
     return {
+        users: state.usersPage.users,
         friends: state.friendsPage.friends
     }
 }

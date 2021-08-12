@@ -2,11 +2,12 @@ import React from "react";
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {ActionType, StateType} from "../../redux/redux-store";
-import {changeFollowedStatusAC, setUsersAC, UserType} from "../../redux/users-reducer";
+import {changeFollowedStatusAC, setUsersAC} from "../../redux/users-reducer";
+import {UserType} from "../../entities/entities";
 
 const mapStateToProps = (state: StateType) => {
     return {
-        users: state.findUsersPage.users
+        users: state.usersPage.users
     }
 }
 

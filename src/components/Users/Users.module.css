@@ -1,3 +1,11 @@
+.titlePage {
+    text-align: center;
+    font-size: 22px;
+    border-bottom: 1px solid rgba(146, 157, 184, 0.48);
+    border-top: 1px solid rgba(146, 157, 184, 0.48);
+    margin: 0 20px 15px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -93,4 +101,14 @@
     margin-top: -10px;
     text-align: justify;
     text-indent: 20px;
+}
+
+.showBtn {
+    padding: 10px 20px;
+    background-color: rgba(76, 119, 171, 0.2);
+    color: inherit;
+    transition: background-color 100ms;
+}
+.showBtn:hover {
+    background-color: rgba(89, 125, 171, 0.51);
 }

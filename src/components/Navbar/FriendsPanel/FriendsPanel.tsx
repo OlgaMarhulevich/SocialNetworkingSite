@@ -1,19 +1,19 @@
 import React from 'react';
 import s from './FriendsPanel.module.css';
 import Friend from "./Friend/Friend";
+import {UserType} from "../../../entities/entities";
 
 type FriendsPanelPropsType = {
-    friends: {
-        id: number
-        name: string
-        img: string
-    }[]
+    users: Array<UserType>
+    friends: Array<UserType>
 }
 
 function FriendsPanel(props: FriendsPanelPropsType) {
 
     let friendsPanel =
-        props.friends.map(friend => <Friend key={friend.id} name={friend.name} img={friend.img}/>)
+        props.users
+            .filter(u => u.followed)
+            .map(friend => <Friend key={friend.id} name={friend.fullName} img={friend.img}/>)
 
     return (
         <div>
