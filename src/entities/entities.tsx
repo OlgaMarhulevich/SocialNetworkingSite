@@ -18,13 +18,13 @@ export type MessageType = {
 }
 
 export type UserType = {
-    id: string
-    img: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        country: string
-        city: string
+    name: string
+    id: number
+    uniqueUrlName: string
+    photos: {
+        small: string
+        large: string
     }
+    status: string
+    followed: boolean
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import s from './FriendsPanel.module.css';
 import Friend from "./Friend/Friend";
 import {UserType} from "../../../entities/entities";
+import unknown from '../../../assets/images/unknown.png'
 
 type FriendsPanelPropsType = {
     users: Array<UserType>
@@ -9,11 +10,15 @@ type FriendsPanelPropsType = {
 }
 
 function FriendsPanel(props: FriendsPanelPropsType) {
-
+debugger
     let friendsPanel =
         props.users
             .filter(u => u.followed)
-            .map(friend => <Friend key={friend.id} name={friend.fullName} img={friend.img}/>)
+            .map(friend =>
+                <Friend
+                    key={friend.id}
+                    name={friend.name.length > 8 ? (friend.name.slice(0, 7) + '...') : friend.name}
+                    img={friend.photos.small || unknown}/>)
 
     return (
         <div>

@@ -13,7 +13,7 @@ const mapStateToProps = (state: StateType) => {
 
 const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
     return {
-        changeFollowedStatus: (userID: string) => dispatch(changeFollowedStatusAC(userID)),
+        changeFollowedStatus: (userID: number) => dispatch(changeFollowedStatusAC(userID)),
         setUsers: (users: UserType[]) => dispatch(setUsersAC(users))
     }
 }
