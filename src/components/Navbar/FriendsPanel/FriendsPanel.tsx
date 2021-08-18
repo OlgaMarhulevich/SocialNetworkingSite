@@ -10,7 +10,7 @@ type FriendsPanelPropsType = {
 }
 
 function FriendsPanel(props: FriendsPanelPropsType) {
-debugger
+
     let friendsPanel =
         props.users
             .filter(u => u.followed)

@@ -7,10 +7,11 @@ type FriendPropsType = {
 }
 
 function Friend(props: FriendPropsType) {
+    debugger
     return (
         <div className={s.friend}>
             <img alt={props.name} src={props.img} className={s.img}/>
-            <p className={s.name}>{props.name.split(' ')[0]}</p>
+            <p className={s.name}>{props.name}</p>
         </div>
     )
 }
