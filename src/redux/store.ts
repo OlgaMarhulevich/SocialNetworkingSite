@@ -4,7 +4,7 @@ import friendsReducer from "./friends-reducer";
 
 const store = {
     _callSubscriber(_state: any) {
-        console.log(_state);
+        console.log(_state); //fake
     },
     subscribe(observer: any) {
         this._callSubscriber = observer;

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export type PostType = {
     id: number,
     message: string,
@@ -28,3 +30,11 @@ export type UserType = {
     status: string
     followed: boolean
 }
+
+export type ItemsType = {
+    items: UserType[]
+    totalCount: number
+    error: string
+}
+
+export const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0', withCredentials: true})

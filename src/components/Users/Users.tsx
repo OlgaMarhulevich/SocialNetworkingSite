@@ -1,45 +1,61 @@
-import React, {useEffect} from "react";
+import React from "react";
+import {axiosInstance, ItemsType, UserType} from "../../entities/entities";
+import {AxiosResponse} from "axios";
 import s from "./Users.module.css";
-import {UserType} from "../../entities/entities";
-import {v1} from "uuid";
-import axios from "axios";
-import unknown from '../../assets/images/unknown.png'
+import unknown from "../../assets/images/unknown.png";
+import {statuses} from "../../redux/users-reducer";
 
-type UsersPropsType = {
+interface IUsersPropsType {
     users: Array<UserType>
+    status: string
     changeFollowedStatus: (userID: number) => void
     setUsers: (users: UserType[]) => void
+    setStatus: (status: string) => void
 }
 
-export const Users = (props: UsersPropsType) => {
+interface IUsersState {
 
-    useEffect(() => {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
-            .then((response: any) => props.setUsers(response.data.items))
-    }, [])
+}
 
+export class Users extends React.Component<IUsersPropsType, IUsersState> {
 
-    /*        props.setUsers([
-                {id: v1(), img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg', followed: true, fullName: 'John Snow', status: 'I am a boss', location: {country: 'Belarus', city: 'Minsk'}},
-                {id: v1(), img: 'https://uprostim.com/wp-content/uploads/2021/03/image096-74.jpg', followed: false, fullName: 'Tom Smith', status: 'This is good idea', location: {country: 'Russia', city: 'Moscow'}},
-                {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg', followed: true, fullName: 'Nick Fired', status: 'I like to eat', location: {country: 'Belarus', city: 'Gomel'}},
-                {id: v1(), img: 'https://im0-tub-by.yandex.net/i?id=89f7bf04f56bbf8020fa9b668c941b7a&n=13', followed: false, fullName: 'Helen White', status: 'I like ice-cream', location: {country: 'Ukraine', city: 'Kiev'}},
-                {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-2.jpg', followed: false, fullName: 'Merry Swine', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Minsk'}},
-                {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg', followed: true, fullName: 'Anna Brine', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Vitebsk'}}
-            ])*/
+    componentDidMount() {
+        //if (this.props.users.length === 0) {
+        if (this.props.status === statuses.NOT_INITIALIZED) {
+            this.props.setStatus(statuses.IN_PROGRESS)
+            setTimeout(() => axiosInstance.get("users?count=5")
+                .then((response: AxiosResponse<ItemsType>) => {
+                    this.props.setStatus(statuses.SUCCESS)
+                    //with photo:
+                    //const items = response.data.items.filter(u => u.photos.small !== null)
+                    return this.props.setUsers(response.data.items)
+                }), 3000) //setTimeout - fake
+        }
 
+        /*alert('component did mount')*/
+    }
 
-    return (<>
+    componentDidUpdate(prevProps: Readonly<IUsersPropsType>, prevState: Readonly<IUsersState>, snapshot?: any) {
+
+        /*alert('component did update')*/
+    }
+
+    render() {
+        return <>
             <p className={s.titlePage}>All users in SoNet</p>
             <div className={s.container}>
-                {props.users
+                {(!this.props.users.length && this.props.status === statuses.SUCCESS) &&
+                <span className={s.title} style={{margin: '20px'}}>Users not found</span>}
+                {this.props.users
                     /*.sort((x, y) => (x.followed === y.followed)? 0 : x.followed? -1 : 1)*/
                     .map(u =>
                         <div key={u.id} className={s.friendBox}>
                             <div className={s.imgBox}>
                                 <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
-                                <button onClick={() => props.changeFollowedStatus(u.id)}
-                                        className={`${s.followBtn} ${u.followed ? s.red : s.green}`}>{u.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                                <button onClick={() => this.props.changeFollowedStatus(u.id)}
+                                        className={`${s.followBtn} ${u.followed ? s.red : s.green}`}>
+                                    {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
+                                </button>
                             </div>
                             <div className={s.infoBox}>
                                 <div>
@@ -63,5 +79,5 @@ export const Users = (props: UsersPropsType) => {
                 <button className={`${s.btn} ${s.showBtn}`}>SHOW MORE USERS</button>
             </div>
         </>
-    )
+    }
 }

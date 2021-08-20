@@ -1,25 +1,29 @@
-import {v1} from "uuid";
 import { UserType } from "../entities/entities";
 
+//constants
 export const CHANGE_FOLLOWED_STATUS = 'CHANGE-FOLLOWED-STATUS'
-export const SET_USERS = 'SET-USERS'
+export const SET_USERS = 'SONET/USERS/SET-USERS'   // уникализируем константу, чтобы избежать совпадений
+export const SET_STATUS = 'SONET/USERS/SET-STATUS'
 
+export const statuses = {
+    NOT_INITIALIZED: 'NOT-INITIALIZED',
+    ERRORS: 'ERRORS',
+    IN_PROGRESS: 'IN-PROGRESS',
+    SUCCESS: 'SUCCESS'
+}
+
+//initial state
 export type initialUsersStateType = {
     users: Array<UserType>
+    status: string
 }
 
 let initialUsersState: initialUsersStateType = {
-/*    users: [
-        {id: v1(), img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg', followed: true, fullName: 'John Snow', status: 'I am a boss', location: {country: 'Belarus', city: 'Minsk'}},
-        {id: v1(), img: 'https://uprostim.com/wp-content/uploads/2021/03/image096-74.jpg', followed: false, fullName: 'Tom Smith', status: 'This is good idea', location: {country: 'Russia', city: 'Moscow'}},
-        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg', followed: true, fullName: 'Nick Fired', status: 'I like to eat', location: {country: 'Belarus', city: 'Gomel'}},
-        {id: v1(), img: 'https://im0-tub-by.yandex.net/i?id=89f7bf04f56bbf8020fa9b668c941b7a&n=13', followed: false, fullName: 'Helen White', status: 'I like ice-cream', location: {country: 'Ukraine', city: 'Kiev'}},
-        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-2.jpg', followed: false, fullName: 'Merry Swoune', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Minsk'}},
-        {id: v1(), img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg', followed: true, fullName: 'Anna Brine', status: 'I like ice-cream', location: {country: 'Belarus', city: 'Vitebsk'}}
-    ]*/
-    users: []
+    users: [],
+    status: statuses.NOT_INITIALIZED
 }
 
+//reducer
 const usersReducer = (state = initialUsersState, action: ActionUsersReducerType): initialUsersStateType => {
 
     switch (action.type) {
@@ -27,20 +31,25 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
             return {...state, users: state.users.map(u => action.userID === u.id ? {...u, followed: !u.followed} : u)}
         case SET_USERS:
             return {...state, users: [...state.users, ...action.users]}
+        case SET_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
 }
 
-//Action creators
-export type ActionUsersReducerType = ChangeFollowedStatusType | SetUsersType
+//action types
+export type ActionUsersReducerType = ChangeFollowedStatusType | SetUsersType | SetStatusType
 
 type ChangeFollowedStatusType = {userID: number, type: typeof CHANGE_FOLLOWED_STATUS}
 type SetUsersType = {users: UserType[], type: typeof SET_USERS}
+type SetStatusType = {status: string, type: typeof SET_STATUS}
 
+//action creators
 export const changeFollowedStatusAC = (userID: number): ChangeFollowedStatusType => {
     return {userID, type: CHANGE_FOLLOWED_STATUS}
 }
 export const setUsersAC = (users: UserType[]): SetUsersType => ({users, type: SET_USERS})
+export const setStatusAC = (status: string): SetStatusType => ({status, type: SET_STATUS})
 
 export default usersReducer
