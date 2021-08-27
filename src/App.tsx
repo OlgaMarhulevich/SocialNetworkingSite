@@ -25,7 +25,7 @@ function App() {
                             <DialogsContainer />}/>
 
                         <Route path='/users' render={() =>
-                            <UsersContainer />}/>
+                            <UsersContainer/>}/>
 
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
