@@ -92,8 +92,8 @@ export type ActionDialogsReducerType = addMessageActionCreatorType | updateNewMe
 type addMessageActionCreatorType = { type: typeof ADD_MESSAGE, id: number }
 type updateNewMessageActionCreatorType = { type: typeof UPDATE_NEW_MESSAGE, message: string, id: number }
 
-export const addMessageActionCreator = (id: number): addMessageActionCreatorType => ({type: ADD_MESSAGE, id: id});
-export const updateNewMessageActionCreator = (message: string = '', id: number): updateNewMessageActionCreatorType => {
+export const addMessage = (id: number): addMessageActionCreatorType => ({type: ADD_MESSAGE, id: id});
+export const changeNewMessage = (message: string = '', id: number): updateNewMessageActionCreatorType => {
     return {type: UPDATE_NEW_MESSAGE, message: message, id: id};
 }
 

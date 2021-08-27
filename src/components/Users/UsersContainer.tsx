@@ -1,18 +1,19 @@
 import React from "react";
 import {connect} from "react-redux";
-import {ActionType, StateType} from "../../redux/redux-store";
+import {StateType} from "../../redux/redux-store";
 import {
-    changeFollowedStatusAC,
-    changePageAC, fetchingAC,
-    setStatusAC,
-    setUsersAC,
-    setUsersCountAC, statuses
+    changeFollowedStatus,
+    changePage, setFetching,
+    setStatus,
+    setUsers,
+    setUsersCount,
+    statuses
 } from "../../redux/users-reducer";
 import {axiosInstance, ItemsType, UserType} from "../../entities/entities";
 import {AxiosResponse} from "axios";
 import {Users} from "./Users";
-import s from './Users.module.css'
-import preloader from '../../assets/images/loading.gif'
+import {Preloader} from "../../common/preloader/Preloader";
+
 
 interface IUsersPropsType {
     users: Array<UserType>
@@ -83,10 +84,8 @@ export class UsersClassContainer extends React.Component<IUsersPropsType, IUsers
                     setStatus={this.props.setStatus}
                 />
                 :
-                <div className={s.loadingBox}>
-                    <img alt={'loading...'} className={s.loadingGif} src={preloader}/>
-                    <div>Loading...</div>
-                </div>}
+                <Preloader/>
+            }
         </>
     }
 }
@@ -102,15 +101,12 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
-    return {
-        changeFollowedStatus: (userID: number) => dispatch(changeFollowedStatusAC(userID)),
-        setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
-        setStatus: (status: string) => dispatch(setStatusAC(status)),
-        changePage: (page: number) => dispatch(changePageAC(page)),
-        setUsersCount: (usersCount: number) => dispatch(setUsersCountAC(usersCount)),
-        setFetching: (fetching: boolean) => dispatch(fetchingAC(fetching)),
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)
+export const UsersContainer = connect(mapStateToProps,
+    {
+        changeFollowedStatus,
+        setUsers,
+        setStatus,
+        changePage,
+        setUsersCount,
+        setFetching,
+    })(UsersClassContainer)

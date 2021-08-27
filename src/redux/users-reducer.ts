@@ -7,7 +7,7 @@ export enum ACTIONS_USER_REDUCER {
     SET_STATUS = 'SONET/USERS/SET-STATUS',
     CHANGE_PAGE = 'SONET/USERS/CHANGE-PAGE',
     SET_USERS_COUNT = 'SONET/USERS/SET-USERS-COUNT',
-    FETCHING = 'SONET/USERS/FETCHING',
+    TOGGLE_FETCHING = 'SONET/USERS/TOGGLE-FETCHING',
 }
 
 export const statuses = {
@@ -50,7 +50,7 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
             return {...state, activePage: action.page}
         case ACTIONS_USER_REDUCER.SET_USERS_COUNT:
             return {...state, totalUsersCount: action.usersCount}
-        case ACTIONS_USER_REDUCER.FETCHING:
+        case ACTIONS_USER_REDUCER.TOGGLE_FETCHING:
             return {...state, isFetching: action.fetching}
         default:
             return state
@@ -70,16 +70,16 @@ type SetUsersACType = { users: UserType[], type: typeof ACTIONS_USER_REDUCER.SET
 type SetStatusACType = { status: string, type: typeof ACTIONS_USER_REDUCER.SET_STATUS }
 type ChangePageACType = { page: number, type: typeof ACTIONS_USER_REDUCER.CHANGE_PAGE }
 type SetUsersCountACType = { usersCount: number, type: typeof ACTIONS_USER_REDUCER.SET_USERS_COUNT }
-type FetchingACType = { fetching: boolean, type: typeof ACTIONS_USER_REDUCER.FETCHING }
+type FetchingACType = { fetching: boolean, type: typeof ACTIONS_USER_REDUCER.TOGGLE_FETCHING }
 
 //action creators
-export const changeFollowedStatusAC = (userID: number): ChangeFollowedStatusACType => {
+export const changeFollowedStatus = (userID: number): ChangeFollowedStatusACType => {
     return {userID, type: ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS}
 }
-export const setUsersAC = (users: UserType[]): SetUsersACType => ({users, type: ACTIONS_USER_REDUCER.SET_USERS})
-export const setStatusAC = (status: string): SetStatusACType => ({status, type: ACTIONS_USER_REDUCER.SET_STATUS})
-export const changePageAC = (page: number): ChangePageACType => ({page, type: ACTIONS_USER_REDUCER.CHANGE_PAGE})
-export const setUsersCountAC = (usersCount: number): SetUsersCountACType => ({usersCount, type: ACTIONS_USER_REDUCER.SET_USERS_COUNT})
-export const fetchingAC = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_USER_REDUCER.FETCHING})
+export const setUsers = (users: UserType[]): SetUsersACType => ({users, type: ACTIONS_USER_REDUCER.SET_USERS})
+export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_USER_REDUCER.SET_STATUS})
+export const changePage = (page: number): ChangePageACType => ({page, type: ACTIONS_USER_REDUCER.CHANGE_PAGE})
+export const setUsersCount = (usersCount: number): SetUsersCountACType => ({usersCount, type: ACTIONS_USER_REDUCER.SET_USERS_COUNT})
+export const setFetching = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_USER_REDUCER.TOGGLE_FETCHING})
 
 export default usersReducer

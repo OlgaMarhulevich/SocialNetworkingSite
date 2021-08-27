@@ -65,13 +65,13 @@ type updateNewPostMessageActionCreatorType = { type: typeof UPDATE_NEW_POST_MESS
 type removePostActionCreatorType = { type: typeof REMOVE_POST, id: number }
 type addLikeActionCreatorType = { type: typeof ADD_LIKE, id: number }
 
-export const addPostActionCreator = (): addPostActionCreatorType => ({type: ADD_POST})
-export const updateNewPostMessageActionCreator = (postMessage: string = ''): updateNewPostMessageActionCreatorType => {
+export const addPost = (): addPostActionCreatorType => ({type: ADD_POST})
+export const updateNewPostMessage = (postMessage: string = ''): updateNewPostMessageActionCreatorType => {
     return {type: UPDATE_NEW_POST_MESSAGE, postMessage: postMessage}
 }
-export const removePostActionCreator = (id: number): removePostActionCreatorType =>
+export const removePost = (id: number): removePostActionCreatorType =>
     ({type: REMOVE_POST, id: id})
-export const addLikeActionCreator = (id: number): addLikeActionCreatorType =>
+export const addLike = (id: number): addLikeActionCreatorType =>
     ({type: ADD_LIKE, id: id})
 
 

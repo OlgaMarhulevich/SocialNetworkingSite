@@ -1,13 +1,8 @@
 import React from 'react';
-import {ActionType, StateType} from "../../../redux/redux-store";
+import {StateType} from "../../../redux/redux-store";
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
-import {
-    addLikeActionCreator,
-    addPostActionCreator,
-    removePostActionCreator,
-    updateNewPostMessageActionCreator
-} from "../../../redux/profile-reducer";
+import {addLike, addPost, removePost, updateNewPostMessage} from "../../../redux/profile-reducer";
 
 const mapStateToProps = (state: StateType) => {
     return {
@@ -15,15 +10,12 @@ const mapStateToProps = (state: StateType) => {
         newPostMessage: state.profilePage.newPostMessage
     }
 }
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
-    return {
-        updateNewPostMessage: (newPostMessage: string) => dispatch(updateNewPostMessageActionCreator(newPostMessage)),
-        addPost: () => dispatch(addPostActionCreator()),
-        removePost: (id: number) => dispatch(removePostActionCreator(id)),
-        addLike: (id: number) => dispatch(addLikeActionCreator(id))
-    }
-}
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps) (MyPosts)
+const MyPostsContainer = connect(mapStateToProps, {
+    updateNewPostMessage,
+    addPost,
+    removePost,
+    addLike,
+}) (MyPosts)
 
 export default MyPostsContainer;
