@@ -1,6 +1,6 @@
-import profileReducer from "./profile-reducer";
+/*import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
-import friendsReducer from "./friends-reducer";
+import friendsReducer from "./friends-reducer";*/
 
 const store = {
     _callSubscriber(_state: any) {
@@ -71,13 +71,13 @@ const store = {
         }
     },
 
-    dispatch(action?: any) {
+    /*dispatch(action?: any) {
         profileReducer(this._state.profilePage, action);
         dialogsReducer(this._state.dialogsPage, action);
         friendsReducer(this._state.friendsPage, action);
 
         this._callSubscriber(this._state);
-    }
+    }*/
 }
 
 export default store;

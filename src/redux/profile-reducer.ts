@@ -1,28 +1,59 @@
-import {PostType} from "../entities/entities"
+import {PostType, ProfileType} from "../entities/entities"
+import {statuses} from "./users-reducer"
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_MESSAGE = 'UPDATE-NEW-POST-MESSAGE'
-const REMOVE_POST = 'REMOVE-POST'
-const ADD_LIKE = 'ADD-LIKE'
+export enum ACTIONS_PROFILE_TYPE {
+    ADD_POST = 'ADD-POST',
+    UPDATE_NEW_POST_MESSAGE = 'UPDATE-NEW-POST-MESSAGE',
+    REMOVE_POST = 'REMOVE-POST',
+    ADD_LIKE = 'ADD-LIKE',
+    SET_PROFILE = 'SET-PROFILE',
+    SET_STATUS = 'SONET/USERS/SET-STATUS',
+    TOGGLE_FETCHING = 'SONET/USERS/TOGGLE-FETCHING',
+}
 
 export type initialProfileStateType = {
+    profile: ProfileType
     posts: Array<PostType>
     newPostMessage: string
+    status: string
+    isFetching: boolean
 }
 let initialProfileState: initialProfileStateType = {
+    profile: {
+        aboutMe: '',
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: ''
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        fullName: '',
+        userId: 1,
+        photos: {
+            small: '',
+            large: ''
+        }
+    },
     posts: [
         {id: 1, message: 'It is my first post!', likesCount: 25},
         {id: 2, message: 'How are you?', likesCount: 15},
     ],
-    newPostMessage: ''
+    newPostMessage: '',
+    status: statuses.NOT_INITIALIZED,
+    isFetching: false,
 }
 
 const profileReducer = (state = initialProfileState, action: ActionProfileReducerType): initialProfileStateType => {
 
     switch (action.type) {
-        case ADD_POST: {
+        case ACTIONS_PROFILE_TYPE.ADD_POST:
             if (state.newPostMessage === '') {
-                alert('Message could not be empty!')
                 return state
             }
             const newPost = {
@@ -31,24 +62,24 @@ const profileReducer = (state = initialProfileState, action: ActionProfileReduce
                 likesCount: 0
             }
             return {...state, posts: [...state.posts, newPost], newPostMessage: ''}
-        }
-        case UPDATE_NEW_POST_MESSAGE: {
+        case ACTIONS_PROFILE_TYPE.UPDATE_NEW_POST_MESSAGE:
             return {...state, newPostMessage: action.postMessage}
-        }
-        case REMOVE_POST: {
+        case ACTIONS_PROFILE_TYPE.REMOVE_POST:
             // eslint-disable-next-line no-restricted-globals
             if (confirm('Delete this post?')) {
                 return {...state, posts: state.posts.filter(post => post.id !== action.id), newPostMessage: ''}
             }
             return state
-        }
-        case ADD_LIKE: {
-            return {
-                ...state,
+        case ACTIONS_PROFILE_TYPE.ADD_LIKE:
+            return {...state,
                 posts: state.posts.map(post => post.id === action.id ? {...post, likesCount: ++post.likesCount} : post),
-                newPostMessage: ''
-            }
-        }
+                newPostMessage: ''}
+        case ACTIONS_PROFILE_TYPE.SET_PROFILE:
+            return {...state, profile: action.profile}
+        case ACTIONS_PROFILE_TYPE.SET_STATUS:
+            return {...state, status: action.status}
+        case ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING:
+            return {...state, isFetching: action.fetching}
         default:
             return state
     }
@@ -59,20 +90,28 @@ export type ActionProfileReducerType = addPostActionCreatorType
     | updateNewPostMessageActionCreatorType
     | removePostActionCreatorType
     | addLikeActionCreatorType
+    | setProfileACType
+    | SetStatusACType
+    | FetchingACType
 
-type addPostActionCreatorType = { type: typeof ADD_POST }
-type updateNewPostMessageActionCreatorType = { type: typeof UPDATE_NEW_POST_MESSAGE, postMessage: string }
-type removePostActionCreatorType = { type: typeof REMOVE_POST, id: number }
-type addLikeActionCreatorType = { type: typeof ADD_LIKE, id: number }
+type addPostActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.ADD_POST }
+type updateNewPostMessageActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.UPDATE_NEW_POST_MESSAGE, postMessage: string }
+type removePostActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.REMOVE_POST, id: number }
+type addLikeActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.ADD_LIKE, id: number }
+type setProfileACType = { type: typeof ACTIONS_PROFILE_TYPE.SET_PROFILE, profile: ProfileType }
+type SetStatusACType = { status: string, type: typeof ACTIONS_PROFILE_TYPE.SET_STATUS }
+type FetchingACType = { fetching: boolean, type: typeof ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING }
 
-export const addPost = (): addPostActionCreatorType => ({type: ADD_POST})
+
+export const addPost = (): addPostActionCreatorType => ({type: ACTIONS_PROFILE_TYPE.ADD_POST})
 export const updateNewPostMessage = (postMessage: string = ''): updateNewPostMessageActionCreatorType => {
-    return {type: UPDATE_NEW_POST_MESSAGE, postMessage: postMessage}
+    return {type: ACTIONS_PROFILE_TYPE.UPDATE_NEW_POST_MESSAGE, postMessage: postMessage}
 }
-export const removePost = (id: number): removePostActionCreatorType =>
-    ({type: REMOVE_POST, id: id})
-export const addLike = (id: number): addLikeActionCreatorType =>
-    ({type: ADD_LIKE, id: id})
+export const removePost = (id: number): removePostActionCreatorType => ({type: ACTIONS_PROFILE_TYPE.REMOVE_POST, id})
+export const addLike = (id: number): addLikeActionCreatorType => ({type: ACTIONS_PROFILE_TYPE.ADD_LIKE, id})
+export const setProfile = (profile: ProfileType): setProfileACType => ({type: ACTIONS_PROFILE_TYPE.SET_PROFILE, profile})
+export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_PROFILE_TYPE.SET_STATUS})
+export const setFetching = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING})
 
 
 export default profileReducer

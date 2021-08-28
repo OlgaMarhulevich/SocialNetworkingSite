@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 export type PostType = {
     id: number,
@@ -35,6 +35,28 @@ export type ItemsType = {
     items: UserType[]
     totalCount: number
     error: string
+}
+
+export type ProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: string,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: string,
+        github: string,
+        mainLink: string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
 }
 
 export const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0', withCredentials: true})

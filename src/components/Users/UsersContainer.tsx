@@ -14,7 +14,6 @@ import {AxiosResponse} from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 
-
 interface IUsersPropsType {
     users: Array<UserType>
     status: string
@@ -29,17 +28,17 @@ interface IUsersPropsType {
     activePage: number
     isFetching: boolean
 }
-
 interface IUsersState {
 }
 
-export class UsersClassContainer extends React.Component<IUsersPropsType, IUsersState> {
+class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
 
     componentDidMount() {
         if (this.props.status === statuses.NOT_INITIALIZED) {
             this.props.setStatus(statuses.IN_PROGRESS)
             this.props.setFetching(false)
-            setTimeout(() => axiosInstance.get(`users?count=${this.props.pageSize}&page=${this.props.activePage}`)
+            /*setTimeout(() => */
+                axiosInstance.get(`users?count=${this.props.pageSize}&page=${this.props.activePage}`)
                 .then((response: AxiosResponse<ItemsType>) => {
                     this.props.setStatus(statuses.SUCCESS)
                     this.props.setUsersCount(response.data.totalCount)
@@ -47,13 +46,9 @@ export class UsersClassContainer extends React.Component<IUsersPropsType, IUsers
                     //with photo:
                     //const items = response.data.items.filter(u => u.photos.small !== null)
                     return this.props.setUsers(response.data.items)
-                }), 1000) //fake setTimeout for loading
+                })/*, 1000)*/ //fake setTimeout for loading
         }
         /*alert('component did mount')*/
-    }
-
-    componentDidUpdate(prevProps: Readonly<IUsersPropsType>, prevState: Readonly<IUsersState>, snapshot?: any) {
-        /*alert('component did update')*/
     }
 
     onClickPage = (page: number) => {
@@ -101,7 +96,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps,
+export default connect(mapStateToProps,
     {
         changeFollowedStatus,
         setUsers,
@@ -109,4 +104,4 @@ export const UsersContainer = connect(mapStateToProps,
         changePage,
         setUsersCount,
         setFetching,
-    })(UsersClassContainer)
+    })(UsersContainer)

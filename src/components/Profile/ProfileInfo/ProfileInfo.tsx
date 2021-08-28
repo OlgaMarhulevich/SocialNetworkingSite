@@ -1,18 +1,24 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import {ProfileType} from "../../../entities/entities";
+import unknown from '../../../assets/images/unknown.png'
 
-function ProfileInfo() {
+type ProfileInfoPropsType = {
+    profile: ProfileType
+}
+
+function ProfileInfo(props: ProfileInfoPropsType) {
     return (
         <div className={s.profileInfo}>
-            <img className={s.avatar} src='https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg' alt='avatar'/>
+            <img className={s.avatar} src={props.profile.photos.large || unknown} alt={props.profile.fullName}/>
             <div>
                 <div className={s.div}>
                     <p className={s.title}>Name: </p>
-                    <p className={s.description}>Olga Marhulevich</p>
+                    <p className={s.description}>{props.profile.fullName}</p>
                 </div>
                 <div className={s.div}>
-                    <p className={s.title}>Location: </p>
-                    <p className={s.description}>Belarus, Gomel</p>
+                    <p className={s.title}>I'm looking a job: </p>
+                    <p className={s.description}>{props.profile.lookingForAJob ? 'yes' : 'no'}</p>
                 </div>
                 <div className={s.div}>
                     <p className={s.title}>Status: </p>
@@ -20,13 +26,7 @@ function ProfileInfo() {
                 </div>
                 <div>
                     <p className={s.title}>About me: </p>
-                    <p className={s.description}>
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                        Aenean commodo ligula eget dolor. Aenean massa.
-                        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-                        Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec.
-                    </p>
+                    <p className={s.description}>{props.profile.aboutMe}</p>
                 </div>
             </div>
 

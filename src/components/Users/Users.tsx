@@ -3,9 +3,9 @@ import {statuses} from "../../redux/users-reducer";
 import {UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
+import { NavLink } from "react-router-dom";
 
-
-interface UsersPropsType {
+type UsersPropsType = {
     users: Array<UserType>
     status: string
     changeFollowedStatus: (userID: number) => void
@@ -38,11 +38,15 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 
             {/*USERS*/}
             {props.users
-                /*.sort((x, y) => (x.followed === y.followed)? 0 : x.followed? -1 : 1)*/
                 .map(u =>
                     <div key={u.id} className={s.friendBox}>
                         <div className={s.imgBox}>
-                            <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
+
+                            {/*NAVLINK*/}
+                            <NavLink to={'/profile/' + u.id}>
+                                <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
+                            </NavLink>
+
                             <button onClick={() => props.changeFollowedStatus(u.id)}
                                     className={`${s.followBtn} ${u.followed ? s.red : s.green}`}>
                                 {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
