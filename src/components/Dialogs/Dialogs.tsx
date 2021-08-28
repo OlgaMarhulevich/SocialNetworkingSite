@@ -24,9 +24,9 @@ function Dialogs(props: DialogsPropsType) {
 
             <div className={s.messagesColumn}>
 
-                <Route path='/dialogs/:id' render={(prop) => {
-                    const id = prop.match.params.id;
-                    const dialog = props.dialogs.find(d => d.id === +id);
+                <Route path='/dialogs/:dialogID' render={(prop) => {
+                    const dialogID = prop.match.params.dialogID;
+                    const dialog = props.dialogs.find(d => d.id === +dialogID);
                     return (
                         dialog && <DialogsMessages
                             dialog={dialog}

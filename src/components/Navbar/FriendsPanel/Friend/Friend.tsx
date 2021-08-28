@@ -7,7 +7,6 @@ type FriendPropsType = {
 }
 
 function Friend(props: FriendPropsType) {
-    debugger
     return (
         <div className={s.friend}>
             <img alt={props.name} src={props.img} className={s.img}/>

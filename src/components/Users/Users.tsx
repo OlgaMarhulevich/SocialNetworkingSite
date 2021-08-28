@@ -1,6 +1,5 @@
 import React from "react";
-import {statuses} from "../../redux/users-reducer";
-import {UserType} from "../../entities/entities";
+import {statuses, UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
 import { NavLink } from "react-router-dom";

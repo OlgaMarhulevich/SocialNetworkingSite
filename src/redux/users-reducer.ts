@@ -1,4 +1,4 @@
-import {UserType} from "../entities/entities";
+import {statuses, UserType} from "../entities/entities";
 
 //constants
 export enum ACTIONS_USER_REDUCER {
@@ -8,13 +8,6 @@ export enum ACTIONS_USER_REDUCER {
     CHANGE_PAGE = 'SONET/USERS/CHANGE-PAGE',
     SET_USERS_COUNT = 'SONET/USERS/SET-USERS-COUNT',
     TOGGLE_FETCHING = 'SONET/USERS/TOGGLE-FETCHING',
-}
-
-export const statuses = {
-    NOT_INITIALIZED: 'NOT-INITIALIZED',
-    ERRORS: 'ERRORS',
-    IN_PROGRESS: 'IN-PROGRESS',
-    SUCCESS: 'SUCCESS',
 }
 
 //initial state
@@ -29,11 +22,11 @@ export type initialUsersStateType = {
 
 let initialUsersState: initialUsersStateType = {
     users: [],
-    status: statuses.NOT_INITIALIZED,
     pageSize: 10,
     totalUsersCount: 0,
     activePage: 1,
     isFetching: false,
+    status: statuses.NOT_INITIALIZED,
 }
 
 //reducer

@@ -6,10 +6,9 @@ import {
     changePage, setFetching,
     setStatus,
     setUsers,
-    setUsersCount,
-    statuses
+    setUsersCount
 } from "../../redux/users-reducer";
-import {axiosInstance, ItemsType, UserType} from "../../entities/entities";
+import {axiosInstance, ItemsType, statuses, UserType} from "../../entities/entities";
 import {AxiosResponse} from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";

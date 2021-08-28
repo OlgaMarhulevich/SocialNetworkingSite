@@ -60,3 +60,10 @@ export type ProfileType = {
 }
 
 export const axiosInstance = axios.create({baseURL: 'https://social-network.samuraijs.com/api/1.0', withCredentials: true})
+
+export const statuses = {
+    NOT_INITIALIZED: 'NOT-INITIALIZED',
+    ERRORS: 'ERRORS',
+    IN_PROGRESS: 'IN-PROGRESS',
+    SUCCESS: 'SUCCESS',
+}

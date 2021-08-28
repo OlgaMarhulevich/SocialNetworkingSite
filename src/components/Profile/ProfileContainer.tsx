@@ -1,42 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {axiosInstance, PostType, ProfileType} from "../../entities/entities";
+import {axiosInstance, PostType, ProfileType, statuses} from "../../entities/entities";
 import Profile from "./Profile";
 import {StateType} from "../../redux/redux-store";
 import {addLike, addPost, removePost, setProfile, updateNewPostMessage, setFetching, setStatus} from "../../redux/profile-reducer";
-import {statuses} from "../../redux/users-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
+import {RouteComponentProps, withRouter} from "react-router";
 
-interface IProfileProps {
-    profile: ProfileType
-    posts: Array<PostType>
-    newPostMessage: string
-    status: string
-    isFetching: boolean
-    addPost: () => void
-    updateNewPostMessage: (postMessage: string) => void
-    removePost: (id: number) => void
-    addLike: (id: number) => void
-    setProfile: (profile: ProfileType) => void
-    setFetching: (fetching: boolean) => void
-    setStatus: (status: string) => void
-}
-interface IProfileState {
-}
-
-class ProfileContainer extends React.Component<IProfileProps, IProfileState> {
+class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
+        debugger
+        let userID = this.props.match.params.userID
+        if (!userID) userID = '2'
         if (this.props.status === statuses.NOT_INITIALIZED) {
             this.props.setStatus(statuses.IN_PROGRESS)
             this.props.setFetching(false)
-            axiosInstance.get(`profile/2`)
+            axiosInstance.get(`profile/${userID}`)
                 .then(response => {
                     this.props.setProfile(response.data)
                     this.props.setStatus(statuses.SUCCESS)
                     this.props.setFetching(true)
                 })
         }
+    }
+
+    componentWillUnmount() {
+        this.props.setStatus(statuses.NOT_INITIALIZED)
     }
 
     render() {
@@ -60,15 +50,37 @@ class ProfileContainer extends React.Component<IProfileProps, IProfileState> {
 
 }
 
-const mapStateToProps = (state: StateType) => {
+type MapStatePropsType = {
+    profile: ProfileType
+    posts: Array<PostType>
+    newPostMessage: string
+    status: string
+    isFetching: boolean
+}
+type MapDispatchPropsType = {
+    addPost: () => void
+    updateNewPostMessage: (postMessage: string) => void
+    removePost: (id: number) => void
+    addLike: (id: number) => void
+    setProfile: (profile: ProfileType) => void
+    setFetching: (fetching: boolean) => void
+    setStatus: (status: string) => void
+}
+type OwnPropsType = MapStatePropsType & MapDispatchPropsType
+type PathParamsType = { userID: string }
+type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+
+const mapStateToProps = (state: StateType): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
         newPostMessage: state.profilePage.newPostMessage,
-        isFetching: state.usersPage.isFetching,
-        status: state.usersPage.status,
+        isFetching: state.profilePage.isFetching,
+        status: state.profilePage.status,
     }
 }
+
+const ProfileContainerWithRouter = withRouter(ProfileContainer)
 
 export default connect(mapStateToProps, {
     addPost,
@@ -78,5 +90,5 @@ export default connect(mapStateToProps, {
     setProfile,
     setFetching,
     setStatus,
-})(ProfileContainer);
+})(ProfileContainerWithRouter);
 

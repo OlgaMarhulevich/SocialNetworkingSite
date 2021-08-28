@@ -17,7 +17,7 @@ function FriendsPanel(props: FriendsPanelPropsType) {
             .map(friend =>
                 <Friend
                     key={friend.id}
-                    name={friend.name.length > 8 ? (friend.name.slice(0, 7) + '...') : friend.name}
+                    name={friend.name.length > 7 ? (friend.name.slice(0, 6) + '...') : friend.name}
                     img={friend.photos.small || unknown}/>)
 
     return (

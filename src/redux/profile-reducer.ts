@@ -1,5 +1,4 @@
-import {PostType, ProfileType} from "../entities/entities"
-import {statuses} from "./users-reducer"
+import {PostType, ProfileType, statuses} from "../entities/entities"
 
 export enum ACTIONS_PROFILE_TYPE {
     ADD_POST = 'ADD-POST',
@@ -7,8 +6,8 @@ export enum ACTIONS_PROFILE_TYPE {
     REMOVE_POST = 'REMOVE-POST',
     ADD_LIKE = 'ADD-LIKE',
     SET_PROFILE = 'SET-PROFILE',
-    SET_STATUS = 'SONET/USERS/SET-STATUS',
-    TOGGLE_FETCHING = 'SONET/USERS/TOGGLE-FETCHING',
+    SET_STATUS = 'SONET/PROFILE/SET-STATUS',
+    TOGGLE_FETCHING = 'SONET/PROFILE/TOGGLE-FETCHING',
 }
 
 export type initialProfileStateType = {
