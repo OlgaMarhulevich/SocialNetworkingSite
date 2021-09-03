@@ -27,6 +27,7 @@ interface IUsersPropsType {
     activePage: number
     isFetching: boolean
 }
+
 interface IUsersState {
 }
 
@@ -36,18 +37,14 @@ class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
         if (this.props.status === statuses.NOT_INITIALIZED) {
             this.props.setStatus(statuses.IN_PROGRESS)
             this.props.setFetching(false)
-            /*setTimeout(() => */
-                axiosInstance.get(`users?count=${this.props.pageSize}&page=${this.props.activePage}`)
+            axiosInstance.get(`users?count=${this.props.pageSize}&page=${this.props.activePage}`)
                 .then((response: AxiosResponse<ItemsType>) => {
                     this.props.setStatus(statuses.SUCCESS)
                     this.props.setUsersCount(response.data.totalCount)
                     this.props.setFetching(true)
-                    //with photo:
-                    //const items = response.data.items.filter(u => u.photos.small !== null)
                     return this.props.setUsers(response.data.items)
-                })/*, 1000)*/ //fake setTimeout for loading
+                })
         }
-        /*alert('component did mount')*/
     }
 
     onClickPage = (page: number) => {
@@ -86,12 +83,12 @@ class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
 
 const mapStateToProps = (state: StateType) => {
     return {
-        users: state.usersPage.users,
-        status: state.usersPage.status,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        activePage: state.usersPage.activePage,
-        isFetching: state.usersPage.isFetching,
+        users: state.users.users,
+        status: state.users.status,
+        pageSize: state.users.pageSize,
+        totalUsersCount: state.users.totalUsersCount,
+        activePage: state.users.activePage,
+        isFetching: state.users.isFetching,
     }
 }
 

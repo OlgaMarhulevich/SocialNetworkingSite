@@ -5,8 +5,8 @@ import FriendsPanel from "./FriendsPanel";
 
 const mapStateProps = (state: StateType) => {
     return {
-        users: state.usersPage.users,
-        friends: state.friendsPage.friends
+        users: state.users.users,
+        friends: state.friends.friends
     }
 }
 const mapDispatchProps = () => {return {}}

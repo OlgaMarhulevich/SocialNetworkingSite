@@ -6,7 +6,7 @@ import {addMessage, changeNewMessage} from "../../redux/dialogs-reducer";
 
 const mapStateToProps = (state: StateType) => {
     return {
-        dialogs: state.dialogsPage.dialogs
+        dialogs: state.dialogs.dialogs
     }
 }
 

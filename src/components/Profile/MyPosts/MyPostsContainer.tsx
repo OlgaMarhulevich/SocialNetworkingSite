@@ -6,8 +6,8 @@ import {addLike, addPost, removePost, updateNewPostMessage} from "../../../redux
 
 const mapStateToProps = (state: StateType) => {
     return {
-        posts: state.profilePage.posts,
-        newPostMessage: state.profilePage.newPostMessage
+        posts: state.profile.posts,
+        newPostMessage: state.profile.newPostMessage
     }
 }
 

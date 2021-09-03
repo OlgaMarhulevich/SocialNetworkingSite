@@ -1,13 +1,13 @@
 import {statuses, UserType} from "../entities/entities";
 
 //constants
-export enum ACTIONS_USER_REDUCER {
+enum ACTIONS_USER_REDUCER {
     CHANGE_FOLLOWED_STATUS = 'CHANGE-FOLLOWED-STATUS',
     SET_USERS = 'SONET/USERS/SET-USERS',  // уникализируем константу, чтобы избежать совпадений
     SET_STATUS = 'SONET/USERS/SET-STATUS',
     CHANGE_PAGE = 'SONET/USERS/CHANGE-PAGE',
     SET_USERS_COUNT = 'SONET/USERS/SET-USERS-COUNT',
-    TOGGLE_FETCHING = 'SONET/USERS/TOGGLE-FETCHING',
+    SET_FETCHING = 'SONET/USERS/TOGGLE-FETCHING',
 }
 
 //initial state
@@ -43,7 +43,7 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
             return {...state, activePage: action.page}
         case ACTIONS_USER_REDUCER.SET_USERS_COUNT:
             return {...state, totalUsersCount: action.usersCount}
-        case ACTIONS_USER_REDUCER.TOGGLE_FETCHING:
+        case ACTIONS_USER_REDUCER.SET_FETCHING:
             return {...state, isFetching: action.fetching}
         default:
             return state
@@ -63,7 +63,7 @@ type SetUsersACType = { users: UserType[], type: typeof ACTIONS_USER_REDUCER.SET
 type SetStatusACType = { status: string, type: typeof ACTIONS_USER_REDUCER.SET_STATUS }
 type ChangePageACType = { page: number, type: typeof ACTIONS_USER_REDUCER.CHANGE_PAGE }
 type SetUsersCountACType = { usersCount: number, type: typeof ACTIONS_USER_REDUCER.SET_USERS_COUNT }
-type FetchingACType = { fetching: boolean, type: typeof ACTIONS_USER_REDUCER.TOGGLE_FETCHING }
+type FetchingACType = { fetching: boolean, type: typeof ACTIONS_USER_REDUCER.SET_FETCHING }
 
 //action creators
 export const changeFollowedStatus = (userID: number): ChangeFollowedStatusACType => {
@@ -73,6 +73,6 @@ export const setUsers = (users: UserType[]): SetUsersACType => ({users, type: AC
 export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_USER_REDUCER.SET_STATUS})
 export const changePage = (page: number): ChangePageACType => ({page, type: ACTIONS_USER_REDUCER.CHANGE_PAGE})
 export const setUsersCount = (usersCount: number): SetUsersCountACType => ({usersCount, type: ACTIONS_USER_REDUCER.SET_USERS_COUNT})
-export const setFetching = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_USER_REDUCER.TOGGLE_FETCHING})
+export const setFetching = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_USER_REDUCER.SET_FETCHING})
 
 export default usersReducer

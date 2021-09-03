@@ -1,18 +1,19 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {ActionProfileReducerType} from "./profile-reducer";
-import dialogsReducer, {ActionDialogsReducerType} from "./dialogs-reducer";
-import friendsReducer, {ActionFriendsReducerType} from "./friends-reducer";
-import usersReducer, {ActionUsersReducerType} from "./users-reducer";
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import friendsReducer from "./friends-reducer";
+import usersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 const reducers = combineReducers({
-    profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
-    friendsPage: friendsReducer,
-    usersPage: usersReducer
+    profile: profileReducer,
+    dialogs: dialogsReducer,
+    friends: friendsReducer,
+    users: usersReducer,
+    auth: authReducer,
 })
 
 export type StateType = ReturnType<typeof reducers>
-export type ActionType = ActionProfileReducerType | ActionDialogsReducerType | ActionFriendsReducerType | ActionUsersReducerType
 
 const store = createStore(reducers);
 

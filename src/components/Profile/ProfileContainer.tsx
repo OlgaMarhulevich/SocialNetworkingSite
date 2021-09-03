@@ -72,11 +72,11 @@ type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 const mapStateToProps = (state: StateType): MapStatePropsType => {
     return {
-        profile: state.profilePage.profile,
-        posts: state.profilePage.posts,
-        newPostMessage: state.profilePage.newPostMessage,
-        isFetching: state.profilePage.isFetching,
-        status: state.profilePage.status,
+        profile: state.profile.profile,
+        posts: state.profile.posts,
+        newPostMessage: state.profile.newPostMessage,
+        isFetching: state.profile.isFetching,
+        status: state.profile.status,
     }
 }
 

@@ -37,6 +37,15 @@ export type ItemsType = {
     error: string
 }
 
+export type AuthDataType = {
+    resultCode: number
+    messages: Array<any>
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+}
 export type ProfileType = {
     aboutMe: string,
     contacts: {

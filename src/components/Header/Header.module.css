@@ -1,7 +1,11 @@
 header {
     display: flex;
     justify-content: space-between;
-    padding-left: 10%;
+    align-items: center;
+    padding: 20px 10%;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.8)
 }
 
 .logo {
@@ -9,16 +13,18 @@ header {
     align-items: center;
 }
 
-.logo a {
+header a {
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;
 }
 
-.logo a:hover {
+header a:hover {
     text-shadow: 0 0 2px #929db8;
 }
 
 .logo img {
     width: 50px;
     margin-right: 10px;
+}
+.greeting {
 }
