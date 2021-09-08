@@ -1,65 +1,40 @@
 import React from "react";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {
-    changeFollowedStatus,
-    changePage, setFollowing, setLoading,
-    setStatus,
-    setUsers,
-    setUsersCount
-} from "../../redux/users-reducer";
-import {ItemsType, statuses, UserType} from "../../entities/entities";
+import {changePage, follow, getUsers, unfollow} from "../../redux/users-reducer";
+import {statuses, UserType} from "../../entities/entities";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 //props
 interface IUsersPropsType {
+    isLoading: boolean
+    changePage: (page: number) => void
+    getUsers: (pageSize: number, activePage: number) => void
     users: Array<UserType>
     status: string
-    changeFollowedStatus: (userID: number, isFollow: boolean) => void
-    setUsers: (users: UserType[]) => void
-    setStatus: (status: string) => void
-    changePage: (page: number) => void
-    setUsersCount: (usersCount: number) => void
-    setLoading: (loading: boolean) => void
-    setFollowing: (following: boolean, userId: number) => void
-    pageSize: number
-    totalUsersCount: number
     activePage: number
-    isLoading: boolean
+    totalUsersCount: number
+    pageSize: number
     isFollowing: number[]
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
+
 interface IUsersState {
 }
 
 //COMPONENT
 class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
-
     componentDidMount() {
         if (this.props.status === statuses.NOT_INITIALIZED) {
-            this.props.setStatus(statuses.IN_PROGRESS)
-            this.props.setLoading(true)
-
-            usersAPI.getUsers(this.props.pageSize, this.props.activePage)
-                .then((data) => {
-                    this.props.setStatus(statuses.SUCCESS)
-                    this.props.setUsersCount(data.totalCount)
-                    this.props.setLoading(false)
-                    return this.props.setUsers(data.items)
-                })
+            this.props.getUsers(this.props.pageSize, this.props.activePage)
         }
     }
 
     onClickPage = (page: number) => {
         this.props.changePage(page)
-        this.props.setLoading(true)
-        usersAPI.getUsers(this.props.pageSize, this.props.activePage)
-            .then((data: ItemsType) => {
-                this.props.setStatus(statuses.SUCCESS)
-                this.props.setLoading(false)
-                return this.props.setUsers(data.items)
-            })
+        this.props.getUsers(this.props.pageSize, page)
     }
 
     render() {
@@ -67,10 +42,7 @@ class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
             {this.props.isLoading ?
                 <Preloader/>
                 :
-                <Users
-                    {...this.props}
-                    onClickPage={this.onClickPage}
-                />
+                <Users {...this.props} onClickPage={this.onClickPage}/>
             }
         </>
     }
@@ -90,11 +62,8 @@ const mapStateToProps = (state: StateType) => {
 
 export default connect(mapStateToProps,
     {
-        changeFollowedStatus,
-        setUsers,
-        setStatus,
         changePage,
-        setUsersCount,
-        setLoading,
-        setFollowing,
+        getUsers,
+        follow,
+        unfollow,
     })(UsersContainer)

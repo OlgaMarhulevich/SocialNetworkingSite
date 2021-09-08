@@ -1,4 +1,6 @@
 import {PostType, ProfileType, statuses} from "../entities/entities"
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
 
 export enum ACTIONS_PROFILE_TYPE {
     ADD_POST = 'ADD-POST',
@@ -84,7 +86,7 @@ const profileReducer = (state = initialProfileState, action: ActionProfileReduce
     }
 }
 
-//Action creators
+//Action type
 export type ActionProfileReducerType = addPostActionCreatorType
     | updateNewPostMessageActionCreatorType
     | removePostActionCreatorType
@@ -93,6 +95,7 @@ export type ActionProfileReducerType = addPostActionCreatorType
     | SetStatusACType
     | FetchingACType
 
+//types AC
 type addPostActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.ADD_POST }
 type updateNewPostMessageActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.UPDATE_NEW_POST_MESSAGE, postMessage: string }
 type removePostActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.REMOVE_POST, id: number }
@@ -101,7 +104,7 @@ type setProfileACType = { type: typeof ACTIONS_PROFILE_TYPE.SET_PROFILE, profile
 type SetStatusACType = { status: string, type: typeof ACTIONS_PROFILE_TYPE.SET_STATUS }
 type FetchingACType = { fetching: boolean, type: typeof ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING }
 
-
+//AC
 export const addPost = (): addPostActionCreatorType => ({type: ACTIONS_PROFILE_TYPE.ADD_POST})
 export const updateNewPostMessage = (postMessage: string = ''): updateNewPostMessageActionCreatorType => {
     return {type: ACTIONS_PROFILE_TYPE.UPDATE_NEW_POST_MESSAGE, postMessage: postMessage}
@@ -112,5 +115,16 @@ export const setProfile = (profile: ProfileType): setProfileACType => ({type: AC
 export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_PROFILE_TYPE.SET_STATUS})
 export const setFetching = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING})
 
+//thunk creators
+export const getProfile = (userID: string) => (dispatch: Dispatch<ActionProfileReducerType>) => {
+    dispatch(setStatus(statuses.IN_PROGRESS))
+    dispatch(setFetching(false))
+    profileAPI.getProfile(userID)
+        .then((data) => {
+            dispatch(setProfile(data))
+            dispatch(setStatus(statuses.SUCCESS))
+            dispatch(setFetching(true))
+        })
+}
 
 export default profileReducer

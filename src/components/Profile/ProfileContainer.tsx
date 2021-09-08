@@ -3,10 +3,18 @@ import {connect} from 'react-redux';
 import {PostType, ProfileType, statuses} from "../../entities/entities";
 import Profile from "./Profile";
 import {StateType} from "../../redux/redux-store";
-import {addLike, addPost, removePost, setProfile, updateNewPostMessage, setFetching, setStatus} from "../../redux/profile-reducer";
+import {
+    addLike,
+    addPost,
+    removePost,
+    setProfile,
+    updateNewPostMessage,
+    setFetching,
+    setStatus,
+    getProfile
+} from "../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router";
-import { profileAPI } from '../../api/api';
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
@@ -14,14 +22,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
         let userID = this.props.match.params.userID
         if (!userID) userID = '2'
         if (this.props.status === statuses.NOT_INITIALIZED) {
-            this.props.setStatus(statuses.IN_PROGRESS)
-            this.props.setFetching(false)
-            profileAPI.getProfile(userID)
-                .then((data) => {
-                    this.props.setProfile(data)
-                    this.props.setStatus(statuses.SUCCESS)
-                    this.props.setFetching(true)
-                })
+            this.props.getProfile(userID)
         }
     }
 
@@ -58,6 +59,7 @@ type MapDispatchPropsType = {
     setProfile: (profile: ProfileType) => void
     setFetching: (fetching: boolean) => void
     setStatus: (status: string) => void
+    getProfile: (userID: string) => void
 }
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType
 type PathParamsType = { userID: string }
@@ -83,5 +85,6 @@ export default connect(mapStateToProps, {
     setProfile,
     setFetching,
     setStatus,
+    getProfile,
 })(ProfileContainerWithRouter);
 

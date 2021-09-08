@@ -3,22 +3,18 @@ import {statuses, UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../api/api";
+
 //types
 type UsersPropsType = {
     users: Array<UserType>
     status: string
-    changeFollowedStatus: (userID: number, isFollow: boolean) => void
-    setUsers: (users: UserType[]) => void
-    setStatus: (status: string) => void
-    changePage: (page: number) => void
-    setUsersCount: (usersCount: number) => void
     activePage: number
     totalUsersCount: number
     pageSize: number
     onClickPage: (page: number) => void
-    setFollowing: (following: boolean, userId: number) => void
     isFollowing: number[]
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 //COMPONENT
@@ -32,24 +28,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     pages.push(pagesCount)
 
     const unfollow = (userId: number) => {
-        props.setFollowing(true, userId)
-        followAPI.unfollow(userId)
-            .then((data) => {
-                if (data.resultCode === 0) {
-                    props.changeFollowedStatus(userId, false)
-                    props.setFollowing(false, userId)
-                }
-            })
+        props.unfollow(userId)
     }
     const follow = (userId: number) => {
-        props.setFollowing(true, userId)
-        followAPI.follow(userId)
-            .then((data) => {
-                if (data.resultCode === 0) {
-                    props.changeFollowedStatus(userId, true)
-                    props.setFollowing(false, userId)
-                }
-            })
+        props.follow(userId)
     }
 
     return <>

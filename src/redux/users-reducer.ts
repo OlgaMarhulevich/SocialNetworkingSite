@@ -1,4 +1,6 @@
 import {statuses, UserType} from "../entities/entities";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 //constants
 enum ACTIONS_USER_REDUCER {
@@ -36,7 +38,10 @@ let initialUsersState: initialUsersStateType = {
 const usersReducer = (state = initialUsersState, action: ActionUsersReducerType): initialUsersStateType => {
     switch (action.type) {
         case ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS:
-            return {...state, users: [...state.users.map(u => u.id === action.userID ? {...u, followed: action.isFollow} : u)]}
+            return {
+                ...state,
+                users: [...state.users.map(u => u.id === action.userID ? {...u, followed: action.isFollow} : u)]
+            }
         case ACTIONS_USER_REDUCER.SET_USERS:
             return {...state, users: [...action.users]}
         case ACTIONS_USER_REDUCER.SET_STATUS:
@@ -48,9 +53,11 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
         case ACTIONS_USER_REDUCER.SET_LOADING:
             return {...state, isLoading: action.loading}
         case ACTIONS_USER_REDUCER.SET_FOLLOWING:
-            return {...state,
+            return {
+                ...state,
                 isFollowing: action.following ? [...state.isFollowing, action.userId]
-                    : state.isFollowing.filter(u => u !== action.userId) }
+                    : state.isFollowing.filter(u => u !== action.userId)
+            }
         default:
             return state
     }
@@ -58,12 +65,12 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
 
 //action types
 export type ActionUsersReducerType = ChangeFollowedStatusACType
-                                    | SetUsersACType
-                                    | SetStatusACType
-                                    | ChangePageACType
-                                    | SetUsersCountACType
-                                    | LoadingACType
-                                    | FollowingACType
+    | SetUsersACType
+    | SetStatusACType
+    | ChangePageACType
+    | SetUsersCountACType
+    | LoadingACType
+    | FollowingACType
 
 type ChangeFollowedStatusACType = { userID: number, isFollow: boolean, type: typeof ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS }
 type SetUsersACType = { users: UserType[], type: typeof ACTIONS_USER_REDUCER.SET_USERS }
@@ -80,13 +87,48 @@ export const changeFollowedStatus = (userID: number, isFollow: boolean): ChangeF
 export const setUsers = (users: UserType[]): SetUsersACType => ({users, type: ACTIONS_USER_REDUCER.SET_USERS})
 export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_USER_REDUCER.SET_STATUS})
 export const changePage = (page: number): ChangePageACType => ({page, type: ACTIONS_USER_REDUCER.CHANGE_PAGE})
-export const setUsersCount = (usersCount: number): SetUsersCountACType => ({usersCount, type: ACTIONS_USER_REDUCER.SET_USERS_COUNT})
+export const setUsersCount = (usersCount: number): SetUsersCountACType => ({
+    usersCount,
+    type: ACTIONS_USER_REDUCER.SET_USERS_COUNT
+})
 export const setLoading = (loading: boolean): LoadingACType => ({loading, type: ACTIONS_USER_REDUCER.SET_LOADING})
-export const setFollowing = (following: boolean, userId: number): FollowingACType => ({following, userId, type: ACTIONS_USER_REDUCER.SET_FOLLOWING})
+export const setFollowing = (following: boolean, userId: number): FollowingACType => ({
+    following,
+    userId,
+    type: ACTIONS_USER_REDUCER.SET_FOLLOWING
+})
 
 //thunk creators
-export const getUsers = () => {
-
+export const getUsers = (pageSize: number, activePage: number) => (dispatch: Dispatch<ActionUsersReducerType>) => {
+    dispatch(setStatus(statuses.IN_PROGRESS))
+    dispatch(setLoading(true))
+    usersAPI.getUsers(pageSize, activePage)
+        .then((data) => {
+            dispatch(setStatus(statuses.SUCCESS))
+            dispatch(setUsersCount(data.totalCount))
+            dispatch(setLoading(false))
+            dispatch(setUsers(data.items))
+        })
+}
+export const follow = (userId: number) => (dispatch: Dispatch<ActionUsersReducerType>) => {
+    dispatch(setFollowing(true, userId))
+    usersAPI.follow(userId)
+        .then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(changeFollowedStatus(userId, true))
+                dispatch(setFollowing(false, userId))
+            }
+        })
+}
+export const unfollow = (userId: number) => (dispatch: Dispatch<ActionUsersReducerType>) => {
+    dispatch(setFollowing(true, userId))
+    usersAPI.unfollow(userId)
+        .then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(changeFollowedStatus(userId, false))
+                dispatch(setFollowing(false, userId))
+            }
+        })
 }
 
 export default usersReducer

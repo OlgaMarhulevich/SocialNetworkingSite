@@ -18,5 +18,7 @@ class FriendsPanelContainer extends React.Component<IFriendsPropsType, IFriendsS
     }
 }
 
-export default connect(() => {}, {})(FriendsPanelContainer)
+export default connect(() => {
+    return {}
+}, {})(FriendsPanelContainer)
 

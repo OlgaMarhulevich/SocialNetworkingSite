@@ -14,6 +14,14 @@ export const usersAPI = {
         return axiosInstance.get(`users?count=${pageSize}&page=${activePage}`)
             .then((response: AxiosResponse<ItemsType>) => response.data)
     },
+    unfollow: (userId: number) => {
+        return axiosInstance.delete(`follow/${userId}`)
+            .then((response: AxiosResponse<FollowResponse>) => response.data)
+    },
+    follow: (userId: number) => {
+        return axiosInstance.post(`follow/${userId}`)
+            .then((response: AxiosResponse<FollowResponse>) => response.data)
+    },
 }
 
 export const profileAPI = {
@@ -27,17 +35,6 @@ export const authAPI = {
     getAuth: () => {
         return axiosInstance.get('auth/me')
             .then((response: AxiosResponse<AuthDataType>) => response.data)
-    },
-}
-
-export const followAPI = {
-    unfollow: (userId: number) => {
-        return axiosInstance.delete(`follow/${userId}`)
-            .then((response: AxiosResponse<FollowResponse>) => response.data)
-    },
-    follow: (userId: number) => {
-        return axiosInstance.post(`follow/${userId}`)
-            .then((response: AxiosResponse<FollowResponse>) => response.data)
     },
 }
 
