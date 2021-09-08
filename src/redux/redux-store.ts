@@ -18,6 +18,6 @@ export type StateType = ReturnType<typeof reducers>
 const store = createStore(reducers);
 
 // @ts-ignore
-window.store = store
+window.state= store.getState()
 
 export default store;

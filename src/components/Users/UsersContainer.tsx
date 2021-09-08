@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import {
     changeFollowedStatus,
-    changePage, setLoading,
+    changePage, setFollowing, setLoading,
     setStatus,
     setUsers,
     setUsersCount
@@ -22,11 +22,13 @@ interface IUsersPropsType {
     setStatus: (status: string) => void
     changePage: (page: number) => void
     setUsersCount: (usersCount: number) => void
-    setLoading: (fetching: boolean) => void
+    setLoading: (loading: boolean) => void
+    setFollowing: (following: boolean, userId: number) => void
     pageSize: number
     totalUsersCount: number
     activePage: number
     isLoading: boolean
+    isFollowing: number[]
 }
 interface IUsersState {
 }
@@ -82,6 +84,7 @@ const mapStateToProps = (state: StateType) => {
         totalUsersCount: state.users.totalUsersCount,
         activePage: state.users.activePage,
         isLoading: state.users.isLoading,
+        isFollowing: state.users.isFollowing,
     }
 }
 
@@ -93,4 +96,5 @@ export default connect(mapStateToProps,
         changePage,
         setUsersCount,
         setLoading,
+        setFollowing,
     })(UsersContainer)

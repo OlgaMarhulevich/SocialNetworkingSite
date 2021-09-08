@@ -17,6 +17,8 @@ type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     onClickPage: (page: number) => void
+    setFollowing: (following: boolean, userId: number) => void
+    isFollowing: number[]
 }
 
 //COMPONENT
@@ -30,18 +32,22 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     pages.push(pagesCount)
 
     const unfollow = (userId: number) => {
+        props.setFollowing(true, userId)
         followAPI.unfollow(userId)
             .then((data) => {
                 if (data.resultCode === 0) {
                     props.changeFollowedStatus(userId, false)
+                    props.setFollowing(false, userId)
                 }
             })
     }
     const follow = (userId: number) => {
+        props.setFollowing(true, userId)
         followAPI.follow(userId)
             .then((data) => {
                 if (data.resultCode === 0) {
                     props.changeFollowedStatus(userId, true)
+                    props.setFollowing(false, userId)
                 }
             })
     }
@@ -54,43 +60,44 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             <span className={s.title} style={{margin: '20px'}}>Users not found</span>}
 
             {/*USERS*/}
-            {props.users
-                .map(u =>
-                    <div key={u.id} className={s.friendBox}>
-                        <div className={s.imgBox}>
+            {props.users.map(u =>
+                <div key={u.id} className={s.friendBox}>
+                    <div className={s.imgBox}>
 
-                            {/*NAVLINK*/}
-                            <NavLink to={'/profile/' + u.id}>
-                                <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
-                            </NavLink>
+                        {/*NAVLINK*/}
+                        <NavLink to={'/profile/' + u.id}>
+                            <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
+                        </NavLink>
 
-                            <button onClick={u.followed ? () => {
-                                unfollow(u.id)
-                            } : () => {
-                                follow(u.id)
-                            }}
-                                    className={`${s.followBtn} ${u.followed ? s.red : s.green}`}>
-                                {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
-                            </button>
+                        <button onClick={u.followed ? () => {
+                            unfollow(u.id)
+                        } : () => {
+                            follow(u.id)
+                        }}
+                                className={`${s.followBtn} ${u.followed ? s.red : s.green} ${props.isFollowing
+                                    .includes(u.id) ? s.disabled : ''}`}
+                                disabled={props.isFollowing.some(i => i === u.id)}>
+                            {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
+                        </button>
+                    </div>
+                    <div className={s.infoBox}>
+                        <div>
+                            <p className={`${s.title} ${s.name}`}>Name: </p>
+                            <p className={`${s.description} ${s.name}`}>{u.name}</p>
                         </div>
-                        <div className={s.infoBox}>
+                        <div className={s.infoBottom}>
                             <div>
-                                <p className={`${s.title} ${s.name}`}>Name: </p>
-                                <p className={`${s.description} ${s.name}`}>{u.name}</p>
+                                <p className={s.title}>Status: </p>
+                                <p className={s.description}>{u.status || "Nothing yet..."}</p>
                             </div>
-                            <div className={s.infoBottom}>
-                                <div>
-                                    <p className={s.title}>Status: </p>
-                                    <p className={s.description}>{u.status || "Nothing yet..."}</p>
-                                </div>
-                                <div>
-                                    <p className={s.title}>Location: </p>
-                                    <p className={s.description}>{'location object will be here'}</p>
-                                </div>
+                            <div>
+                                <p className={s.title}>Location: </p>
+                                <p className={s.description}>{'location object will be here'}</p>
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
 
             {/*PAGES*/}
             <div>

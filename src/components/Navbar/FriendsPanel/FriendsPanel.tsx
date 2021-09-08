@@ -5,16 +5,12 @@ import {UserType} from "../../../entities/entities";
 import unknown from '../../../assets/images/unknown.png'
 
 type FriendsPanelPropsType = {
-    users: Array<UserType>
     friends: Array<UserType>
 }
 
 function FriendsPanel(props: FriendsPanelPropsType) {
 
-    let friendsPanel =
-        props.users
-            .filter(u => u.followed)
-            .map(friend =>
+    let friendsPanel = props.friends.map(friend =>
                 <Friend
                     key={friend.id}
                     name={friend.name.length > 7 ? (friend.name.slice(0, 6) + '...') : friend.name}

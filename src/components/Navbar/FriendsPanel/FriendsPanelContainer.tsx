@@ -1,16 +1,22 @@
 import React from 'react';
-import {StateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import FriendsPanel from "./FriendsPanel";
 
-const mapStateProps = (state: StateType) => {
-    return {
-        users: state.users.users,
-        friends: state.friends.friends
+//props
+interface IFriendsPropsType {
+}
+interface IFriendsState {
+}
+
+class FriendsPanelContainer extends React.Component<IFriendsPropsType, IFriendsState> {
+
+    componentDidMount() {
+    }
+
+    render() {
+        return <FriendsPanel friends={[]}/>
     }
 }
-const mapDispatchProps = () => {return {}}
 
-const FriendsPanelContainer = connect(mapStateProps, mapDispatchProps) (FriendsPanel)
+export default connect(() => {}, {})(FriendsPanelContainer)
 
-export default FriendsPanelContainer;
