@@ -14,7 +14,7 @@ import {
     getProfile
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
-import {RouteComponentProps, withRouter} from "react-router";
+import {Redirect, RouteComponentProps, withRouter} from "react-router";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
@@ -31,6 +31,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) return <Redirect to={'/login'}/>
         return <>
             {this.props.isFetching ?
                 <Profile
@@ -50,6 +51,7 @@ type MapStatePropsType = {
     newPostMessage: string
     status: string
     isFetching: boolean
+    isAuth: boolean
 }
 type MapDispatchPropsType = {
     addPost: () => void
@@ -72,6 +74,7 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
         newPostMessage: state.profile.newPostMessage,
         isFetching: state.profile.isFetching,
         status: state.profile.status,
+        isAuth: state.auth.isAuth,
     }
 }
 

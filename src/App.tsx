@@ -10,6 +10,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from "./login/Login";
 
 function App() {
     return (
@@ -18,18 +19,13 @@ function App() {
                 <main>
                     <Navbar />
                     <div className={s.content}>
-                        <Route path='/profile/:userID?' render={() =>
-                            <ProfileContainer/>}/>
-                        
-                        <Route path='/dialogs' render={() =>
-                            <DialogsContainer />}/>
-
-                        <Route path='/users' render={() =>
-                            <UsersContainer/>}/>
-
+                        <Route path='/profile/:userID?' component={ProfileContainer}/>
+                        <Route path='/dialogs' component={DialogsContainer}/>
+                        <Route path='/users' component={UsersContainer}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>
+                        <Route path='/login' component={Login}/>
                     </div>
                 </main>
                 <Footer/>
