@@ -9,7 +9,7 @@ import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from './components/Users/UsersContainer';
-import HeaderContainer from './components/Header/Header.Container';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 function App() {
     return (

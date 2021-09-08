@@ -2,12 +2,13 @@ import React from "react";
 import {statuses, UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
-import { NavLink } from "react-router-dom";
-
+import {NavLink} from "react-router-dom";
+import {followAPI} from "../../api/api";
+//types
 type UsersPropsType = {
     users: Array<UserType>
     status: string
-    changeFollowedStatus: (userID: number) => void
+    changeFollowedStatus: (userID: number, isFollow: boolean) => void
     setUsers: (users: UserType[]) => void
     setStatus: (status: string) => void
     changePage: (page: number) => void
@@ -18,8 +19,8 @@ type UsersPropsType = {
     onClickPage: (page: number) => void
 }
 
+//COMPONENT
 export const Users: React.FC<UsersPropsType> = (props) => {
-
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
     for (let i = 1; i <= 5; i++) {
@@ -27,6 +28,23 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     }
     pages.push('...')
     pages.push(pagesCount)
+
+    const unfollow = (userId: number) => {
+        followAPI.unfollow(userId)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    props.changeFollowedStatus(userId, false)
+                }
+            })
+    }
+    const follow = (userId: number) => {
+        followAPI.follow(userId)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    props.changeFollowedStatus(userId, true)
+                }
+            })
+    }
 
     return <>
         {/*TITLE*/}
@@ -46,7 +64,11 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                                 <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
                             </NavLink>
 
-                            <button onClick={() => props.changeFollowedStatus(u.id)}
+                            <button onClick={u.followed ? () => {
+                                unfollow(u.id)
+                            } : () => {
+                                follow(u.id)
+                            }}
                                     className={`${s.followBtn} ${u.followed ? s.red : s.green}`}>
                                 {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
                             </button>
@@ -74,7 +96,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             <div>
                 {pages.map(p => {
                     return p === '...' ?
-                        <span className={s.pages}>...</span> :
+                        <span key={p + 'page'} className={s.pages}>...</span> :
                         <span key={p + ' page'}
                               onClick={() => props.onClickPage(+p)}
                               className={props.activePage === p ? `${s.activePage} ${s.pages}` : s.pages}>{p}</span>

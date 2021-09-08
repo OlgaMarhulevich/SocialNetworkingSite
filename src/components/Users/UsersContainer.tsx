@@ -3,79 +3,72 @@ import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import {
     changeFollowedStatus,
-    changePage, setFetching,
+    changePage, setLoading,
     setStatus,
     setUsers,
     setUsersCount
 } from "../../redux/users-reducer";
-import {axiosInstance, ItemsType, statuses, UserType} from "../../entities/entities";
-import {AxiosResponse} from "axios";
+import {ItemsType, statuses, UserType} from "../../entities/entities";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
+//props
 interface IUsersPropsType {
     users: Array<UserType>
     status: string
-    changeFollowedStatus: (userID: number) => void
+    changeFollowedStatus: (userID: number, isFollow: boolean) => void
     setUsers: (users: UserType[]) => void
     setStatus: (status: string) => void
     changePage: (page: number) => void
     setUsersCount: (usersCount: number) => void
-    setFetching: (fetching: boolean) => void
+    setLoading: (fetching: boolean) => void
     pageSize: number
     totalUsersCount: number
     activePage: number
-    isFetching: boolean
+    isLoading: boolean
 }
-
 interface IUsersState {
 }
 
+//COMPONENT
 class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
 
     componentDidMount() {
         if (this.props.status === statuses.NOT_INITIALIZED) {
             this.props.setStatus(statuses.IN_PROGRESS)
-            this.props.setFetching(false)
-            axiosInstance.get(`users?count=${this.props.pageSize}&page=${this.props.activePage}`)
-                .then((response: AxiosResponse<ItemsType>) => {
+            this.props.setLoading(true)
+
+            usersAPI.getUsers(this.props.pageSize, this.props.activePage)
+                .then((data) => {
                     this.props.setStatus(statuses.SUCCESS)
-                    this.props.setUsersCount(response.data.totalCount)
-                    this.props.setFetching(true)
-                    return this.props.setUsers(response.data.items)
+                    this.props.setUsersCount(data.totalCount)
+                    this.props.setLoading(false)
+                    return this.props.setUsers(data.items)
                 })
         }
     }
 
     onClickPage = (page: number) => {
         this.props.changePage(page)
-        this.props.setFetching(false)
-        axiosInstance.get(`users?count=${this.props.pageSize}&page=${page}`)
-            .then((response: AxiosResponse<ItemsType>) => {
+        this.props.setLoading(true)
+        usersAPI.getUsers(this.props.pageSize, this.props.activePage)
+            .then((data: ItemsType) => {
                 this.props.setStatus(statuses.SUCCESS)
-                this.props.setFetching(true)
-                return this.props.setUsers(response.data.items)
+                this.props.setLoading(false)
+                return this.props.setUsers(data.items)
             })
     }
 
     render() {
         return <>
-            {this.props.isFetching ?
-                <Users
-                    totalUsersCount={this.props.totalUsersCount}
-                    pageSize={this.props.pageSize}
-                    users={this.props.users}
-                    status={this.props.status}
-                    onClickPage={this.onClickPage}
-                    activePage={this.props.activePage}
-                    changeFollowedStatus={this.props.changeFollowedStatus}
-                    setUsers={this.props.setUsers}
-                    setUsersCount={this.props.setUsersCount}
-                    changePage={this.props.changePage}
-                    setStatus={this.props.setStatus}
-                />
-                :
+            {this.props.isLoading ?
                 <Preloader/>
+                :
+                <Users
+                    {...this.props}
+                    onClickPage={this.onClickPage}
+                />
             }
         </>
     }
@@ -88,7 +81,7 @@ const mapStateToProps = (state: StateType) => {
         pageSize: state.users.pageSize,
         totalUsersCount: state.users.totalUsersCount,
         activePage: state.users.activePage,
-        isFetching: state.users.isFetching,
+        isLoading: state.users.isLoading,
     }
 }
 
@@ -99,5 +92,5 @@ export default connect(mapStateToProps,
         setStatus,
         changePage,
         setUsersCount,
-        setFetching,
+        setLoading,
     })(UsersContainer)
