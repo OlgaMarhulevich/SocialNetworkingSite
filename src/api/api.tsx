@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {AuthDataType, FollowResponse, ItemsType, ProfileType} from "../entities/entities";
+import {AuthDataType, FollowResponse, ItemsType, ProfileStatusDataType, ProfileType} from "../entities/entities";
 
 export const axiosInstance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
@@ -29,6 +29,14 @@ export const profileAPI = {
         return axiosInstance.get(`profile/${userID}`)
             .then((response: AxiosResponse<ProfileType>) => response.data)
     },
+    getProfileStatus: (userID: string) => {
+        return axiosInstance.get(`profile/status/${userID}`)
+            .then((response: AxiosResponse<string>) => response.data)
+    },
+    updateProfileStatus: (profileStatus: string) => {
+        return axiosInstance.put('/profile/status', { status: profileStatus })
+            .then((response: AxiosResponse<ProfileStatusDataType>) => response.data)
+    }
 }
 
 export const authAPI = {

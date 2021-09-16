@@ -10,10 +10,12 @@ export enum ACTIONS_PROFILE_TYPE {
     SET_PROFILE = 'SET-PROFILE',
     SET_STATUS = 'SONET/PROFILE/SET-STATUS',
     TOGGLE_FETCHING = 'SONET/PROFILE/TOGGLE-FETCHING',
+    SET_PROFILE_STATUS = 'SET-PROFILE-STATUS',
 }
 
 export type initialProfileStateType = {
     profile: ProfileType
+    profileStatus: string
     posts: Array<PostType>
     newPostMessage: string
     status: string
@@ -41,6 +43,7 @@ let initialProfileState: initialProfileStateType = {
             large: ''
         }
     },
+    profileStatus: '',
     posts: [
         {id: 1, message: 'It is my first post!', likesCount: 25},
         {id: 2, message: 'How are you?', likesCount: 15},
@@ -81,6 +84,8 @@ const profileReducer = (state = initialProfileState, action: ActionProfileReduce
             return {...state, status: action.status}
         case ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING:
             return {...state, isFetching: action.fetching}
+        case ACTIONS_PROFILE_TYPE.SET_PROFILE_STATUS:
+            return {...state, profileStatus: action.profileStatus}
         default:
             return state
     }
@@ -94,6 +99,7 @@ export type ActionProfileReducerType = addPostActionCreatorType
     | setProfileACType
     | SetStatusACType
     | FetchingACType
+    | SetProfileStatusACType
 
 //types AC
 type addPostActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.ADD_POST }
@@ -103,6 +109,7 @@ type addLikeActionCreatorType = { type: typeof ACTIONS_PROFILE_TYPE.ADD_LIKE, id
 type setProfileACType = { type: typeof ACTIONS_PROFILE_TYPE.SET_PROFILE, profile: ProfileType }
 type SetStatusACType = { status: string, type: typeof ACTIONS_PROFILE_TYPE.SET_STATUS }
 type FetchingACType = { fetching: boolean, type: typeof ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING }
+type SetProfileStatusACType = { profileStatus: string, type: typeof ACTIONS_PROFILE_TYPE.SET_PROFILE_STATUS }
 
 //AC
 export const addPost = (): addPostActionCreatorType => ({type: ACTIONS_PROFILE_TYPE.ADD_POST})
@@ -114,6 +121,7 @@ export const addLike = (id: number): addLikeActionCreatorType => ({type: ACTIONS
 export const setProfile = (profile: ProfileType): setProfileACType => ({type: ACTIONS_PROFILE_TYPE.SET_PROFILE, profile})
 export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_PROFILE_TYPE.SET_STATUS})
 export const setFetching = (fetching: boolean): FetchingACType => ({fetching, type: ACTIONS_PROFILE_TYPE.TOGGLE_FETCHING})
+export const setProfileStatus = (profileStatus: string): SetProfileStatusACType => ({profileStatus, type: ACTIONS_PROFILE_TYPE.SET_PROFILE_STATUS})
 
 //thunk creators
 export const getProfile = (userID: string) => (dispatch: Dispatch<ActionProfileReducerType>) => {
@@ -124,6 +132,28 @@ export const getProfile = (userID: string) => (dispatch: Dispatch<ActionProfileR
             dispatch(setProfile(data))
             dispatch(setStatus(statuses.SUCCESS))
             dispatch(setFetching(true))
+        })
+}
+export const getProfileStatus = (userID: string) => (dispatch: Dispatch<ActionProfileReducerType>) => {
+    dispatch(setStatus(statuses.IN_PROGRESS))
+    dispatch(setFetching(false))
+    profileAPI.getProfileStatus(userID)
+        .then((status) => {
+            dispatch(setProfileStatus(status))
+            dispatch(setStatus(statuses.SUCCESS))
+            dispatch(setFetching(true))
+        })
+}
+export const updateProfileStatus = (profileStatus: string) => (dispatch: Dispatch<ActionProfileReducerType>) => {
+    dispatch(setStatus(statuses.IN_PROGRESS))
+    dispatch(setFetching(false))
+    profileAPI.updateProfileStatus(profileStatus)
+        .then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(setProfileStatus(profileStatus))
+                dispatch(setStatus(statuses.SUCCESS))
+                dispatch(setFetching(true))
+            }
         })
 }
 

@@ -72,10 +72,6 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                                 <p className={s.title}>Status: </p>
                                 <p className={s.description}>{u.status || "Nothing yet..."}</p>
                             </div>
-                            <div>
-                                <p className={s.title}>Location: </p>
-                                <p className={s.description}>{'location object will be here'}</p>
-                            </div>
                         </div>
                     </div>
                 </div>

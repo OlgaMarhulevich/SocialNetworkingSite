@@ -1,9 +1,12 @@
-.profileInfo {
+.profileBox {
     margin-bottom: 30px;
     display: flex;
-    max-width: 630px;
+    width: 100%;
 }
-
+.profileInfo {
+    width: 100%;
+    padding: 0 15px;
+}
 .avatar {
     max-width: 250px;
     max-height: 250px;
@@ -11,20 +14,54 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
     margin-right: 20px;
 }
-
 .div {
     display: flex;
     align-items: baseline;
-    height: 30px;
 }
-
 .title {
     font-size: 1.1em;
     font-weight: bold;
 }
-
+.name {
+    width: 100%;
+    font-size: 1.8em;
+    margin: 10px 30px;
+    font-weight: bold;
+    text-shadow: 1px 3px 3px #c0bbbb;
+}
 .description {
     margin-top: -10px;
     text-align: justify;
     text-indent: 20px;
+}
+.status {
+    width: 100%;
+    font-size: 1.1em;
+    color: #545457;
+    padding: 0 25px;
+    margin-bottom: 15px;
+}
+.inputBox {
+    width: 100%;
+    z-index: 100;
+    border: 1px solid grey;
+    box-shadow: 0 0 5px grey;
+    padding: 15px 25px 15px 15px;
+    background-color: #ffffff;
+    position: static;
+}
+.input {
+    width: 100%;
+}
+.saveStatusBtn {
+    margin: 0 30px;
+    padding: 3px 25px;
+    background-color: #eff1f5;
+    border-radius: 5px;
+    font-size: inherit;
+    color: #343844;
+}
+.saveStatusBtn:hover {
+    cursor: pointer;
+    background-color: rgba(76, 119, 171, 0.2);
 }

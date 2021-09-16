@@ -11,7 +11,8 @@ import {
     updateNewPostMessage,
     setFetching,
     setStatus,
-    getProfile
+    getProfile,
+    getProfileStatus, updateProfileStatus
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router";
@@ -22,9 +23,10 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID
-        if (!userID) userID = '2'
+        if (!userID) userID = '18931'
         if (this.props.status === statuses.NOT_INITIALIZED) {
             this.props.getProfile(userID)
+            this.props.getProfileStatus(userID)
         }
     }
 
@@ -52,6 +54,7 @@ type MapStatePropsType = {
     newPostMessage: string
     status: string
     isFetching: boolean
+    profileStatus: string
 }
 type MapDispatchPropsType = {
     addPost: () => void
@@ -62,6 +65,8 @@ type MapDispatchPropsType = {
     setFetching: (fetching: boolean) => void
     setStatus: (status: string) => void
     getProfile: (userID: string) => void
+    getProfileStatus: (userID: string) => void
+    updateProfileStatus: (status: string) => void
 }
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType
 type PathParamsType = { userID: string }
@@ -74,6 +79,7 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
         newPostMessage: state.profile.newPostMessage,
         isFetching: state.profile.isFetching,
         status: state.profile.status,
+        profileStatus: state.profile.profileStatus,
     }
 }
 
@@ -88,6 +94,8 @@ export default compose<React.ComponentType> (
         setFetching,
         setStatus,
         getProfile,
+        getProfileStatus,
+        updateProfileStatus
     }),
     withRouter,
     withAuthRedirect

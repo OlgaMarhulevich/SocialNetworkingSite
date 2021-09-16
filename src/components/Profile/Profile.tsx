@@ -12,24 +12,22 @@ type ProfilePropsType = {
     updateNewPostMessage: (postMessage: string) => void
     removePost: (id: number) => void
     addLike: (id: number) => void
+    profileStatus: string
+    updateProfileStatus: (status: string) => void
 }
 
 function Profile(props: ProfilePropsType) {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo
+                profile={props.profile}
+                profileStatus={props.profileStatus}
+                updateProfileStatus={props.updateProfileStatus}/>
             <div className={s.imageBox}>
                 <img alt={'arrow-left'} src={'https://piaspb.ru/img/new-img/arrows-l.png'} className={s.arrow}/>
                 <img alt={'arrow-right'} src={'https://piaspb.ru/img/new-img/arrows-l.png'} className={`${s.arrow} ${s.arrowRight}`}/>
             </div>
-            <MyPosts
-                {...props}
-                /*posts={props.posts}
-                newPostMessage={props.newPostMessage}
-                addPost={props.addPost}
-                updateNewPostMessage={props.updateNewPostMessage}
-                removePost={props.removePost}
-                addLike={props.addLike}*//>
+            <MyPosts {...props}/>
         </div>
     )
 }
