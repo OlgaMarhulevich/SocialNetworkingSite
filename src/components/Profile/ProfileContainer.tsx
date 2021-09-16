@@ -14,7 +14,9 @@ import {
     getProfile
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
-import {Redirect, RouteComponentProps, withRouter} from "react-router";
+import {RouteComponentProps, withRouter} from "react-router";
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
@@ -31,7 +33,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to={'/login'}/>
         return <>
             {this.props.isFetching ?
                 <Profile
@@ -51,7 +52,6 @@ type MapStatePropsType = {
     newPostMessage: string
     status: string
     isFetching: boolean
-    isAuth: boolean
 }
 type MapDispatchPropsType = {
     addPost: () => void
@@ -74,20 +74,22 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
         newPostMessage: state.profile.newPostMessage,
         isFetching: state.profile.isFetching,
         status: state.profile.status,
-        isAuth: state.auth.isAuth,
     }
 }
 
-const ProfileContainerWithRouter = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {
-    addPost,
-    updateNewPostMessage,
-    removePost,
-    addLike,
-    setProfile,
-    setFetching,
-    setStatus,
-    getProfile,
-})(ProfileContainerWithRouter);
+export default compose<React.ComponentType> (
+    connect(mapStateToProps, {
+        addPost,
+        updateNewPostMessage,
+        removePost,
+        addLike,
+        setProfile,
+        setFetching,
+        setStatus,
+        getProfile,
+    }),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer);
 

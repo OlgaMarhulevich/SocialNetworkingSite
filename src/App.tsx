@@ -10,7 +10,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from "./login/Login";
+import Login from "./components/Login/Login";
 
 function App() {
     return (
