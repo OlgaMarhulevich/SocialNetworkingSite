@@ -5,6 +5,7 @@ import friendsReducer from "./friends-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk'
+import { reducer as formReducer } from 'redux-form'
 
 const reducers = combineReducers({
     profile: profileReducer,
@@ -12,6 +13,7 @@ const reducers = combineReducers({
     friends: friendsReducer,
     users: usersReducer,
     auth: authReducer,
+    form: formReducer,
 })
 
 export type StateType = ReturnType<typeof reducers>

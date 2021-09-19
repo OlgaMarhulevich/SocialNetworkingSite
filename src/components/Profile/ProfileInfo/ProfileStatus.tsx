@@ -25,6 +25,14 @@ class ProfileInfo extends React.Component<ProfileStatusPropsType> {
         this.props.updateProfileStatus(this.state.status)
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.status !== this.state.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
         return (<>
             {this.state.editMode ?
