@@ -7,7 +7,7 @@ import {DialogType} from "../../entities/entities";
 
 type DialogsPropsType = {
     dialogs: DialogType[]
-    addMessage: (id: number) => void
+    addMessage: (id: number, newMessage: string) => void
     changeNewMessage: (newMessage: string, id: number) => void
     isAuth: boolean
 }
@@ -31,7 +31,7 @@ function Dialogs(props: DialogsPropsType) {
                     return (
                         dialog && <DialogsMessages
                             dialog={dialog}
-                            addMessage={(id) => props.addMessage(id)}
+                            addMessage={(id, newMessage) => props.addMessage(id, newMessage)}
                             changeNewMessage={(newMessage, id) => props.changeNewMessage(newMessage, id)}/>
                     )
                 }

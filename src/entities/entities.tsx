@@ -9,7 +9,6 @@ export type DialogType = {
     name: string
     img: string
     messages: Array<MessageType>
-    newMessage: string
 }
 export type MessageType = {
     message: string

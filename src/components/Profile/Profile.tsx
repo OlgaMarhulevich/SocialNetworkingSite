@@ -7,9 +7,7 @@ import {PostType, ProfileType} from "../../entities/entities";
 type ProfilePropsType = {
     profile: ProfileType
     posts: Array<PostType>
-    newPostMessage: string
     addPost: () => void
-    updateNewPostMessage: (postMessage: string) => void
     removePost: (id: number) => void
     addLike: (id: number) => void
     profileStatus: string

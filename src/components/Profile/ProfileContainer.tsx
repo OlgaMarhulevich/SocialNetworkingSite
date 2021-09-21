@@ -8,7 +8,6 @@ import {
     addPost,
     removePost,
     setProfile,
-    updateNewPostMessage,
     setFetching,
     setStatus,
     getProfile,
@@ -51,14 +50,12 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 type MapStatePropsType = {
     profile: ProfileType
     posts: Array<PostType>
-    newPostMessage: string
     status: string
     isFetching: boolean
     profileStatus: string
 }
 type MapDispatchPropsType = {
     addPost: () => void
-    updateNewPostMessage: (postMessage: string) => void
     removePost: (id: number) => void
     addLike: (id: number) => void
     setProfile: (profile: ProfileType) => void
@@ -76,7 +73,6 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
     return {
         profile: state.profile.profile,
         posts: state.profile.posts,
-        newPostMessage: state.profile.newPostMessage,
         isFetching: state.profile.isFetching,
         status: state.profile.status,
         profileStatus: state.profile.profileStatus,
@@ -87,7 +83,6 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
 export default compose<React.ComponentType> (
     connect(mapStateToProps, {
         addPost,
-        updateNewPostMessage,
         removePost,
         addLike,
         setProfile,

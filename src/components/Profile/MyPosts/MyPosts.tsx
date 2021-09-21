@@ -2,12 +2,11 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostType} from "../../../entities/entities";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type MyPostsPropsType = {
     posts: Array<PostType>
-    newPostMessage: string
-    addPost: () => void
-    updateNewPostMessage: (newPostMessage: string) => void
+    addPost: (newMessage: string) => void
     removePost: (id: number) => void
     addLike: (id: number) => void
 }
@@ -23,31 +22,11 @@ function MyPosts(props: MyPostsPropsType) {
                  removePost={(id) => props.removePost(id)}
                  addLike={(id) => props.addLike(id)}/>)
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
-
-    const addPostCallback = () => {
-        props.addPost()
-    }
-    const changeNewPostMessage = () => {
-        const newPostMessage = newPostElement.current?.value
-        newPostMessage && props.updateNewPostMessage(newPostMessage)
-    }
-
-    const enterPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') {
-            event.preventDefault()
-            addPostCallback()
-        }
-    }
-
     return (
         <div>
             <p className={s.title}>My Posts</p>
             <div>
-                <textarea onKeyPress={enterPressed} value={props.newPostMessage} onChange={changeNewPostMessage} ref={newPostElement} className={s.textarea} placeholder='Your message...'/>
-                <div className={s.buttons}>
-                    <button onClick={addPostCallback} className={s.button}>Add post</button>
-                </div>
+                <PostReduxForm onSubmit={(values: any) => props.addPost(values.newMessage)}/>
             </div>
             <div className={s.posts}>
                 {postsElements}
@@ -57,3 +36,25 @@ function MyPosts(props: MyPostsPropsType) {
 }
 
 export default MyPosts;
+
+
+type FormDataType = {
+    newMessage: string
+}
+const PostForm: React.FC<InjectedFormProps<FormDataType>> = (props) =>  {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={'Your message...'}
+                       component={'textarea'}
+                       name={'newMessage'}
+                       className={s.textarea}/>
+            </div>
+            <div className={s.buttons}>
+                <button className={s.button}>Add post</button>
+            </div>
+        </form>
+    )
+}
+
+const PostReduxForm = reduxForm<FormDataType>({form: 'post'})(PostForm);

@@ -1,7 +1,6 @@
 import {DialogType} from "../entities/entities";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 export type initialDialogsStateType = {
     dialogs: Array<DialogType>
@@ -34,7 +33,6 @@ let initialDialogState: initialDialogsStateType = {
                     img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
                 },
             ],
-            newMessage: ''
         },
         {
             id: 2, name: 'Jhon', img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg',
@@ -44,7 +42,6 @@ let initialDialogState: initialDialogsStateType = {
                     name: 'Jhon',
                     img: 'https://vraki.net/sites/default/files/inline/images/30_55.jpg'
                 }],
-            newMessage: ''
         },
         {
             id: 3, name: 'Anna', img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg',
@@ -54,7 +51,6 @@ let initialDialogState: initialDialogsStateType = {
                     name: 'Anna',
                     img: 'https://pixelbox.ru/wp-content/uploads/2021/04/ava-mult-vk-78.jpg'
                 }],
-            newMessage: ''
         },
     ]
 }
@@ -63,23 +59,19 @@ const dialogsReducer = (state = initialDialogState, action: ActionDialogsReducer
 
     switch (action.type) {
         case ADD_MESSAGE: {
-            const currentDialog = state.dialogs.find(d => d.id === action.id) as DialogType
-            if (!currentDialog.newMessage.trim()) {
-                return {...state, dialogs: state.dialogs.map(d => d.id === action.id ? {...d, newMessage: ''} : d)}
+            if (!action.newMessage.trim()) {
+                return {...state}
             }
             const newMessage = {
-                message: currentDialog.newMessage,
+                message: action.newMessage,
                 name: 'Me',
                 img: 'https://pixelbox.ru/wp-content/uploads/2021/02/mult-ava-instagram-58-696x696.jpg'
             }
             return {
                 ...state,
                 dialogs: state.dialogs
-                    .map(d => d.id === action.id ? {...d, messages: [...d.messages, newMessage], newMessage: ''} : d)
+                    .map(d => d.id === action.id ? {...d, messages: [...d.messages, newMessage]} : d)
             }
-        }
-        case UPDATE_NEW_MESSAGE: {
-            return {...state, dialogs: state.dialogs.map(d => d.id === action.id ? {...d, newMessage: action.message} : d)}
         }
         default:
             return state;
@@ -87,14 +79,10 @@ const dialogsReducer = (state = initialDialogState, action: ActionDialogsReducer
 }
 
 //Action creators
-export type ActionDialogsReducerType = addMessageActionCreatorType | updateNewMessageActionCreatorType
+export type ActionDialogsReducerType = addMessageActionCreatorType
 
-type addMessageActionCreatorType = { type: typeof ADD_MESSAGE, id: number }
-type updateNewMessageActionCreatorType = { type: typeof UPDATE_NEW_MESSAGE, message: string, id: number }
+type addMessageActionCreatorType = { type: typeof ADD_MESSAGE, id: number, newMessage: string }
 
-export const addMessage = (id: number): addMessageActionCreatorType => ({type: ADD_MESSAGE, id: id});
-export const changeNewMessage = (message: string = '', id: number): updateNewMessageActionCreatorType => {
-    return {type: UPDATE_NEW_MESSAGE, message: message, id: id};
-}
+export const addMessage = (id: number, newMessage: string): addMessageActionCreatorType => ({type: ADD_MESSAGE, id, newMessage});
 
 export default dialogsReducer;

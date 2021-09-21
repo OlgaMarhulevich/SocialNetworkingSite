@@ -2,17 +2,15 @@ import React from 'react';
 import {StateType} from "../../../redux/redux-store";
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
-import {addLike, addPost, removePost, updateNewPostMessage} from "../../../redux/profile-reducer";
+import {addLike, addPost, removePost} from "../../../redux/profile-reducer";
 
 const mapStateToProps = (state: StateType) => {
     return {
-        posts: state.profile.posts,
-        newPostMessage: state.profile.newPostMessage
+        posts: state.profile.posts
     }
 }
 
 const MyPostsContainer = connect(mapStateToProps, {
-    updateNewPostMessage,
     addPost,
     removePost,
     addLike,
