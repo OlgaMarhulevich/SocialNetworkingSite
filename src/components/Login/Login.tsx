@@ -8,6 +8,7 @@ export type FormDataType = {
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) =>  {
+    console.log('rerender login')
     return (
         <form onSubmit={props.handleSubmit}>
             <div>

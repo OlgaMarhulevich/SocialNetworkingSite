@@ -25,25 +25,25 @@ class ProfileInfo extends React.Component<ProfileStatusPropsType> {
         this.props.updateProfileStatus(this.state.status)
     }
 
-    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.status !== this.state.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
-    }
+    // componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+    //     if (prevProps.status !== this.state.status) {
+    //         this.setState({
+    //             status: this.props.status
+    //         })
+    //     }
+    // }
 
     render() {
         return (<>
             {this.state.editMode ?
                 <div className={s.inputBox}>
                     <input type='text'
+                           value={this.state.status}
                            autoFocus={true}
                            className={s.input}
                            onBlur={this.offEditMode}
-                           value={this.state.status}
                            onChange={(e) =>
-                               this.setState({status: e.currentTarget.value})
+                              this.setState({status: e.currentTarget.value})
                            }
                            onKeyPress={(e) => {
                                if (e.key === 'Enter') this.props.updateProfileStatus(e.currentTarget.value) }}/>
@@ -53,7 +53,7 @@ class ProfileInfo extends React.Component<ProfileStatusPropsType> {
                 </div>
                 :
                 <div className={s.status} onDoubleClick={this.onEditMode}>
-                    {this.state.status}
+                    {this.props.status}
                 </div>
             }
         </>)
