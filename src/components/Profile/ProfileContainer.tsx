@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {PostType, ProfileType, statuses} from "../../entities/entities";
+import {PostType, ProfileType} from "../../entities/entities";
 import Profile from "./Profile";
 import {StateType} from "../../redux/redux-store";
 import {
@@ -9,7 +9,6 @@ import {
     removePost,
     setProfile,
     setFetching,
-    setStatus,
     getProfile,
     getProfileStatus, updateProfileStatus
 } from "../../redux/profile-reducer";
@@ -23,14 +22,11 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userID = this.props.match.params.userID
         if (!userID) userID = '18931'
-        if (this.props.status === statuses.NOT_INITIALIZED) {
             this.props.getProfile(userID)
             this.props.getProfileStatus(userID)
-        }
     }
 
     componentWillUnmount() {
-        this.props.setStatus(statuses.NOT_INITIALIZED)
     }
 
     render() {
@@ -50,7 +46,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 type MapStatePropsType = {
     profile: ProfileType
     posts: Array<PostType>
-    status: string
     isFetching: boolean
     profileStatus: string
 }
@@ -60,7 +55,6 @@ type MapDispatchPropsType = {
     addLike: (id: number) => void
     setProfile: (profile: ProfileType) => void
     setFetching: (fetching: boolean) => void
-    setStatus: (status: string) => void
     getProfile: (userID: string) => void
     getProfileStatus: (userID: string) => void
     updateProfileStatus: (status: string) => void
@@ -74,7 +68,6 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
         profile: state.profile.profile,
         posts: state.profile.posts,
         isFetching: state.profile.isFetching,
-        status: state.profile.status,
         profileStatus: state.profile.profileStatus,
     }
 }
@@ -87,7 +80,6 @@ export default compose<React.ComponentType> (
         addLike,
         setProfile,
         setFetching,
-        setStatus,
         getProfile,
         getProfileStatus,
         updateProfileStatus

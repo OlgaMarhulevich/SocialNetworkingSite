@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import {changePage, follow, getUsers, unfollow} from "../../redux/users-reducer";
-import {statuses, UserType} from "../../entities/entities";
+import {UserType} from "../../entities/entities";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -29,9 +29,7 @@ interface IUsersState {
 //COMPONENT
 class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
     componentDidMount() {
-        if (this.props.status === statuses.NOT_INITIALIZED) {
-            this.props.getUsers(this.props.pageSize, this.props.activePage)
-        }
+        this.props.getUsers(this.props.pageSize, this.props.activePage)
     }
 
     onClickPage = (page: number) => {
@@ -53,7 +51,6 @@ class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
 const mapStateToProps = (state: StateType) => {
     return {
         users: state.users.users,
-        status: state.users.status,
         pageSize: state.users.pageSize,
         totalUsersCount: state.users.totalUsersCount,
         activePage: state.users.activePage,

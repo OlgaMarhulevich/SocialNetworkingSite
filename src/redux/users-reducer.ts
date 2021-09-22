@@ -1,12 +1,11 @@
-import {statuses, UserType} from "../entities/entities";
+import {UserType} from "../entities/entities";
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 //constants
 enum ACTIONS_USER_REDUCER {
     CHANGE_FOLLOWED_STATUS = 'CHANGE-FOLLOWED-STATUS',
-    SET_USERS = 'SONET/USERS/SET-USERS',  // уникализируем константу, чтобы избежать совпадений
-    SET_STATUS = 'SONET/USERS/SET-STATUS',
+    SET_USERS = 'SONET/USERS/SET-USERS',
     CHANGE_PAGE = 'SONET/USERS/CHANGE-PAGE',
     SET_USERS_COUNT = 'SONET/USERS/SET-USERS-COUNT',
     SET_LOADING = 'SONET/USERS/SET-LOADING',
@@ -16,7 +15,6 @@ enum ACTIONS_USER_REDUCER {
 //initial state
 export type initialUsersStateType = {
     users: Array<UserType>
-    status: string
     pageSize: number
     totalUsersCount: number
     activePage: number
@@ -31,7 +29,6 @@ let initialUsersState: initialUsersStateType = {
     activePage: 1,
     isLoading: true,
     isFollowing: [],
-    status: statuses.NOT_INITIALIZED,
 }
 
 //reducer
@@ -44,8 +41,6 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
             }
         case ACTIONS_USER_REDUCER.SET_USERS:
             return {...state, users: [...action.users]}
-        case ACTIONS_USER_REDUCER.SET_STATUS:
-            return {...state, status: action.status}
         case ACTIONS_USER_REDUCER.CHANGE_PAGE:
             return {...state, activePage: action.page}
         case ACTIONS_USER_REDUCER.SET_USERS_COUNT:
@@ -66,7 +61,6 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
 //action types
 export type ActionUsersReducerType = ChangeFollowedStatusACType
     | SetUsersACType
-    | SetStatusACType
     | ChangePageACType
     | SetUsersCountACType
     | LoadingACType
@@ -74,7 +68,6 @@ export type ActionUsersReducerType = ChangeFollowedStatusACType
 
 type ChangeFollowedStatusACType = { userID: number, isFollow: boolean, type: typeof ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS }
 type SetUsersACType = { users: UserType[], type: typeof ACTIONS_USER_REDUCER.SET_USERS }
-type SetStatusACType = { status: string, type: typeof ACTIONS_USER_REDUCER.SET_STATUS }
 type ChangePageACType = { page: number, type: typeof ACTIONS_USER_REDUCER.CHANGE_PAGE }
 type SetUsersCountACType = { usersCount: number, type: typeof ACTIONS_USER_REDUCER.SET_USERS_COUNT }
 type LoadingACType = { loading: boolean, type: typeof ACTIONS_USER_REDUCER.SET_LOADING }
@@ -85,7 +78,6 @@ export const changeFollowedStatus = (userID: number, isFollow: boolean): ChangeF
     return {userID, isFollow, type: ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS}
 }
 export const setUsers = (users: UserType[]): SetUsersACType => ({users, type: ACTIONS_USER_REDUCER.SET_USERS})
-export const setStatus = (status: string): SetStatusACType => ({status, type: ACTIONS_USER_REDUCER.SET_STATUS})
 export const changePage = (page: number): ChangePageACType => ({page, type: ACTIONS_USER_REDUCER.CHANGE_PAGE})
 export const setUsersCount = (usersCount: number): SetUsersCountACType => ({
     usersCount,
@@ -100,11 +92,9 @@ export const setFollowing = (following: boolean, userId: number): FollowingACTyp
 
 //thunk creators
 export const getUsers = (pageSize: number, activePage: number) => (dispatch: Dispatch<ActionUsersReducerType>) => {
-    dispatch(setStatus(statuses.IN_PROGRESS))
     dispatch(setLoading(true))
     usersAPI.getUsers(pageSize, activePage)
         .then((data) => {
-            dispatch(setStatus(statuses.SUCCESS))
             dispatch(setUsersCount(data.totalCount))
             dispatch(setLoading(false))
             dispatch(setUsers(data.items))

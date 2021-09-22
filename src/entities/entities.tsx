@@ -77,10 +77,3 @@ export type FollowResponse = {
     messages: []
     data: {}
 }
-
-export const statuses = {
-    NOT_INITIALIZED: 'NOT-INITIALIZED',
-    ERRORS: 'ERRORS',
-    IN_PROGRESS: 'IN-PROGRESS',
-    SUCCESS: 'SUCCESS',
-}

@@ -2,7 +2,7 @@ import s from "../DialogsMessages/DialogsMessages.module.css";
 import React from "react";
 import Message from "./Message/Message";
 import {DialogType} from "../../../entities/entities";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import { DialogReduxForm } from "../DialogForm";
 
 type DialogsMessagesPropsType = {
     dialog: DialogType
@@ -29,24 +29,3 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
 
     )
 }
-
-type FormDataType = {
-    newMessage: string
-}
-const DialogForm: React.FC<InjectedFormProps<FormDataType>> = (props) =>  {
-    return (
-        <form onSubmit={props.handleSubmit} className={s.sendBox}>
-            <div>
-                <Field placeholder={'Text your message...'}
-                       component={'textarea'}
-                       name={'newMessage'}
-                       className={s.textarea}/>
-            </div>
-            <div>
-                <button className={s.button}>Send</button>
-            </div>
-        </form>
-    )
-}
-
-const DialogReduxForm = reduxForm<FormDataType>({form: 'dialog'})(DialogForm);

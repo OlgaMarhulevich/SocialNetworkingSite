@@ -2,7 +2,7 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostType} from "../../../entities/entities";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {FormPostDataType, PostReduxForm} from "../PostForm";
 
 type MyPostsPropsType = {
     posts: Array<PostType>
@@ -26,7 +26,7 @@ function MyPosts(props: MyPostsPropsType) {
         <div>
             <p className={s.title}>My Posts</p>
             <div>
-                <PostReduxForm onSubmit={(values: any) => props.addPost(values.newMessage)}/>
+                <PostReduxForm onSubmit={(values: FormPostDataType) => props.addPost(values.newMessage)}/>
             </div>
             <div className={s.posts}>
                 {postsElements}
@@ -38,23 +38,3 @@ function MyPosts(props: MyPostsPropsType) {
 export default MyPosts;
 
 
-type FormDataType = {
-    newMessage: string
-}
-const PostForm: React.FC<InjectedFormProps<FormDataType>> = (props) =>  {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'Your message...'}
-                       component={'textarea'}
-                       name={'newMessage'}
-                       className={s.textarea}/>
-            </div>
-            <div className={s.buttons}>
-                <button className={s.button}>Add post</button>
-            </div>
-        </form>
-    )
-}
-
-const PostReduxForm = reduxForm<FormDataType>({form: 'post'})(PostForm);

@@ -1,5 +1,5 @@
 import React from "react";
-import {statuses, UserType} from "../../entities/entities";
+import {UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
 import {NavLink} from "react-router-dom";
@@ -38,7 +38,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
         {/*TITLE*/}
         <p className={s.titlePage}>All users in SoNet</p>
         <div className={s.container}>
-            {(!props.users.length && props.status === statuses.SUCCESS) &&
+            {(!props.users.length) &&
             <span className={s.title} style={{margin: '20px'}}>Users not found</span>}
 
             {/*USERS*/}
