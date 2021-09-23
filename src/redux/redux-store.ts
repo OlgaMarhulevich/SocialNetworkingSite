@@ -5,7 +5,7 @@ import friendsReducer, {ActionFriendsReducerType} from "./friends-reducer";
 import usersReducer, {ActionUsersReducerType} from "./users-reducer";
 import authReducer, {ActionAuthReducerType} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
-import { reducer as formReducer } from 'redux-form'
+import {FormAction, reducer as formReducer } from 'redux-form'
 
 const reducers = combineReducers({
     profile: profileReducer,
@@ -24,6 +24,7 @@ export type AppActionsType = ActionAuthReducerType
     | ActionFriendsReducerType
     | ActionProfileReducerType
     | ActionUsersReducerType
+    | FormAction
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionsType>
 

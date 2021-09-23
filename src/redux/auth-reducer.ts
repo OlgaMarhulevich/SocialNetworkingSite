@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {AppThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 enum ACTIONS_AUTH_REDUCER {
     SET_USER_DATA = 'SET-USER-DATA',
@@ -64,7 +65,8 @@ export const login = (email: string, password: string, rememberMe: boolean): App
     if (res.resultCode === 0) {
         dispatch(auth())
     } else {
-        alert(res.messages[0])
+        const messageError = res.messages.length > 0 ? res.messages[0] : 'Some error'
+        dispatch(stopSubmit('login', {_error: messageError}))
     }
 }
 export const logout = (): AppThunkType => async dispatch => {

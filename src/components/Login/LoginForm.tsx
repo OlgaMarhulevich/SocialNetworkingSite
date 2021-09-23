@@ -16,6 +16,11 @@ const minLength6 = minLengthCreator(6)
 const LoginForm: React.FC<InjectedFormProps<FormLoginDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={s.form}>
+            {props.error &&
+            <div className={s.formSummaryError}>
+                {props.error}
+            </div>
+            }
             <div>
                 <Field placeholder={'Login'}
                        component={Input}

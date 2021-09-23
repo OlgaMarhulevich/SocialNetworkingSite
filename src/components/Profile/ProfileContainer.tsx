@@ -14,16 +14,18 @@ import {
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router";
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID
-        if (!userID) userID = '18931'
-            this.props.getProfile(userID)
-            this.props.getProfileStatus(userID)
+        if (!userID) { // @ts-ignore
+            userID = this.props.userId.toString()
+        }
+        this.props.getProfile(userID)
+        this.props.getProfileStatus(userID)
     }
 
     componentWillUnmount() {
@@ -48,6 +50,8 @@ type MapStatePropsType = {
     posts: Array<PostType>
     isFetching: boolean
     profileStatus: string
+    userId: number | null
+    isAuth: boolean
 }
 type MapDispatchPropsType = {
     addPost: () => void
@@ -69,11 +73,13 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         posts: state.profile.posts,
         isFetching: state.profile.isFetching,
         profileStatus: state.profile.profileStatus,
+        userId: state.auth.id,
+        isAuth: state.auth.isAuth,
     }
 }
 
 
-export default compose<React.ComponentType> (
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         addPost,
         removePost,
@@ -85,6 +91,6 @@ export default compose<React.ComponentType> (
         updateProfileStatus
     }),
     withRouter,
-    withAuthRedirect
+    withAuthRedirect,
 )(ProfileContainer);
 
