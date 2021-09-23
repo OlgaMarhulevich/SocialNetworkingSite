@@ -34,14 +34,10 @@ export type ItemsType = {
     error: string
 }
 
-export type AuthDataType = {
+export type AuthDataType<T> = {
     resultCode: number
     messages: Array<string>
-    data: {
-        id: number
-        email: string
-        login: string
-    }
+    data: T
 }
 
 export type ProfileStatusDataType = {

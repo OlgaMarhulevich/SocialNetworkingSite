@@ -1,14 +1,15 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {auth, setAuthUserData} from "../../redux/auth-reducer";
-import {StateType} from "../../redux/redux-store";
+import {auth, logout, setAuthUserData} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
 
 type HeaderProps = {
-    setAuthUserData: (id: number, email: string, login: string) => void
-    login: string
+    setAuthUserData: (id: (number|null), email: (string|null), login: (string|null), isAuth: boolean) => void
+    login: string | null
     isAuth: boolean
     auth: () => void
+    logout: () => void
 }
 
 class HeaderContainer extends React.Component<HeaderProps, any> {
@@ -24,10 +25,11 @@ class HeaderContainer extends React.Component<HeaderProps, any> {
     }
 }
 
-export default connect((state: StateType) => ({
+export default connect((state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
 }), {
     setAuthUserData,
     auth,
+    logout
 })(HeaderContainer)

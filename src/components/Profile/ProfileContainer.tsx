@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PostType, ProfileType} from "../../entities/entities";
 import Profile from "./Profile";
-import {StateType} from "../../redux/redux-store";
+import {AppStateType} from "../../redux/redux-store";
 import {
     addLike,
     addPost,
@@ -63,7 +63,7 @@ type OwnPropsType = MapStatePropsType & MapDispatchPropsType
 type PathParamsType = { userID: string }
 type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
-const mapStateToProps = (state: StateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         profile: state.profile.profile,
         posts: state.profile.posts,

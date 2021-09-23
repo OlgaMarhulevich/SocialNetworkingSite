@@ -1,12 +1,12 @@
 import React from "react";
 import Dialogs from "./Dialogs";
-import {StateType} from "../../redux/redux-store";
+import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {addMessage} from "../../redux/dialogs-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         dialogs: state.dialogs.dialogs,
     }

@@ -1,40 +1,41 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import { Input } from "../../common/formsControls/FormsControls";
+import {Input} from "../../common/formsControls/FormsControls";
 import {maxLengthCreator, minLengthCreator, required} from "../../utils/validators/validators";
+import s from './Login.module.css'
 
 export type FormLoginDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
 
-const maxLength15 = maxLengthCreator(15)
+const maxLength25 = maxLengthCreator(25)
 const minLength6 = minLengthCreator(6)
 
-const LoginForm: React.FC<InjectedFormProps<FormLoginDataType>> = (props) =>  {
-    console.log('rerender login')
+const LoginForm: React.FC<InjectedFormProps<FormLoginDataType>> = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} className={s.form}>
             <div>
                 <Field placeholder={'Login'}
                        component={Input}
-                       name={'login'}
-                       validate={[required, maxLength15, minLength6]}/>
+                       name={'email'}
+                       validate={[required, maxLength25, minLength6]}/>
             </div>
             <div>
                 <Field placeholder={'Password'}
                        component={Input}
                        name={'password'}
-                       validate={[required, maxLength15, minLength6]}/>
+                       type={'password'}
+                       validate={[required, maxLength25, minLength6]}/>
             </div>
-            <div>
+            <label className={s.rememberMe}>
                 <Field type={'checkbox'}
                        component={Input}
-                       name={'rememberMe'}/> remember me
-            </div>
+                       name={'rememberMe'}/>
+                Remember me </label>
             <div>
-                <button>Login</button>
+                <button className={s.button}>Login</button>
             </div>
         </form>
     )

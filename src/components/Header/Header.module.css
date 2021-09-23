@@ -26,5 +26,20 @@ header a:hover {
     width: 50px;
     margin-right: 10px;
 }
-.greeting {
+.loginBox {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+}
+.logoutBtn {
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    text-shadow: inherit;
+    font-weight: inherit;
+}
+.logoutBtn:hover {
+    cursor: pointer;
+    text-shadow: 0 0 2px #929db8;
 }

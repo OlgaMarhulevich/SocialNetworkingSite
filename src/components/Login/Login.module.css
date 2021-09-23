@@ -1,0 +1,30 @@
+.loginPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    font-size: 1.1em;
+}
+.rememberMe {
+    display: flex;
+}
+.rememberMe:hover {
+    cursor: pointer;
+}
+.button {
+    margin: 0 65px;
+    padding: 3px 15px;
+    background-color: #eff1f5;
+    border-radius: 5px;
+    font-size: inherit;
+    color: #343844;
+}
+.button:hover {
+    cursor: pointer;
+    background-color: rgba(76, 119, 171, 0.2);
+}

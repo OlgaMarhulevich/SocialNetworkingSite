@@ -36,13 +36,27 @@ export const profileAPI = {
     updateProfileStatus: (profileStatus: string) => {
         return axiosInstance.put('/profile/status', { status: profileStatus })
             .then((response: AxiosResponse<ProfileStatusDataType>) => response.data)
-    }
+    },
 }
 
 export const authAPI = {
     getAuth: () => {
         return axiosInstance.get('auth/me')
-            .then((response: AxiosResponse<AuthDataType>) => response.data)
+            .then((response: AxiosResponse<AuthDataType<{
+                id: number
+                email: string
+                login: string
+            }>>) => response.data)
+    },
+    login: (email: string, password: string, rememberMe: boolean) => {
+        return axiosInstance.post('auth/login', {email, password, rememberMe})
+            .then((response: AxiosResponse<AuthDataType<{
+                userId: number
+            }>>) => response.data)
+    },
+    logout: () => {
+        return axiosInstance.delete('auth/login')
+            .then((response: AxiosResponse<AuthDataType<{}>>) => response.data)
     },
 }
 
