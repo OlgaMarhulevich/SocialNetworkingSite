@@ -4,7 +4,7 @@ import s from './News.module.css';
 function News() {
     return (
         <div>
-            News
+            Page under construction
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import s from "./DialogsMessages/DialogsMessages.module.css";
-import {required} from "../../utils/validators/validators";
+import {required} from "../../common/utils/validators/validators";
 import {Textarea} from "../../common/formsControls/FormsControls";
 
 type FormDataType = {

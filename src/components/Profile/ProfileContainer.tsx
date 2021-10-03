@@ -20,12 +20,12 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        let userID = this.props.match.params.userID
-        if (!userID) { // @ts-ignore
-            userID = this.props.userId.toString()
+        // @ts-ignore
+        let userID = this.props.match.params.userID || this.props.userId.toString()
+        if (userID) {
+            this.props.getProfile(userID)
+            this.props.getProfileStatus(userID)
         }
-        this.props.getProfile(userID)
-        this.props.getProfileStatus(userID)
     }
 
     componentWillUnmount() {

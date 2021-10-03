@@ -4,7 +4,7 @@ import s from './Music.module.css';
 function Music() {
     return (
         <div>
-            Music
+            Page under construction
         </div>
     )
 }

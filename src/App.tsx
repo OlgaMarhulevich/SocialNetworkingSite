@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from "react-router";
+import {Route, withRouter} from "react-router";
 import s from "./App.module.css";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
@@ -11,13 +11,28 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from "./components/Login/Login";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializedApp} from "./redux/app-reducer";
+import {AppStateType} from "./redux/redux-store";
+import {Preloader} from "./common/preloader/Preloader";
 
-function App() {
-    return (
+type AppPropsType = {
+    initializedApp: () => void
+    isInitialized: boolean
+}
+
+class App extends React.Component<AppPropsType> {
+    componentDidMount() {
+        this.props.initializedApp()
+    }
+
+    render() {
+        return this.props.isInitialized ?
             <div className={s.appWrapper}>
                 <HeaderContainer/>
                 <main>
-                    <Navbar />
+                    <Navbar/>
                     <div className={s.content}>
                         <Route path='/profile/:userID?' component={ProfileContainer}/>
                         <Route path='/dialogs' component={DialogsContainer}/>
@@ -30,7 +45,11 @@ function App() {
                 </main>
                 <Footer/>
             </div>
-    )
+        :
+        <Preloader/>
+    }
 }
 
-export default App;
+export default compose<React.ComponentType>(
+    withRouter,
+    connect((state: AppStateType) => ({ isInitialized: state.app.isInitialized }), {initializedApp})) (App);

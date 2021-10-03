@@ -107,7 +107,7 @@ export const setProfileStatus = (profileStatus: string): SetProfileStatusACType 
 //thunk creators
 export const getProfile = (userID: string) => (dispatch: Dispatch<ActionProfileReducerType>) => {
     dispatch(setFetching(false))
-    profileAPI.getProfile(userID)
+    return profileAPI.getProfile(userID)
         .then((data) => {
             dispatch(setProfile(data))
             dispatch(setFetching(true))
@@ -115,7 +115,7 @@ export const getProfile = (userID: string) => (dispatch: Dispatch<ActionProfileR
 }
 export const getProfileStatus = (userID: string) => (dispatch: Dispatch<ActionProfileReducerType>) => {
     dispatch(setFetching(false))
-    profileAPI.getProfileStatus(userID)
+    return profileAPI.getProfileStatus(userID)
         .then((status) => {
             dispatch(setProfileStatus(status))
             dispatch(setFetching(true))
