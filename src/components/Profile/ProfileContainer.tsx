@@ -11,11 +11,19 @@ import {
     setFetching,
     getProfile,
     getProfileStatus, updateProfileStatus
-} from "../../redux/profile-reducer";
+} from "../../redux/reducers/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getIsAuth,
+    getIsFetchingProfile,
+    getPosts,
+    getProfileState,
+    getProfileStatusState,
+    getUserId
+} from "../../redux/selectors";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
@@ -69,12 +77,12 @@ type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profile: state.profile.profile,
-        posts: state.profile.posts,
-        isFetching: state.profile.isFetching,
-        profileStatus: state.profile.profileStatus,
-        userId: state.auth.id,
-        isAuth: state.auth.isAuth,
+        profile: getProfileState(state),
+        posts: getPosts(state),
+        isFetching: getIsFetchingProfile(state),
+        profileStatus: getProfileStatusState(state),
+        userId: getUserId(state),
+        isAuth: getIsAuth(state),
     }
 }
 

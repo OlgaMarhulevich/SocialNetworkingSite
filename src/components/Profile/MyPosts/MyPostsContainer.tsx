@@ -2,13 +2,10 @@ import React from 'react';
 import {AppStateType} from "../../../redux/redux-store";
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
-import {addLike, addPost, removePost} from "../../../redux/profile-reducer";
+import {addLike, addPost, removePost} from "../../../redux/reducers/profile-reducer";
+import {getPosts} from "../../../redux/selectors";
 
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        posts: state.profile.posts
-    }
-}
+const mapStateToProps = (state: AppStateType) => ({posts: getPosts(state)})
 
 const MyPostsContainer = connect(mapStateToProps, {
     addPost,

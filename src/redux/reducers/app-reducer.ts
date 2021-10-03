@@ -1,4 +1,4 @@
-import {AppThunkType} from "./redux-store";
+import {AppThunkType} from "../redux-store";
 import {auth} from "./auth-reducer";
 
 const SET_INITIALIZED = 'SET-INITIALIZED'

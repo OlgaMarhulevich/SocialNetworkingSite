@@ -1,12 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {changePage, follow, getUsers, unfollow} from "../../redux/users-reducer";
+import {changePage, follow, getUsers, unfollow} from "../../redux/reducers/users-reducer";
 import {UserType} from "../../entities/entities";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getActivePage,
+    getIsFollowing,
+    getIsLoadingUsers,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersState
+} from "../../redux/selectors";
 
 //props
 interface IUsersPropsType {
@@ -50,12 +58,12 @@ class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.users.users,
-        pageSize: state.users.pageSize,
-        totalUsersCount: state.users.totalUsersCount,
-        activePage: state.users.activePage,
-        isLoading: state.users.isLoading,
-        isFollowing: state.users.isFollowing,
+        users: getUsersState(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        activePage: getActivePage(state),
+        isLoading: getIsLoadingUsers(state),
+        isFollowing: getIsFollowing(state),
     }
 }
 

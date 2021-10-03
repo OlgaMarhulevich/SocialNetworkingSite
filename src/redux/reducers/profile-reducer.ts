@@ -1,6 +1,6 @@
-import {PostType, ProfileType} from "../entities/entities"
+import {PostType, ProfileType} from "../../entities/entities"
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
+import {profileAPI} from "../../api/api";
 
 export enum ACTIONS_PROFILE_TYPE {
     ADD_POST = 'ADD-POST',

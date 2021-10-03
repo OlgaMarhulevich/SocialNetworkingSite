@@ -1,4 +1,4 @@
-import {DialogType} from "../entities/entities";
+import {DialogType} from "../../entities/entities";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 

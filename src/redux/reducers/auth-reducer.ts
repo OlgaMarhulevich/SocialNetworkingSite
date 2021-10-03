@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
-import {AppThunkType} from "./redux-store";
+import {authAPI} from "../../api/api";
+import {AppThunkType} from "../redux-store";
 import {stopSubmit} from "redux-form";
 
 enum ACTIONS_AUTH_REDUCER {

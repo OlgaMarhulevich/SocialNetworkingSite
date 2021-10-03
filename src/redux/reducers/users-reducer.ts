@@ -1,5 +1,5 @@
-import {UserType} from "../entities/entities";
-import {usersAPI} from "../api/api";
+import {UserType} from "../../entities/entities";
+import {usersAPI} from "../../api/api";
 import {Dispatch} from "redux";
 
 //constants

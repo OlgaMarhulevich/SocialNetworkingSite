@@ -1,4 +1,4 @@
-import {UserType} from "../entities/entities";
+import {UserType} from "../../entities/entities";
 
 enum ACTIONS_FRIENDS_REDUCER {
     SET_FRIENDS = 'SET-FRIENDS',
