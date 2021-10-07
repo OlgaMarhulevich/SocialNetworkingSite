@@ -45,11 +45,11 @@ class App extends React.Component<AppPropsType> {
                 </main>
                 <Footer/>
             </div>
-        :
-        <Preloader/>
+            :
+            <Preloader/>
     }
 }
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect((state: AppStateType) => ({ isInitialized: state.app.isInitialized }), {initializedApp})) (App);
+    connect((state: AppStateType) => ({isInitialized: state.app.isInitialized}), {initializedApp}))(App);

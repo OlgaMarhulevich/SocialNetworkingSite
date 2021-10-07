@@ -13,6 +13,7 @@ function FriendsPanel(props: FriendsPanelPropsType) {
     let friendsPanel = props.friends.map(friend =>
                 <Friend
                     key={friend.id}
+                    id={friend.id}
                     name={friend.name.length > 7 ? (friend.name.slice(0, 6) + '...') : friend.name}
                     img={friend.photos.small || unknown}/>)
 

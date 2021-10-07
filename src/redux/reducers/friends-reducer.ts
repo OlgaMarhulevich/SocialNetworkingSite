@@ -1,7 +1,8 @@
 import {UserType} from "../../entities/entities";
 
 enum ACTIONS_FRIENDS_REDUCER {
-    SET_FRIENDS = 'SET-FRIENDS',
+    ADD_FRIEND = 'ADD-FRIEND',
+    REMOVE_FRIEND = 'REMOVE-FRIEND',
     SET_LOADING = 'SET-LOADING',
 }
 
@@ -16,22 +17,27 @@ let initialFriendsState: initialFriendsStateType = {
 
 const friendsReducer = (state = initialFriendsState, action: ActionFriendsReducerType) => {
     switch (action.type) {
-        case "SET-FRIENDS":
-            return {...state, friends: [...state.friends, action.friends]}
+        case ACTIONS_FRIENDS_REDUCER.ADD_FRIEND: {
+            debugger
+            return {...state, friends: [...state.friends, action.friend]}
+        }
+
+        case ACTIONS_FRIENDS_REDUCER.REMOVE_FRIEND:
+            return {...state, friends: state.friends.filter(f => f.id !== action.friendId)}
         default:
             return state;
     }
 }
 
 //Action creators
-export type ActionFriendsReducerType = SetFriendsACType | SetLoadingACType
+export type ActionFriendsReducerType = AddFriendACType | SetLoadingACType | RemoveFriendACType
 
-type SetFriendsACType = { friends: UserType[], type: typeof ACTIONS_FRIENDS_REDUCER.SET_FRIENDS}
-type SetLoadingACType = { loading: boolean, type: typeof ACTIONS_FRIENDS_REDUCER.SET_LOADING}
+type AddFriendACType = ReturnType<typeof addFriend>
+type RemoveFriendACType = ReturnType<typeof removeFriend>
+type SetLoadingACType = ReturnType<typeof setLoading>
 
-export const setFriends = (friends: UserType[]): SetFriendsACType => ({friends, type: ACTIONS_FRIENDS_REDUCER.SET_FRIENDS})
-export const setLoading = (loading: boolean): SetLoadingACType => ({loading, type: ACTIONS_FRIENDS_REDUCER.SET_LOADING})
-
-
+export const addFriend = (friend: UserType) => ({friend, type: ACTIONS_FRIENDS_REDUCER.ADD_FRIEND} as const)
+export const setLoading = (loading: boolean) => ({loading, type: ACTIONS_FRIENDS_REDUCER.SET_LOADING} as const)
+export const removeFriend = (friendId: number) => ({friendId, type: ACTIONS_FRIENDS_REDUCER.REMOVE_FRIEND} as const)
 
 export default friendsReducer;

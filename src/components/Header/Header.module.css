@@ -42,3 +42,9 @@ header a:hover {
     cursor: pointer;
     text-shadow: 0 0 2px #929db8;
 }
+.greeting:hover {
+    cursor: pointer;
+}
+.greeting {
+    margin-bottom: 4px;
+}

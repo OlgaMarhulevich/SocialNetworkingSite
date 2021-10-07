@@ -130,3 +130,21 @@
 .disabled {
     opacity: 0.5;
 }
+.searchBox{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.search{
+    padding: 5px;
+    width: 30%;
+    color: inherit;
+    border-radius: 5px;
+    outline: none;
+}
+.search:hover{
+    box-shadow: 0 0 3px #c3c6cc;
+}
+.search:focus{
+    box-shadow: 0 0 3px #3d5067;
+}

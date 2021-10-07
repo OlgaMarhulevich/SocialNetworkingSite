@@ -1,8 +1,10 @@
-import React, {InputHTMLAttributes, useState} from "react";
+import React, {useState} from "react";
 import {UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
 import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addFriend, removeFriend} from "../../redux/reducers/friends-reducer";
 
 //types
 type UsersPropsType = {
@@ -23,6 +25,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 
     const [searchValue, setSearchValue] = useState<string>('')
     const [timeoutId, setTimeoutId] = useState<any>(null)
+
+    const dispatch = useDispatch()
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
@@ -47,7 +51,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 
         const newTimeoutId = setTimeout(() => {
             props.setFilter(value)
-        },1000)
+        }, 1000)
 
         setTimeoutId(newTimeoutId)
     }
@@ -57,8 +61,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
         <p className={s.titlePage}>All users in SoNet</p>
         <div className={s.container}>
 
-            <div>
-                <input placeholder={'Search user...'} value={searchValue} onChange={onSearchChange}/>
+            <div className={s.searchBox}>
+                <input className={s.search} placeholder={'Search...'} value={searchValue} onChange={onSearchChange}/>
             </div>
 
             {(!props.users.length) &&
@@ -67,39 +71,44 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             {/*USERS*/}
             {props.users
                 .map(u =>
-                <div key={u.id} className={s.friendBox}>
-                    <div className={s.imgBox}>
+                    <div key={u.id} className={s.friendBox}>
+                        <div className={s.imgBox}>
 
-                        {/*NAVLINK*/}
-                        <NavLink to={'/profile/' + u.id}>
-                            <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
-                        </NavLink>
+                            {/*NAVLINK*/}
+                            <NavLink to={'/profile/' + u.id}>
+                                <img alt={u.name} src={u.photos.small || unknown} className={s.img}/>
+                            </NavLink>
 
-                        <button onClick={u.followed ? () => {
-                            unfollow(u.id)
-                        } : () => {
-                            follow(u.id)
-                        }}
+                            <button
+                                onClick={() => {
+                                    if (u.followed) {
+                                        unfollow(u.id)
+                                        dispatch(removeFriend(u.id))
+                                    } else {
+                                        follow(u.id)
+                                        dispatch(addFriend(u))
+                                    }
+                                }}
                                 className={`${s.followBtn} ${u.followed ? s.red : s.green} ${props.isFollowing
                                     .includes(u.id) ? s.disabled : ''}`}
                                 disabled={props.isFollowing.some(i => i === u.id)}>
-                            {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
-                        </button>
-                    </div>
-                    <div className={s.infoBox}>
-                        <div>
-                            <p className={`${s.title} ${s.name}`}>Name: </p>
-                            <p className={`${s.description} ${s.name}`}>{u.name}</p>
+                                {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
+                            </button>
                         </div>
-                        <div className={s.infoBottom}>
+                        <div className={s.infoBox}>
                             <div>
-                                <p className={s.title}>Status: </p>
-                                <p className={s.description}>{u.status || "Nothing yet..."}</p>
+                                <p className={`${s.title} ${s.name}`}>Name: </p>
+                                <p className={`${s.description} ${s.name}`}>{u.name}</p>
+                            </div>
+                            <div className={s.infoBottom}>
+                                <div>
+                                    <p className={s.title}>Status: </p>
+                                    <p className={s.description}>{u.status || "Nothing yet..."}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
             {/*PAGES*/}
             <div>

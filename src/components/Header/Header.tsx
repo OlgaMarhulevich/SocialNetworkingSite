@@ -6,6 +6,7 @@ type HeaderPropsType = {
     login: string | null
     isAuth: boolean
     logout: () => void
+    userId: number | null
 }
 
 
@@ -19,7 +20,9 @@ function Header(props: HeaderPropsType) {
 
             {props.isAuth ?
                 <div className={s.loginBox}>
-                    <div className={s.greeting}>Hello, {props.login}!</div>
+                    <NavLink to={`/profile/${props.userId || ''}`}>
+                        <div className={s.greeting}>Hello, {props.login}!</div>
+                    </NavLink>
                     <button className={s.logoutBtn} onClick={props.logout}>LogOut</button>
                 </div>
                 :
