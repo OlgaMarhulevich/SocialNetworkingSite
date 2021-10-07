@@ -130,6 +130,9 @@
 .disabled {
     opacity: 0.5;
 }
+.disabled:hover {
+    cursor: inherit;
+}
 .searchBox{
     width: 100%;
     display: flex;

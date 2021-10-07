@@ -18,6 +18,7 @@ type UsersPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setFilter: (filter: string) => void
+    isAuth: boolean
 }
 
 //COMPONENT
@@ -89,9 +90,9 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                                         dispatch(addFriend(u))
                                     }
                                 }}
-                                className={`${s.followBtn} ${u.followed ? s.red : s.green} ${props.isFollowing
+                                className={`${s.followBtn} ${u.followed ? s.red : s.green} ${!props.isAuth || props.isFollowing
                                     .includes(u.id) ? s.disabled : ''}`}
-                                disabled={props.isFollowing.some(i => i === u.id)}>
+                                disabled={!props.isAuth || props.isFollowing.some(i => i === u.id)}>
                                 {u.followed ? 'UNFOLLOW' : 'FOLLOW'}
                             </button>
                         </div>

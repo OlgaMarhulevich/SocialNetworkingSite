@@ -28,15 +28,21 @@ import {
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        // @ts-ignore
-        let userID = this.props.match.params.userID || this.props.userId.toString()
+        let userID = this.props.match.params.userID || this.props.userId!.toString()
         if (userID) {
             this.props.getProfile(userID)
             this.props.getProfileStatus(userID)
         }
     }
 
-    componentWillUnmount() {
+    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if(this.props.match.params.userID !== prevProps.match.params.userID){
+            let userID = this.props.match.params.userID || this.props.userId!.toString()
+            if (userID) {
+                this.props.getProfile(userID)
+                this.props.getProfileStatus(userID)
+            }
+        }
     }
 
     render() {

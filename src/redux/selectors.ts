@@ -15,6 +15,8 @@ export const getUserId = (state: AppStateType) => state.auth.id
 //dialogs selectors
 export const getDialogs = (state: AppStateType) => state.dialogs.dialogs
 
+//friends selectors
+
 //users selectors
 export const getUsersState = (state: AppStateType) => state.users.users
 export const getFilterForSearch = (state: AppStateType) => state.users.filterForSearch

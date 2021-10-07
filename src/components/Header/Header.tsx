@@ -9,7 +9,6 @@ type HeaderPropsType = {
     userId: number | null
 }
 
-
 function Header(props: HeaderPropsType) {
     return (
         <header>
@@ -20,7 +19,7 @@ function Header(props: HeaderPropsType) {
 
             {props.isAuth ?
                 <div className={s.loginBox}>
-                    <NavLink to={`/profile/${props.userId || ''}`}>
+                    <NavLink to={`/profile/${props.userId}`}>
                         <div className={s.greeting}>Hello, {props.login}!</div>
                     </NavLink>
                     <button className={s.logoutBtn} onClick={props.logout}>LogOut</button>

@@ -5,15 +5,13 @@ import {changePage, follow, requestUsers, setFilter, unfollow} from "../../redux
 import {UserType} from "../../entities/entities";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
-    getActivePage, getFilteredUsers,
+    getActivePage, getFilteredUsers, getIsAuth,
     getIsFollowing,
     getIsLoadingUsers,
     getPageSize,
     getTotalUsersCount,
-    getUsersState
 } from "../../redux/selectors";
 
 //props
@@ -30,6 +28,7 @@ interface IUsersPropsType {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setFilter: (filter: string) => void
+    isAuth: boolean
 }
 
 interface IUsersState {
@@ -65,11 +64,11 @@ const mapStateToProps = (state: AppStateType) => {
         activePage: getActivePage(state),
         isLoading: getIsLoadingUsers(state),
         isFollowing: getIsFollowing(state),
+        isAuth: getIsAuth(state)
     }
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps,
         {
             changePage,
