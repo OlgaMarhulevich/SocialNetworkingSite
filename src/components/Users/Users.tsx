@@ -1,4 +1,4 @@
-import React from "react";
+import React, {InputHTMLAttributes, useState} from "react";
 import {UserType} from "../../entities/entities";
 import s from "./Users.module.css";
 import unknown from "../../assets/images/unknown.png";
@@ -15,10 +15,15 @@ type UsersPropsType = {
     isFollowing: number[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    setFilter: (filter: string) => void
 }
 
 //COMPONENT
 export const Users: React.FC<UsersPropsType> = (props) => {
+
+    const [searchValue, setSearchValue] = useState<string>('')
+    const [timeoutId, setTimeoutId] = useState<any>(null)
+
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
     for (let i = 1; i <= 5; i++) {
@@ -34,15 +39,34 @@ export const Users: React.FC<UsersPropsType> = (props) => {
         props.follow(userId)
     }
 
+    const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value
+        setSearchValue(value)
+
+        if (timeoutId) clearTimeout(timeoutId)
+
+        const newTimeoutId = setTimeout(() => {
+            props.setFilter(value)
+        },1000)
+
+        setTimeoutId(newTimeoutId)
+    }
+
     return <>
         {/*TITLE*/}
         <p className={s.titlePage}>All users in SoNet</p>
         <div className={s.container}>
+
+            <div>
+                <input placeholder={'Search user...'} value={searchValue} onChange={onSearchChange}/>
+            </div>
+
             {(!props.users.length) &&
             <span className={s.title} style={{margin: '20px'}}>Users not found</span>}
 
             {/*USERS*/}
-            {props.users.map(u =>
+            {props.users
+                .map(u =>
                 <div key={u.id} className={s.friendBox}>
                     <div className={s.imgBox}>
 

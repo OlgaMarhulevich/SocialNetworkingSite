@@ -1,14 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {changePage, follow, getUsers, unfollow} from "../../redux/reducers/users-reducer";
+import {changePage, follow, requestUsers, setFilter, unfollow} from "../../redux/reducers/users-reducer";
 import {UserType} from "../../entities/entities";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
-    getActivePage,
+    getActivePage, getFilteredUsers,
     getIsFollowing,
     getIsLoadingUsers,
     getPageSize,
@@ -29,6 +29,7 @@ interface IUsersPropsType {
     isFollowing: number[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    setFilter: (filter: string) => void
 }
 
 interface IUsersState {
@@ -58,7 +59,7 @@ class UsersContainer extends React.Component<IUsersPropsType, IUsersState> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: getUsersState(state),
+        users: getFilteredUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         activePage: getActivePage(state),
@@ -72,9 +73,10 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps,
         {
             changePage,
-            getUsers,
+            getUsers: requestUsers,
             follow,
             unfollow,
+            setFilter
         })
 )(UsersContainer)
 

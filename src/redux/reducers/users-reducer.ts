@@ -4,12 +4,13 @@ import {Dispatch} from "redux";
 
 //constants
 enum ACTIONS_USER_REDUCER {
-    CHANGE_FOLLOWED_STATUS = 'CHANGE-FOLLOWED-STATUS',
+    CHANGE_FOLLOWED_STATUS = 'SONET/USERS/CHANGE-FOLLOWED-STATUS',
     SET_USERS = 'SONET/USERS/SET-USERS',
     CHANGE_PAGE = 'SONET/USERS/CHANGE-PAGE',
     SET_USERS_COUNT = 'SONET/USERS/SET-USERS-COUNT',
     SET_LOADING = 'SONET/USERS/SET-LOADING',
     SET_FOLLOWING = 'SONET/USERS/SET-FOLLOWING',
+    SET_FILTER = 'SONET/USERS/SET-FILTER',
 }
 
 //initial state
@@ -20,6 +21,7 @@ export type initialUsersStateType = {
     activePage: number
     isLoading: boolean
     isFollowing: number[]
+    filterForSearch: string
 }
 
 let initialUsersState: initialUsersStateType = {
@@ -29,6 +31,7 @@ let initialUsersState: initialUsersStateType = {
     activePage: 1,
     isLoading: true,
     isFollowing: [],
+    filterForSearch: '',
 }
 
 //reducer
@@ -53,6 +56,8 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
                 isFollowing: action.following ? [...state.isFollowing, action.userId]
                     : state.isFollowing.filter(u => u !== action.userId)
             }
+        case ACTIONS_USER_REDUCER.SET_FILTER:
+            return {...state, filterForSearch: action.filter}
         default:
             return state
     }
@@ -65,6 +70,7 @@ export type ActionUsersReducerType = ChangeFollowedStatusACType
     | SetUsersCountACType
     | LoadingACType
     | FollowingACType
+    | FilterACType
 
 type ChangeFollowedStatusACType = { userID: number, isFollow: boolean, type: typeof ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS }
 type SetUsersACType = { users: UserType[], type: typeof ACTIONS_USER_REDUCER.SET_USERS }
@@ -72,6 +78,7 @@ type ChangePageACType = { page: number, type: typeof ACTIONS_USER_REDUCER.CHANGE
 type SetUsersCountACType = { usersCount: number, type: typeof ACTIONS_USER_REDUCER.SET_USERS_COUNT }
 type LoadingACType = { loading: boolean, type: typeof ACTIONS_USER_REDUCER.SET_LOADING }
 type FollowingACType = { following: boolean, userId: number, type: typeof ACTIONS_USER_REDUCER.SET_FOLLOWING }
+type FilterACType = { filter: string, type: typeof ACTIONS_USER_REDUCER.SET_FILTER }
 
 //action creators
 export const changeFollowedStatus = (userID: number, isFollow: boolean): ChangeFollowedStatusACType => {
@@ -89,9 +96,13 @@ export const setFollowing = (following: boolean, userId: number): FollowingACTyp
     userId,
     type: ACTIONS_USER_REDUCER.SET_FOLLOWING
 })
+export const setFilter = (filter: string): FilterACType => ({
+    filter,
+    type: ACTIONS_USER_REDUCER.SET_FILTER
+})
 
 //thunk creators
-export const getUsers = (pageSize: number, activePage: number) => (dispatch: Dispatch<ActionUsersReducerType>) => {
+export const requestUsers = (pageSize: number, activePage: number) => (dispatch: Dispatch<ActionUsersReducerType>) => {
     dispatch(setLoading(true))
     usersAPI.getUsers(pageSize, activePage)
         .then((data) => {
