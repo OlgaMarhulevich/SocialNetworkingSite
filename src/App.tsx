@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch, withRouter} from "react-router";
+import {Route, withRouter} from "react-router";
 import s from "./App.module.css";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
@@ -34,7 +34,6 @@ class App extends React.Component<AppPropsType> {
                 <main>
                     <Navbar/>
                     <div className={s.content}>
-                        <Switch>
                             <Route path='/dialogs' component={DialogsContainer}/>
                             <Route path='/users' component={UsersContainer}/>
                             <Route path='/news' component={News}/>
@@ -42,8 +41,8 @@ class App extends React.Component<AppPropsType> {
                             <Route path='/settings' component={Settings}/>
                             <Route path='/login' component={Login}/>
                             <Route path='/profile/:userID?' component={ProfileContainer}/>
-                            <Route path='/' component={ProfileContainer}/>
-                        </Switch>
+                            
+                            <Route exact path='/' component={ProfileContainer}/>
                     </div>
                 </main>
                 <Footer/>
