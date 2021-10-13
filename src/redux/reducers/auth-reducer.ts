@@ -59,7 +59,7 @@ export const auth = () => (dispatch: Dispatch<ActionAuthReducerType>) => {
         }
     })
 }
-//через async/await и ThunkAction<...> type
+//через async/await и AppThunkType
 export const login = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
     const res = await authAPI.login(email, password, rememberMe)
     if (res.resultCode === 0) {
@@ -69,11 +69,9 @@ export const login = (email: string, password: string, rememberMe: boolean): App
         dispatch(stopSubmit('login', {_error: messageError}))
     }
 }
-export const logout = (): AppThunkType => dispatch => {
-    authAPI.logout()
-        .then(res => {
-            if (res.resultCode === 0) dispatch(setAuthUserData(null, null, null, false))
-        })
+export const logout = (): AppThunkType => async dispatch => {
+    const res = await authAPI.logout()
+    if (res.resultCode === 0) dispatch(setAuthUserData(null, null, null, false))
 }
 
 export default authReducer;

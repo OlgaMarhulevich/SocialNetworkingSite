@@ -42,6 +42,7 @@ class App extends React.Component<AppPropsType> {
                             <Route path='/login' component={Login}/>
                             <Route path='/profile/:userID?' component={ProfileContainer}/>
                             
+                            <Route exact path='/SocialNetworkingSite' component={ProfileContainer}/>
                             <Route exact path='/' component={ProfileContainer}/>
                     </div>
                 </main>

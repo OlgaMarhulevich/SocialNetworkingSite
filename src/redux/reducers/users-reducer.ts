@@ -1,6 +1,7 @@
 import {UserType} from "../../entities/entities";
 import {usersAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {updateProperty} from "../../common/utils/helpers";
 
 //constants
 enum ACTIONS_USER_REDUCER {
@@ -40,7 +41,10 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
         case ACTIONS_USER_REDUCER.CHANGE_FOLLOWED_STATUS:
             return {
                 ...state,
-                users: [...state.users.map(u => u.id === action.userID ? {...u, followed: action.isFollow} : u)]
+                //refactoring with helpers
+                users: updateProperty(state.users, 'id', action.userID, {followed: action.isFollow})
+
+                //users: [...state.users.map(u => u.id === action.userID ? {...u, followed: action.isFollow} : u)]
             }
         case ACTIONS_USER_REDUCER.SET_USERS:
             return {...state, users: [...action.users]}
@@ -53,8 +57,9 @@ const usersReducer = (state = initialUsersState, action: ActionUsersReducerType)
         case ACTIONS_USER_REDUCER.SET_FOLLOWING:
             return {
                 ...state,
-                isFollowing: action.following ? [...state.isFollowing, action.userId]
-                    : state.isFollowing.filter(u => u !== action.userId)
+                isFollowing: action.following ?
+                    [...state.isFollowing, action.userId] :
+                    state.isFollowing.filter(u => u !== action.userId)
             }
         case ACTIONS_USER_REDUCER.SET_FILTER:
             return {...state, filterForSearch: action.filter}
